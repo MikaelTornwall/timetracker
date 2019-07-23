@@ -12,5 +12,6 @@ db = SQLAlchemy(app)
 from application import views
 
 from application.logs import models
+from application.logs import views
 
 db.create_all()

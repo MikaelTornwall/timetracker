@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('logs_create') }}">
+  <input type="text" name="name" />
+  <input type="text" name="duration" />
+  <input type="submit" value="Add new log" />
+</form>
+{% endblock %}

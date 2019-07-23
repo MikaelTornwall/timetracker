@@ -6,6 +6,10 @@
   </head>
 
   <body>
+    <ul>
+      <li><a href="{{ url_for('logs_index') }}">Show logs</a></li>
+      <li><a href="{{ url_for('logs_form') }}">New log</a></li>
+    </ul>
     {% block body %}
       <p>
         Content.
