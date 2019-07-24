@@ -33,6 +33,7 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 ## Database
 
 For development: SQLite
+
 For production PostgreSQL
 
 Database chart:
