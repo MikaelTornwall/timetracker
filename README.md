@@ -11,7 +11,7 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 1. Clone repository to your local machine
 2. Download dependencies `pip install -r requirements.txt`
 3. Run the project `python3 run.py`
-4. Navigate to [http://locahost:5000](http://locahost:5000)
+4. Navigate to [http://localhost:5000](http://locahost:5000)
 
 ## Features
 
