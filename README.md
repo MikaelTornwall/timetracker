@@ -34,11 +34,19 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 
 For development: SQLite
 
-For production PostgreSQL
+For production: PostgreSQL
 
 Database chart:
 
 ![database chart](https://github.com/MikaelTornwall/timetracker/blob/master/timetracker.png)
+
+[Link to the chart](https://drive.google.com/file/d/176zQnYk9ukeFViq_n_RI6qthSVZ2TaM1/view?usp=sharing)
+
+## Technology stack
+
+* Flask
+* Jinja2
+* SQLite/PostgreSQL
 
 ## Contributors
 
