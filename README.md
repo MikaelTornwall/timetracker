@@ -36,7 +36,7 @@ For development: SQLite
 
 For production: PostgreSQL
 
-### Database chart:
+### Database chart
 
 ![database chart](https://github.com/MikaelTornwall/timetracker/blob/master/timetracker.png)
 
