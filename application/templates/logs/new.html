@@ -2,8 +2,10 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('logs_create') }}">
-  <input type="text" name="name" />
-  <input type="text" name="duration" />
+  Description: <br>
+  <textarea name="description" rows="8" cols="80"></textarea>
+  <br>
+  Duration (h): <input type="text" name="duration" />
   <input type="submit" value="Add new log" />
 </form>
 {% endblock %}

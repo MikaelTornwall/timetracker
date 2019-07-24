@@ -6,9 +6,9 @@ class Log(db.Model):
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
 
-    name = db.Column(db.String(144), nullable=False)
+    description = db.Column(db.String(144), nullable=False)
     duration = db.Column(db.Float,  nullable=False)
 
-    def __init__(self, name, duration):
-        self.name = name
+    def __init__(self, description, duration):
+        self.description = description
         self.duration = duration

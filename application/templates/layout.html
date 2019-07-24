@@ -2,13 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TodoApp</title>
+    <title>TimeTracker</title>
   </head>
 
   <body>
     <div>
       <span><a href="{{ url_for('logs_index') }}">Show logs</a></span>&nbsp;
       <span><a href="{{ url_for('logs_form') }}">New log</a></span>
+      <hr>
     </div>
     {% block body %}
       <p>
