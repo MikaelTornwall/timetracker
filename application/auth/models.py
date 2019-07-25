@@ -13,6 +13,8 @@ class Student(db.Model):
     email = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144))
 
+    logs = db.relationship("Log", backref="student", lazy=True)
+
     def __init__(self, studentId, firstname, lastname, email, password):
         self.studentId = studentId
         self.firstname = firstname

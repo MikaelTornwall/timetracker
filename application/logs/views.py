@@ -3,7 +3,7 @@ from application.logs.models import Log
 from application.logs.forms import LogForm
 
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 @app.route("/logs", methods=["GET"])
 @login_required
@@ -35,6 +35,7 @@ def logs_create():
         return render_template("/logs/new.html", form = form)
 
     l = Log(form.description.data, form.duration.data)
+    l.student_id = current_user.studentId
 
     db.session().add(l)
     db.session().commit()
