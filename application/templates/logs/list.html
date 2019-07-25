@@ -6,19 +6,21 @@
       <th>Date</th>
       <th>Description</th>
       <th>Duration</th>
-      <th>Update description and duration</th>
+      <th>Increase duration</th>
     </tr>
     {% for log in logs %}
     <tr>
-      <td>{{ log.date_created|datetimeformat }}</td>
+      <td>{{ log.date_created }}</td>
       <td>{{ log.description }}</td>
       <td>{{ log.duration }}</td>
       <td>
-        <form method="POST" action="{{ url_for('logs_update', log_id=log.id) }}">
-          <input type="text" name="description" placeholder="description..." />
-          <input type="text" name="duration" placeholder="duration (h)"/>
+        <form method="POST" action="{{ url_for('logs_increment', log_id=log.id) }}">
+          <input type="number" name="duration" placeholder="duration (h)"/>
           <button type="submit">Update</button>
         </form>
+      </td>
+      <td>
+        <a href="{{ url_for('logs_log', log_id=log.id) }}">Modify</a>
       </td>
     </tr>
     {% endfor %}

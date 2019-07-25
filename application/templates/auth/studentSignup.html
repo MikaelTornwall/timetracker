@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('auth_studentSignup') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.studentId.label }}
+      </td>
+      <td>
+        {{ form.studentId }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.firstname.label }}
+      </td>
+	    <td>
+        {{ form.firstname }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.lastname.label }}
+      </td>
+	    <td>
+        {{ form.lastname }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.email.label }}
+      </td>
+	    <td>
+        {{ form.email }}
+      </td>
+    </tr>
+	  <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+	    <td>
+        {{ form.password }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+	       <input type="submit" value="Signup"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}
