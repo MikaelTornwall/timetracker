@@ -15,7 +15,7 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 
 ## Documentation
 
-More extensive documentation can be found [here](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/documentation.md)
+More extensive documentation can be found [here](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/documentation.md).
 
 ## Features
 

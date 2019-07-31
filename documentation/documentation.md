@@ -31,6 +31,7 @@ As a student I can
  - Update any logs I have created by modifying the description and duration
  - Delete any log I have created
 
+
  __Teacher__
 
  As a teacher I can
@@ -44,7 +45,9 @@ As a student I can
 
 ### Structure
 
-_/_
+Structure of the tool and features of each page for student and teacher accounts:
+
+Homepage _/_
 - Tool's description and navigation bar for registration and login
 
 __Student__
@@ -55,6 +58,12 @@ _/auth/signup/student/_
 _/auth/login/_
 - Log in to the tool
 
+_/courses/_
+- View all the courses
+
+_/mycourses/_
+- View all the courses the student is registered for
+
 _/:courseId/logs/_
 - Track progress on a specific course or project
 - View all the logs and increase the duration of a log
@@ -64,6 +73,7 @@ _/:courseId/:logId/_
 
 _/:courseId/new/_
 - Create new log for a specific course
+
 
 __Teacher__
 
