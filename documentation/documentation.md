@@ -4,48 +4,48 @@
 
 1. [Description](#description)
 2. [How to run locally](#howtorun)
-3. Use cases
-  3. 1. User groups
-    3. 1.1. Student
-    3. 1.2. Teacher
-  3. 2. User stories
-    3. 2.1. Student
-    3. 2.2. Teacher
-  3. 3. Structure
-4. Database
-  4. 1. Database chart
-5. Technology stack
-6. Contributors
+3. [Use cases](#usecases)  
+    1. [User groups](#usergroups)
+    2. [User stories](#userstories)
+    3. [Structure](#structure)
+4. [Database](#database)
+    1. [Database chart](#chart)
+5. [Technology stack](#techstack)
+6. [Contributors](#contributors)
 
-
-## 1. Description <a name="description"></a>
+<a name="description"></a>
+## 1. Description
 
 TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can monitor student specific course progress. Courses also have a target duration that students should achieve.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
-## 2. How to run locally? <a name="howtorun"></a>
+<a name="howtorun"></a>
+## 2. How to run locally?
 
 1. Clone repository to your local machine
 2. Download dependencies `pip install -r requirements.txt`
 3. Run the project `python3 run.py`
 4. Navigate to [http://localhost:5000](http://localhost:5000)
 
+<a name="usecases"></a>
 ## 3. Use cases
 
-### 3.1 User groups
+<a name="usergroups"></a>
+### 3.1. User groups
 
-__3.1.1 Student__
+__3.1.1. Student__
 
 Any person who want's to log their progress on a course that exists within the tool.
 
-__3.1.2 Teacher__
+__3.1.2. Teacher__
 
 Any person who wants to supervise a course or a project. Teacher can control the course details, such as maximum number of students and create and delete courses.
 
-### 3.2 User stories
+<a name="userstories"></a>
+### 3.2. User stories
 
-__3.2.1 Student__
+__3.2.1. Student__
 
 As a student I can
  - Log in
@@ -57,7 +57,7 @@ As a student I can
  - Delete any log I have created
 
 
-__3.2.2 Teacher__
+__3.2.2. Teacher__
 
  As a teacher I can
   - Log in
@@ -68,7 +68,8 @@ __3.2.2 Teacher__
   - Delete students from any of my courses
   - Delete any of my courses
 
-### 3.3 Structure
+<a name="structure"></a>
+### 3.3. Structure
 
 Structure of the tool and features of each page for student and teacher accounts:
 
@@ -125,24 +126,28 @@ _/courses/:courseId/participants/_
 _/courses/:courseId/:studentId/_
 - Course specific logs of a student
 
+<a name="database"></a>
 ## 4. Database
 
 For development: SQLite
 
 For production: PostgreSQL
 
-### 4.1 Database chart
+<a name="chart"></a>
+### 4.1. Database chart
 
 ![database chart](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/timetracker.png)
 
 [Link to the chart](https://drive.google.com/file/d/176zQnYk9ukeFViq_n_RI6qthSVZ2TaM1/view?usp=sharing)
 
+<a name="techstack"></a>
 ## 5. Technology stack
 
 * Flask
 * Jinja2
 * SQLite/PostgreSQL
 
+<a name="contributors"></a>
 ## 6. Contributors
 
 * [@MikaelTornwall](https://github.com/MikaelTornwall/)
