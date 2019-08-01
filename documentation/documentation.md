@@ -5,11 +5,15 @@
 1. [Description](#description)
 2. [How to run locally](#howtorun)
 3. [Use cases](#usecases)  
+
     1. [User groups](#usergroups)
     2. [User stories](#userstories)
     3. [Structure](#structure)
+
 4. [Database](#database)
+
     1. [Database chart](#chart)
+    
 5. [Technology stack](#techstack)
 6. [Contributors](#contributors)
 
