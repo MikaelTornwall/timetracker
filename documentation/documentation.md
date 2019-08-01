@@ -1,26 +1,51 @@
 # TimeTracker
 
-## Description
+## Table of contents
+
+1. [Description](#description)
+2. [How to run locally](#howtorun)
+3. Use cases
+  3. 1. User groups
+    3. 1.1. Student
+    3. 1.2. Teacher
+  3. 2. User stories
+    3. 2.1. Student
+    3. 2.2. Teacher
+  3. 3. Structure
+4. Database
+  4. 1. Database chart
+5. Technology stack
+6. Contributors
+
+
+## 1. Description <a name="description"></a>
 
 TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can monitor student specific course progress. Courses also have a target duration that students should achieve.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
-## Use cases
+## 2. How to run locally? <a name="howtorun"></a>
 
-### User groups
+1. Clone repository to your local machine
+2. Download dependencies `pip install -r requirements.txt`
+3. Run the project `python3 run.py`
+4. Navigate to [http://localhost:5000](http://localhost:5000)
 
-__Student__
+## 3. Use cases
+
+### 3.1 User groups
+
+__3.1.1 Student__
 
 Any person who want's to log their progress on a course that exists within the tool.
 
-__Teacher__
+__3.1.2 Teacher__
 
 Any person who wants to supervise a course or a project. Teacher can control the course details, such as maximum number of students and create and delete courses.
 
-### User stories
+### 3.2 User stories
 
-__Student__
+__3.2.1 Student__
 
 As a student I can
  - Log in
@@ -32,7 +57,7 @@ As a student I can
  - Delete any log I have created
 
 
- __Teacher__
+__3.2.2 Teacher__
 
  As a teacher I can
   - Log in
@@ -43,11 +68,11 @@ As a student I can
   - Delete students from any of my courses
   - Delete any of my courses
 
-### Structure
+### 3.3 Structure
 
 Structure of the tool and features of each page for student and teacher accounts:
 
-Homepage _/_
+Homepage: _/_
 - Tool's description and navigation bar for registration and login
 
 __Student__
@@ -100,24 +125,24 @@ _/courses/:courseId/participants/_
 _/courses/:courseId/:studentId/_
 - Course specific logs of a student
 
-## Database
+## 4. Database
 
 For development: SQLite
 
 For production: PostgreSQL
 
-### Database chart
+### 4.1 Database chart
 
 ![database chart](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/timetracker.png)
 
 [Link to the chart](https://drive.google.com/file/d/176zQnYk9ukeFViq_n_RI6qthSVZ2TaM1/view?usp=sharing)
 
-## Technology stack
+## 5. Technology stack
 
 * Flask
 * Jinja2
 * SQLite/PostgreSQL
 
-## Contributors
+## 6. Contributors
 
 * [@MikaelTornwall](https://github.com/MikaelTornwall/)
