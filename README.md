@@ -21,14 +21,14 @@ More extensive documentation can be found [here](https://github.com/MikaelTornwa
 
 * Registration
   - [ ] Teacher
-  - [ ] Student
+  - [x] Student
 * Login
   - [ ] Teacher
-  - [ ] Student
+  - [x] Student
 - [ ] Creating courses
-- [ ] Logging work hours with duration and description
-- [ ] Updating log duration and description
-- [ ] Deleting logs
+- [x] Logging work hours with duration and description
+- [x] Updating log duration and description
+- [x] Deleting logs
 - [ ] Adding students and teachers to courses
 - [ ] Deleting students and teachers from courses
 - [ ] Deleting courses

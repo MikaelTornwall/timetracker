@@ -5,10 +5,19 @@ from application.logs.forms import LogForm
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
+
+def total_workhours(logs):
+    total = 0
+    for log in logs:
+        total += log.duration
+    return total
+
 @app.route("/logs", methods=["GET"])
 @login_required
 def logs_index():
-    return render_template("logs/list.html", logs =  Log.query.all())
+    l = Log.query.all()
+    d = total_workhours(l)
+    return render_template("logs/list.html", logs = l, duration = d)
 
 @app.route("/logs/new/")
 @login_required

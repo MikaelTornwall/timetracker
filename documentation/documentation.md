@@ -102,7 +102,7 @@ _/:courseId/:logId/_
 - Update or delete a log
 
 _/:courseId/new/_
-- Create new log for a specific course
+- Create a new log for a specific course
 
 
 __Teacher__
@@ -114,21 +114,22 @@ _/auth/login/_
 - Log in to the tool
 
 _/courses/_
-- View all courses teacher is responsible for
+- View all the courses the teacher is responsible for
 
 _/courses/new/_
-- Create new course
+- Create a new course
 
 _/courses/:courseId/_
-- Overview of a specific course, such as number of participants
-- Delete course
+- View an overview of a specific course, such as number of participants
+- Delete the course
 
 _/courses/:courseId/participants/_
-- List of students who participate to this course and the total hours out of the maximum they have logged
+- View a list of students who participate to this course
+- View the total hours out of the maximum each student has logged
 - Remove students from the course and add students for the course (?)
 
 _/courses/:courseId/:studentId/_
-- Course specific logs of a student
+- View course specific logs of a student
 
 <a name="database"></a>
 ## 4. Database
