@@ -16,7 +16,7 @@ def auth_studentLogin():
 
     if not student:
         return render_template("auth/studentLogin.html", form = form, error = "Incorrect email address or password")
-    
+
     login_user(student)
     return redirect(url_for("index"))
 
@@ -31,6 +31,8 @@ def auth_studentSignup():
         return render_template("auth/studentSignup.html", form = SignupForm())
 
     form = SignupForm(request.form)
+
+    print(form)
 
     if not form.validate():
         return render_template("auth/studentSignup.html", form = form, error = "Remember to fill all the fields")

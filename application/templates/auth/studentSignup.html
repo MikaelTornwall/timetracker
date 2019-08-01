@@ -11,6 +11,11 @@
       <td>
         {{ form.studentId }}
       </td>
+      {% if form.studentId.errors %}
+      {% for error in form.studentId.errors %}
+      <td>{{ error }}</td>
+      {% endfor %}
+      {% endif %}
     </tr>
     <tr>
       <td>
@@ -19,6 +24,11 @@
 	    <td>
         {{ form.firstname }}
       </td>
+      {% if form.firstname.errors %}
+      {% for error in form.firstname.errors %}
+      <td>{{ error }}</td>
+      {% endfor %}
+      {% endif %}
     </tr>
     <tr>
       <td>
@@ -27,6 +37,11 @@
 	    <td>
         {{ form.lastname }}
       </td>
+      {% if form.lastname.errors %}
+      {% for error in form.lastname.errors %}
+      <td>{{ error }}</td>
+      {% endfor %}
+      {% endif %}
     </tr>
     <tr>
       <td>
@@ -35,6 +50,11 @@
 	    <td>
         {{ form.email }}
       </td>
+      {% if form.email.errors %}
+      {% for error in form.email.errors %}
+      <td>{{ error }}</td>
+      {% endfor %}
+      {% endif %}
     </tr>
 	  <tr>
       <td>
@@ -43,6 +63,11 @@
 	    <td>
         {{ form.password }}
       </td>
+      {% if form.password.errors %}
+      {% for error in form.password.errors %}
+      <td>{{ error }}</td>
+      {% endfor %}
+      {% endif %}
     </tr>
     <tr>
       <td>
