@@ -6,7 +6,19 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
-## How to run locally?
+## How to use
+
+### Heroku
+
+Navigate to [https://tsoha-timetracker.herokuapp.com/auth/login/student](https://tsoha-timetracker.herokuapp.com/auth/login/student)
+
+Credentials
+
+Email: `test@email.com`
+
+Password: `test1234`
+
+### How to run locally?
 
 1. Clone repository to your local machine
 2. Download dependencies `pip install -r requirements.txt`

@@ -5,7 +5,6 @@ from application.logs.forms import LogForm
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
-
 def total_workhours(logs):
     total = 0
     for log in logs:
@@ -50,7 +49,6 @@ def logs_create():
     db.session().commit()
 
     return redirect(url_for("logs_index"))
-
 
 @app.route("/logs/<log_id>/update", methods=["POST"])
 @login_required

@@ -30,9 +30,7 @@ def auth_studentSignup():
     if request.method == "GET":
         return render_template("auth/studentSignup.html", form = SignupForm())
 
-    form = SignupForm(request.form)
-
-    print(form)
+    form = SignupForm(request.form)    
 
     if not form.validate():
         return render_template("auth/studentSignup.html", form = form, error = "Remember to fill all the fields")
