@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('logs_create') }}">
+<form method="POST" action="{{ url_for('logs_create', course_id=course_id ) }}">
   {{ form.description.label }}
   {% for error in form.description.errors %}
   <div>{{ error }}</div>

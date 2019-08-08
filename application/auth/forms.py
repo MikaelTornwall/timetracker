@@ -3,13 +3,12 @@ from wtforms import IntegerField, StringField, PasswordField, validators
 
 class LoginForm(FlaskForm):
     email = StringField("Email address", [validators.DataRequired(), validators.Email()])
-    password = PasswordField("Password", [validators.DataRequired()])
+    password = PasswordField("Password", [validators.DataRequired(), validators.Length(min=8, message="Your password is too short. Make sure you typed your password correctly.")])
 
     class Meta:
         csrf = False
 
-class SignupForm(FlaskForm):
-    studentId = IntegerField("Student ID", [validators.DataRequired(), validators.NumberRange(min=1, max=9999999999, message="Student ID should contain only numbers. Maximum length is 10 characters.")])
+class SignupForm(FlaskForm):    
     firstname = StringField("Firstname", [validators.DataRequired(), validators.Length(min=2)])
     lastname = StringField("Lastname", [validators.DataRequired(), validators.Length(min=2)])
     email = StringField("Email", [validators.DataRequired(), validators.Email(), validators.Length(min=5)])

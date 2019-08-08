@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('courses_update', course_id=course.id) }}">
+  <table class="unstriped">
+    <tbody>
+    <tr>
+      <td>{{ form.courseId.label }}</td>
+      <td>{{ form.courseId(value=course.courseId) }}</td>
+      <td>
+        {% for error in form.courseId.errors %}
+          {{ error }}
+        {% endfor %}
+      </td>
+    </tr>
+  <tr>
+    <td>{{ form.title.label }}</td>
+    <td>{{ form.title(value=course.title) }}</td>
+    <td>
+      {% for error in form.title.errors %}
+        {{ error }}
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td>{{ form.description.label }}</td>
+    <td><textarea id="description" name="description" rows="8" cols="80">{{ course.description }}</textarea></td>
+    <td>
+      {% for error in form.description.errors %}
+        {{ error }}
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td>{{ form.duration.label }}</td>
+    <td>{{ form.duration(value=course.duration) }}</td>
+    <td>
+      {% for error in form.duration.errors %}
+        {{ error }}
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td>{{ form.deadline.label }}</td>
+    <td>{{ form.deadline(value=course.deadline) }}</td>
+    <td>
+      {% for error in form.deadline.errors %}
+        {{ error }}
+      {% endfor %}
+    </td>
+  </tr>
+  <tr>
+    <td><button class="success button" type="submit">Update</button></td>
+  </tr>
+  </tbody>
+  </table>
+</form>
+{% endblock %}

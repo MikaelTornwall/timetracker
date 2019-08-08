@@ -11,48 +11,49 @@ def total_workhours(logs):
         total += log.duration
     return total
 
-@app.route("/logs", methods=["GET"])
+@app.route("/<course_id>/logs/", methods=["GET"])
 @login_required
-def logs_index():
+def logs_index(course_id):
     l = Log.query.all()
     d = total_workhours(l)
-    return render_template("logs/list.html", logs = l, duration = d)
+    return render_template("logs/list.html", course_id=course_id, logs = l, duration = d)
 
-@app.route("/logs/new/")
+@app.route("/<course_id>/logs/new/")
 @login_required
-def logs_form():
-    return render_template("logs/new.html", form = LogForm())
+def logs_form(course_id):
+    return render_template("logs/new.html", course_id=course_id, form = LogForm())
 
 @app.template_filter('datetimeformat')
 def datetimeformat(value, format='%B %d, %Y'):
     return value.strftime(format)
 
-@app.route("/logs/<log_id>/", methods=["GET"])
+@app.route("/<course_id>/logs/<log_id>/", methods=["GET"])
 @login_required
-def logs_log(log_id):
+def logs_log(course_id, log_id):
     l = Log.query.get(log_id)
 
     return render_template("logs/log.html", log = l)
 
-@app.route("/logs/", methods=["POST"])
+@app.route("/<course_id>/logs/", methods=["POST"])
 @login_required
-def logs_create():
+def logs_create(course_id):
     form = LogForm(request.form)
 
     if not form.validate():
         return render_template("/logs/new.html", form = form)
 
     l = Log(form.description.data, form.duration.data)
-    l.student_id = current_user.studentId
+    l.user_id = current_user.id
+    l.course_id = course_id
 
     db.session().add(l)
     db.session().commit()
 
-    return redirect(url_for("logs_index"))
+    return redirect(url_for("logs_index", course_id = course_id))
 
-@app.route("/logs/<log_id>/update", methods=["POST"])
+@app.route("/<course_id>/logs/<log_id>/update", methods=["POST"])
 @login_required
-def logs_update(log_id):
+def logs_update(course_id, log_id):
     description = request.form.get("description")
     duration = request.form.get("duration")
 
@@ -65,11 +66,11 @@ def logs_update(log_id):
 
     db.session().commit()
 
-    return redirect(url_for("logs_index"))
+    return redirect(url_for("logs_index", course_id = course_id))
 
-@app.route("/logs/<log_id>/increment", methods=["POST"])
+@app.route("/<course_id>/logs/<log_id>/increment", methods=["POST"])
 @login_required
-def logs_increment(log_id):
+def logs_increment(course_id, log_id):
     duration = request.form.get("duration")
     l = Log.query.get(log_id)
 
@@ -78,13 +79,13 @@ def logs_increment(log_id):
 
     db.session().commit()
 
-    return redirect(url_for("logs_index"))
+    return redirect(url_for("logs_index", course_id = course_id))
 
-@app.route("/logs/<log_id>/delete/", methods=["POST"])
+@app.route("/<course_id>/logs/<log_id>/delete/", methods=["POST"])
 @login_required
-def logs_delete(log_id):
+def logs_delete(course_id, log_id):
     print('id: ' + log_id)
     Log.query.filter_by(id=log_id).delete()
     db.session.commit()
 
-    return redirect(url_for("logs_index"))
+    return redirect(url_for("logs_index", course_id = course_id))

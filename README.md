@@ -10,9 +10,11 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 
 ### Heroku
 
-Navigate to [https://tsoha-timetracker.herokuapp.com/auth/login/student](https://tsoha-timetracker.herokuapp.com/auth/login/student)
+Currently you can log in only as a student.
 
-Credentials
+Navigate to [student login](https://tsoha-timetracker.herokuapp.com/auth/login/student).
+
+__Credentials:__
 
 Email: `test@email.com`
 

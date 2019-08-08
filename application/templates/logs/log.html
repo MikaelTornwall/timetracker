@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <form method="POST" action="{{ url_for('logs_update', log_id=log.id) }}">
+  <div><a href="{{ url_for('logs_index', course_id=log.course_id) }}">Back</a></div>
+  <form method="POST" action="{{ url_for('logs_update', course_id=log.course_id, log_id=log.id) }}">
     <textarea name="description" rows="8" cols="80">{{ log.description }}</textarea>
     <br>
     <input type="number" name="duration" value="{{ log.duration }}" />
-    <input type="submit" value="Update" />
+    <input class="button" type="submit" value="Update" />
   </form>
-  <form method="POST" action="{{ url_for('logs_delete', log_id=log.id) }}">
-    <button type="submit">Delete</button>
+  <form method="POST" action="{{ url_for('logs_delete', course_id=log.course_id, log_id=log.id) }}">
+    <button class="alert button" type="submit">Delete</button>
   </form>
 {% endblock %}

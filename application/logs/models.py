@@ -1,17 +1,14 @@
 from application import db
+from application.models import Base
 
-class Log(db.Model):
+class Log(Base):
     __tablename__: "log"
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
 
     description = db.Column(db.String(144), nullable=False)
     duration = db.Column(db.Float,  nullable=False)
 
-    student_id = db.Column(db.Integer, db.ForeignKey('student.studentId'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable = False)
 
     def __init__(self, description, duration):
         self.description = description

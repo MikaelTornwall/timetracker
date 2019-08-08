@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('auth_login') }}">
+  <table>
+    <tr>
+      <td>
+        {{ form.email.label }}
+      </td>
+      <td>
+        {{ form.email }}
+      </td>
+      <td>
+        {% if form.email.errors %}
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </td>
+    </tr>
+	  <tr>
+      <td>
+        {{ form.password.label }}
+      </td>
+	    <td>
+        {{ form.password }}
+      </td>
+      <td>
+        {% if form.password.errors %}
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+	       <input class="button" type="submit" value="Login"/>
+      </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

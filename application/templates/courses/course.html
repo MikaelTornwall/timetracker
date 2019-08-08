@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <a href="{{ url_for('courses_edit', course_id=course.id) }}">Edit</a>
+  <h1>{{ course.courseId }} {{ course.title }}</h1>
+  <div>Description:
+    <p> {{course.description}} </p>
+  </div>
+  <div>Workload: {{ course.duration }} hours</div>
+  <div>Deadline: {{ course.deadline | datetimeformat }}</div>
+  <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
+    <button class="alert button" type="submit">Delete</button>
+  </form>
+{% endblock %}

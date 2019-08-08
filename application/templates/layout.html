@@ -3,27 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>TimeTracker</title>
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css" integrity="sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg==" crossorigin="anonymous">
+    <!-- Compressed JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js" integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw==" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <div>
-      <span>
+      <ul class="menu">
         {% if current_user.is_authenticated %}
-        <span><a href="{{ url_for('logs_index') }}">Show logs</a></span>&nbsp;
-        <span><a href="{{ url_for('logs_form') }}">New log</a></span>
-        <span>{{ current_user.firstname }} {{ current_user.lastname }} logged in</span>
-        <a href="{{ url_for('auth_studentLogout') }}">Logout</a>
+        <li><a href="{{ url_for('index') }}">Home</a></li>&nbsp;
+        <li><a href="{{ url_for('courses_index') }}">Courses</a></li>&nbsp;
+        <li class="menu-text">{{ current_user.firstname }} {{ current_user.lastname }} logged in</li>
+        <li><a href="{{ url_for('auth_logout') }}">Logout</a></li>
         {% else %}
-        <a href="{{ url_for('auth_studentSignup') }}">Signup</a>
-        <a href="{{ url_for('auth_studentLogin') }}">Login</a>
+        <li><a href="{{ url_for('auth_signup') }}">Signup</a></li>
+        <li><a href="{{ url_for('auth_login') }}">Login</a></li>
         {% endif %}
-      </span>
+      </ul>
       <hr>
     </div>
+    <div class="container">
     {% block body %}
       <p>
         Content.
       </p>
     {% endblock %}
+  </div>
   </body>
 </html>
