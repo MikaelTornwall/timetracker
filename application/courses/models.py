@@ -1,17 +1,23 @@
 from application import db
 from application.models import Base
 
+user_course = db.Table("usercourse",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
+    db.Column("course_id", db.Integer, db.ForeignKey("course.id")))
+
 class Course(Base):
     __tablename__: "course"
+
+    logs = db.relationship("Log", backref="course", lazy=True)
+
+    # Many-to-many -suhde käyttäjään
+    users = db.relationship("User", secondary="usercourse")
 
     courseId = db.Column(db.String(144), nullable=True)
     title = db.Column(db.String(144), nullable=False)
     description = db.Column(db.String(144),  nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     deadline = db.Column(db.DateTime, nullable=True)
-
-    logs = db.relationship("Log", backref="course", lazy=True)
-    # Many-to-many -suhde käyttäjään
 
     def __init__(self, courseId, title, description, duration, deadline):
         self.courseId = courseId

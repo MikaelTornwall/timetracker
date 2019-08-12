@@ -15,6 +15,7 @@
         {% if current_user.is_authenticated %}
         <li><a href="{{ url_for('index') }}">Home</a></li>&nbsp;
         <li><a href="{{ url_for('courses_index') }}">Courses</a></li>&nbsp;
+        <li><a href="{{ url_for('logs_courses') }}">Logs</a></li>&nbsp;
         <li class="menu-text">{{ current_user.firstname }} {{ current_user.lastname }} logged in</li>
         <li><a href="{{ url_for('auth_logout') }}">Logout</a></li>
         {% else %}

@@ -1,5 +1,6 @@
 from application import app, db
 from application.courses.models import Course
+from application.auth.models import User
 from application.courses.forms import CourseForm
 
 from flask import render_template, request, redirect, url_for
@@ -40,8 +41,10 @@ def courses_create():
         return render_template("/courses/new.html", form = form)
 
     c = Course(form.courseId.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
+    u = User.query.get(current_user.id)
 
-    #l.student_id = current_user.studentId
+    u.courses.append(c)
+    c.users.append(u)
 
     db.session().add(c)
     db.session().commit()

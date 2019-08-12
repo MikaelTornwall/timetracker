@@ -14,7 +14,7 @@ def total_workhours(logs):
 @app.route("/<course_id>/logs/", methods=["GET"])
 @login_required
 def logs_index(course_id):
-    l = Log.query.all()
+    l = Log.query.filter_by(user_id=current_user.id, course_id=course_id)
     d = total_workhours(l)
     return render_template("logs/list.html", course_id=course_id, logs = l, duration = d)
 
@@ -33,6 +33,11 @@ def logs_log(course_id, log_id):
     l = Log.query.get(log_id)
 
     return render_template("logs/log.html", log = l)
+
+@app.route("/logs/courses/", methods=["GET"])
+@login_required
+def logs_courses():
+    return render_template("logs/courses.html")
 
 @app.route("/<course_id>/logs/", methods=["POST"])
 @login_required

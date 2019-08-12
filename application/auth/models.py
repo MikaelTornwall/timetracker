@@ -1,17 +1,19 @@
 from application import db
 from application.models import Base
+from application.courses.models import Course, user_course
 
 user_role = db.Table("userrole",
     db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
     db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
 
 class Role(Base):
+    __tablename__: "role"
     name = db.Column(db.String(32), nullable=False, unique=True)
     superuser = db.Column(db.Boolean, default=False, nullable=False, unique=False)
 
     def init(self, name, superuser):
-        name = self.name
-        superuser = self.superuser
+        self.name = name
+        self.superuser = superuser
 
 class User(Base):
     __tablename__: "user"
@@ -24,9 +26,14 @@ class User(Base):
     password = db.Column(db.String(144))
 
     logs = db.relationship("Log", backref="user", lazy=True)
+
+    courses = db.relationship("Course", secondary="usercourse")
+
+    roles = db.relationship("Role", secondary="userrole", lazy="subquery",
+    backref=db.backref("users", passive_deletes=True, lazy=True))
+
+    # Many-to-many suhde käyttäjien ja kurssien välille
     #courses = db.relationship("Course", backref="user", passive_deletes=True, lazy=True)
-    # Many-to-many suhde opiskelijoiden ja kurssien välille
-    # courses = db.relationship("Course", backref="student", lazy=True)
 
     def __init__(self, firstname, lastname, email, password):
         self.firstname = firstname

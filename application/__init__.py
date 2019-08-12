@@ -29,6 +29,24 @@ from application.auth import views
 from application.courses import models
 from application.courses import views
 
+# SQLite foreign key and role default value initialization
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+from application.auth.models import Role, User
+
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    if (app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite")):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
+
+@event.listens_for(Role.__table__, 'after_create')
+def insert_initial_roles(*args, **kwargs):
+    db.session.add(Role("TEACHER", True))
+    db.session.add(Role("STUDENT", False))
+    db.session.commit()
+
 # Login
 from application.auth.models import User
 from os import urandom
