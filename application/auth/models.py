@@ -27,7 +27,7 @@ class User(Base):
 
     logs = db.relationship("Log", backref="user", lazy=True)
 
-    courses = db.relationship("Course", secondary="usercourse")
+    # courses = db.relationship("Course", secondary="usercourse")
 
     roles = db.relationship("Role", secondary="userrole", lazy="subquery",
     backref=db.backref("users", passive_deletes=True, lazy=True))

@@ -43,7 +43,7 @@ def courses_create():
     c = Course(form.courseId.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
     u = User.query.get(current_user.id)
 
-    u.courses.append(c)
+    # u.courses.append(c)
     c.users.append(u)
 
     db.session().add(c)
@@ -81,7 +81,10 @@ def courses_update(course_id):
 @login_required
 def courses_delete(course_id):
     print('id: ' + course_id)
-    Course.query.filter_by(id=course_id).delete()
-    db.session.commit()
+    c = Course.query.filter_by(id=course_id).first()
+    #c.users.clear()
+    if (c is not None):
+        db.session.delete(c)
+        db.session.commit()
 
     return redirect(url_for("courses_index"))

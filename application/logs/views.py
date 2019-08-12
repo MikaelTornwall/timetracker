@@ -90,7 +90,8 @@ def logs_increment(course_id, log_id):
 @login_required
 def logs_delete(course_id, log_id):
     print('id: ' + log_id)
-    Log.query.filter_by(id=log_id).delete()
+    l = Log.query.filter_by(id=log_id).first()
+    db.session.delete(l)
     db.session.commit()
 
     return redirect(url_for("logs_index", course_id = course_id))

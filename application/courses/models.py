@@ -3,7 +3,7 @@ from application.models import Base
 
 user_course = db.Table("usercourse",
     db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
-    db.Column("course_id", db.Integer, db.ForeignKey("course.id")))
+    db.Column("course_id", db.Integer, db.ForeignKey("course.id", ondelete="CASCADE")))
 
 class Course(Base):
     __tablename__: "course"
@@ -11,7 +11,8 @@ class Course(Base):
     logs = db.relationship("Log", backref="course", lazy=True)
 
     # Many-to-many -suhde käyttäjään
-    users = db.relationship("User", secondary="usercourse")
+    #users = db.relationship("User", secondary="usercourse")
+    users = db.relationship("User", secondary=user_course, backref = db.backref("courses", lazy="dynamic", passive_deletes=True))
 
     courseId = db.Column(db.String(144), nullable=True)
     title = db.Column(db.String(144), nullable=False)
