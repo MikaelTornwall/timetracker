@@ -42,7 +42,7 @@
   </tr>
   <tr>
     <td>{{ form.deadline.label }}</td>
-    <td>{{ form.deadline(value=course.deadline) }}</td>
+    <td>{{ form.deadline(value=course.deadline | updatedateformat) }}</td>
     <td>
       {% for error in form.deadline.errors %}
         {{ error }}

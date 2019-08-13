@@ -1,6 +1,8 @@
 from application import db
 from application.models import Base
 
+from sqlalchemy.sql import text
+
 user_course = db.Table("usercourse",
     db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
     db.Column("course_id", db.Integer, db.ForeignKey("course.id", ondelete="CASCADE")))
@@ -26,3 +28,10 @@ class Course(Base):
         self.description = description
         self.duration = duration
         self.deadline = deadline
+
+    @staticmethod
+    def count_courses():
+        statement = text("SELECT COUNT(*) FROM Course;")
+        result = db.engine.execute(statement)
+
+        return result.fetchall()[0][0]

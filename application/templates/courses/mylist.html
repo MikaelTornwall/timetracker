@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="h3">My courses ({{ length }})</h1>
+  <table>
+    <thead>
+    <tr>
+      <th width="100">Course ID</th>
+      <th width="100">Title</th>
+      <th width="50">Duration</th>
+      <th width="150">Deadline</th>
+      <th width="50">Logs</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for course in courses %}
+    <tr>
+      <td>{{ course.courseId }}</td>
+      <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.title }}</a></td>
+      <td>{{ course.duration }} h</td>
+      <td>{{ course.deadline | datetimeformat }}</td>
+      <td><a href="{{ url_for('logs_index', course_id=course.id) }}">Logs</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <span><a href="{{ url_for('courses_form') }}">Create course</a></span>
+{% endblock %}

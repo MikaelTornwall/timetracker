@@ -1,39 +1,50 @@
-from application import app, db
+from flask import render_template, request, redirect, url_for
+from flask_login import current_user
+
+from application import app, db, login_required
 from application.courses.models import Course
 from application.auth.models import User
 from application.courses.forms import CourseForm
 
-from flask import render_template, request, redirect, url_for
-from flask_login import login_required, current_user
-
 @app.route("/courses/", methods=["GET"])
-@login_required
+@login_required()
 def courses_index():
     c = Course.query.all()
-    return render_template("courses/list.html", courses = c)
+    length = Course.count_courses()
+    return render_template("courses/courses.html", courses = c, length = length)
+
+@app.route("/courses/mycourses", methods=["GET"])
+@login_required(role="TEACHER")
+def courses_mycourses():
+    c = User.query.get(current_user.id)
+    length = c.count_users_courses(current_user)
+    return render_template("courses/mylist.html", courses = c.courses, length = length)
+
 
 @app.route("/courses/new/")
-@login_required
+@login_required(role="TEACHER")
 def courses_form():
     return render_template("courses/new.html", form = CourseForm())
 
 @app.route("/courses/<course_id>/", methods=["GET"])
-@login_required
+@login_required()
 def courses_course(course_id):
     c = Course.query.get(course_id)
-
     return render_template("courses/course.html", course = c)
 
-@app.route("/courses/<course_id>/", methods=["POST"])
-@login_required
+@app.route("/courses/enroll/<course_id>/", methods=["GET"])
+@login_required()
 def course_enroll(course_id):
-    # Opiskelijan kurssi-ilmoittautuminen
     c = Course.query.get(course_id)
+    u = User.query.get(current_user.id)
+    c.users.append(u)
 
-    return render_template("courses/course.html", course = c)
+    db.session.commit()
+
+    return redirect(url_for("courses_mycourses"))
 
 @app.route("/courses/", methods=["POST"])
-@login_required
+@login_required(role="TEACHER")
 def courses_create():
     form = CourseForm(request.form)
 
@@ -49,17 +60,17 @@ def courses_create():
     db.session().add(c)
     db.session().commit()
 
-    return redirect(url_for("courses_index"))
+    return redirect(url_for("courses_mycourses"))
 
 @app.route("/courses/<course_id>/edit", methods=["GET"])
-@login_required
+@login_required(role="TEACHER")
 def courses_edit(course_id):
     c = Course.query.get(course_id)
 
     return render_template("courses/edit.html", course = c, form = CourseForm())
 
 @app.route("/courses/<course_id>/update", methods=["POST"])
-@login_required
+@login_required(role="TEACHER")
 def courses_update(course_id):
     form = CourseForm(request.form)
     c = Course.query.get(course_id)
@@ -78,7 +89,7 @@ def courses_update(course_id):
     return redirect(url_for("courses_index", course_id = course_id))
 
 @app.route("/courses/<course_id>/delete/", methods=["POST"])
-@login_required
+@login_required(role="TEACHER")
 def courses_delete(course_id):
     print('id: ' + course_id)
     c = Course.query.filter_by(id=course_id).first()

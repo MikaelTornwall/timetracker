@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
+  <p>Total hours: {{ duration }}</p>
   <table>
     <thead>
     <tr>
@@ -14,7 +16,7 @@
     <tbody>
     {% for log in logs %}
     <tr>
-      <td>{{ log.date_created | datetimeformat }}</td>
+      <td>{{ log.date | datetimeformat }}</td>
       <td>{{ log.description }}</td>
       <td>{{ log.duration }}</td>
       <td>
@@ -24,12 +26,11 @@
         </form>
       </td>
       <td>
-        <a href="{{ url_for('logs_log', course_id=log.course_id, log_id=log.id) }}">Modify</a>
+        <a href="{{ url_for('logs_log', course_id=course_id, log_id=log.id) }}">Modify</a>
       </td>
     </tr>
     {% endfor %}
     </tbody>
   </table>
   <button><a href="{{ url_for('logs_form', course_id=course_id) }}">Add log</a></button>
-  <p>Total hours: {{ duration }}</p>
 {% endblock %}

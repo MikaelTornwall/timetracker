@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
 from application import app, db
-from application.auth.models import User
+from application.auth.models import User, Role
 from application.auth.forms import LoginForm, SignupForm
 
 @app.route("/auth/login/", methods=["GET", "POST"])
@@ -39,6 +39,27 @@ def auth_signup():
         return render_template("auth/signup.html", form = form, error = "Remember to fill all the fields.")
 
     u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+    r = Role.query.filter_by(name="STUDENT").first()
+    u.roles.append(r)
+
+    db.session.add(u)
+    db.session.commit()
+
+    return redirect(url_for("auth_login"))
+
+@app.route("/auth/teacherSignup/", methods=["GET", "POST"])
+def auth_teacherSignup():
+    if request.method == "GET":
+        return render_template("auth/teacherSignup.html", form = SignupForm())
+
+    form = SignupForm(request.form)
+
+    if not form.validate():
+        return render_template("auth/teacherSignup.html", form = form, error = "Remember to fill all the fields.")
+
+    u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+    r = Role.query.filter_by(name="TEACHER").first()
+    u.roles.append(r)
 
     db.session.add(u)
     db.session.commit()

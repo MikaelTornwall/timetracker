@@ -10,26 +10,37 @@
   </head>
 
   <body>
-    <div>
-      <ul class="menu">
-        {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('index') }}">Home</a></li>&nbsp;
-        <li><a href="{{ url_for('courses_index') }}">Courses</a></li>&nbsp;
-        <li><a href="{{ url_for('logs_courses') }}">Logs</a></li>&nbsp;
-        <li class="menu-text">{{ current_user.firstname }} {{ current_user.lastname }} logged in</li>
-        <li><a href="{{ url_for('auth_logout') }}">Logout</a></li>
-        {% else %}
-        <li><a href="{{ url_for('auth_signup') }}">Signup</a></li>
-        <li><a href="{{ url_for('auth_login') }}">Login</a></li>
-        {% endif %}
-      </ul>
-      <hr>
+    <div class="top-bar">
+      {% if current_user.is_authenticated %}
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li><a href="{{ url_for('courses_mycourses') }}">My Courses</a></li>&nbsp;
+          <li><a href="{{ url_for('courses_index') }}">All Courses</a></li>&nbsp;
+          <li><a href="{{ url_for('logs_all') }}">Logs</a></li>&nbsp;
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li class="menu-text">{{ current_user.firstname }} {{ current_user.lastname }} logged in</li>
+          <li><a href="{{ url_for('auth_logout') }}">Logout</a></li>
+        </ul>
+      </div>
+      {% else %}
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li><a class="menu-text" href="{{ url_for('index') }}">TimeTracker</a></li>&nbsp;
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li><a href="{{ url_for('auth_signup') }}">Signup</a></li>
+          <li><a href="{{ url_for('auth_login') }}">Login</a></li>
+        </ul>
+      </div>
+      {% endif %}
     </div>
     <div class="container">
-    {% block body %}
-      <p>
-        Content.
-      </p>
+    {% block body %}q
     {% endblock %}
   </div>
   </body>
