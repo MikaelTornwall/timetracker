@@ -28,7 +28,10 @@ class Log(Base):
         response = []
 
         for row in result:
-            response.append({"id":row[0], "date":datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S'), "description":row[3], "duration":row[4]})
+            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+                response.append({"id":row[0], "date":datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S'), "description":row[3], "duration":row[4]})
+            else:
+                response.append({"id":row[0], "date":row[1], "description":row[3], "duration":row[4]})
 
         print("RESPONSE")
         print(response)
