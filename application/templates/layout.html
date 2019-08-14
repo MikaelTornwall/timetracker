@@ -11,12 +11,23 @@
 
   <body>
     <div class="top-bar">
-      {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated and is_student %}
       <div class="top-bar-left">
         <ul class="menu">
-          <li><a href="{{ url_for('courses_mycourses') }}">My Courses</a></li>&nbsp;
-          <li><a href="{{ url_for('courses_index') }}">All Courses</a></li>&nbsp;
+          <li><a href="{{ url_for('courses_index') }}">Find Courses</a></li>&nbsp;
           <li><a href="{{ url_for('logs_all') }}">Logs</a></li>&nbsp;
+        </ul>
+      </div>
+      <div class="top-bar-right">
+        <ul class="menu">
+          <li class="menu-text">{{ current_user.firstname }} {{ current_user.lastname }} logged in</li>
+          <li><a href="{{ url_for('auth_logout') }}">Logout</a></li>
+        </ul>
+      </div>
+      {% elif current_user.is_authenticated and is_teacher %}
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li><a href="{{ url_for('courses_mycourses') }}">My Courses</a></li>&nbsp;          
         </ul>
       </div>
       <div class="top-bar-right">

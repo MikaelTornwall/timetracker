@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div>
+  <h1 class="h3">Sign up</h1>
+  <div>I want to sign up as a</div>
+  <a href="{{ url_for('auth_signupTeacher') }}"><button class="button warning">Teacher</button></a>
+  <a href="{{ url_for('auth_signupStudent') }}"><button class="button success">Student</button></a>
+</div>
+{% endblock %}

@@ -35,3 +35,6 @@ class Course(Base):
         result = db.engine.execute(statement)
 
         return result.fetchall()[0][0]
+
+    def countStudents():
+        return

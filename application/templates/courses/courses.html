@@ -19,7 +19,11 @@
         <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.title }}</a></td>
         <td>{{ course.duration }} h</td>
         <td>{{ course.deadline | datetimeformat }}</td>
+        {% if course in mycourses %}
+        <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
+        {% else %}
         <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
+        {% endif %}
       </tr>
       {% endfor %}
       </tbody>

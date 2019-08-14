@@ -7,11 +7,12 @@ from application.auth.models import User
 from application.courses.forms import CourseForm
 
 @app.route("/courses/", methods=["GET"])
-@login_required()
+@login_required(role="STUDENT")
 def courses_index():
     c = Course.query.all()
+    m = User.query.get(current_user.id).courses
     length = Course.count_courses()
-    return render_template("courses/courses.html", courses = c, length = length)
+    return render_template("courses/courses.html", courses = c, mycourses = m, length = length)
 
 @app.route("/courses/mycourses", methods=["GET"])
 @login_required(role="TEACHER")
@@ -33,15 +34,19 @@ def courses_course(course_id):
     return render_template("courses/course.html", course = c)
 
 @app.route("/courses/enroll/<course_id>/", methods=["GET"])
-@login_required()
+@login_required(role="STUDENT")
 def course_enroll(course_id):
     c = Course.query.get(course_id)
     u = User.query.get(current_user.id)
-    c.users.append(u)
+
+    if u in c.users:
+        c.users.remove(u)        
+    else:
+        c.users.append(u)
 
     db.session.commit()
 
-    return redirect(url_for("courses_mycourses"))
+    return redirect(url_for("courses_index"))
 
 @app.route("/courses/", methods=["POST"])
 @login_required(role="TEACHER")

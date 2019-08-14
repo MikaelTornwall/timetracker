@@ -2,7 +2,9 @@
 
 {% block body %}
 {{ error }}
-<form method="POST" action="{{ url_for('auth_teacherSignup') }}">
+<h1 class="h3">Sign up as a teacher</h1>
+{{ error }}
+<form method="POST" action="{{ url_for('auth_signupTeacher') }}">
   <table>
     <tr>
       <td>

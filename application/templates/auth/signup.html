@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<h1 class="h3">Sign up as a student</h1>
 {{ error }}
-<form method="POST" action="{{ url_for('auth_signup') }}">
+<form method="POST" action="{{ url_for('auth_signupStudent') }}">
   <table>
     <tr>
       <td>

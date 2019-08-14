@@ -28,6 +28,18 @@ login_manager.login_message = "Please login to use this feature"
 # roles in login_required
 from functools import wraps
 
+def is_student():
+    if current_user:
+        student = current_user.is_student()
+        teacher = current_user.is_teacher()
+        app.jinja_env.globals.update(is_student=student)
+        app.jinja_env.globals.update(is_teacher=teacher)
+        return
+    else:
+        app.jinja_env.globals.update(is_student=False)
+        app.jinja_env.globals.update(is_teacher=False)
+        return
+
 def login_required(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
@@ -76,7 +88,6 @@ def insert_initial_roles(*args, **kwargs):
     db.session.add(Role("TEACHER", True))
     db.session.add(Role("STUDENT", False))
     db.session.commit()
-
 
 from application.auth.models import User
 @login_manager.user_loader

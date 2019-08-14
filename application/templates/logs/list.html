@@ -20,7 +20,7 @@
       <td>{{ log.description }}</td>
       <td>{{ log.duration }}</td>
       <td>
-        <form method="POST" action="{{ url_for('logs_increment', course_id=log.course_id, log_id=log.id) }}">
+        <form method="POST" action="{{ url_for('logs_increment', course_id=course_id, log_id=log.id) }}">
           <input type="number" name="duration" placeholder="duration (h)"/>
           <button class="button" type="submit">Update</button>
         </form>

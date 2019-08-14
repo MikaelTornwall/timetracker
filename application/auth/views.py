@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 from application import app, db
 from application.auth.models import User, Role
@@ -21,15 +21,25 @@ def auth_login():
         return render_template("auth/login.html", form = form, error = "Incorrect email address or password")
 
     login_user(user)
+
+    app.jinja_env.globals.update(is_student=current_user.is_student())
+    app.jinja_env.globals.update(is_teacher=current_user.is_teacher())
+
     return redirect(url_for("index"))
 
 @app.route("/auth/logout/")
 def auth_logout():
+    app.jinja_env.globals.update(is_student=False)
+    app.jinja_env.globals.update(is_teacher=False)
     logout_user()
     return redirect(url_for("index"))
 
 @app.route("/auth/signup/", methods=["GET", "POST"])
 def auth_signup():
+    return render_template("auth/signupSelect.html")
+
+@app.route("/auth/signup/student/", methods=["GET", "POST"])
+def auth_signupStudent():
     if request.method == "GET":
         return render_template("auth/signup.html", form = SignupForm())
 
@@ -47,8 +57,8 @@ def auth_signup():
 
     return redirect(url_for("auth_login"))
 
-@app.route("/auth/teacherSignup/", methods=["GET", "POST"])
-def auth_teacherSignup():
+@app.route("/auth/signup/teacher/", methods=["GET", "POST"])
+def auth_signupTeacher():
     if request.method == "GET":
         return render_template("auth/teacherSignup.html", form = SignupForm())
 

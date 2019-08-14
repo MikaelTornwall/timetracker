@@ -14,7 +14,7 @@ def logs_all():
     return render_template("logs/logs.html", courses = c.courses)
 
 @app.route("/<course_id>/logs/", methods=["GET"])
-@login_required()
+@login_required(role="STUDENT")
 def logs_index(course_id):
     l = Log.find_logs_of_course(course_id, current_user.id)
     d = Log.total_workhours(course_id, current_user.id)

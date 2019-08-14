@@ -49,6 +49,14 @@ class User(Base):
     def is_authenticated(self):
         return True
 
+    def is_student(self):
+        role_array = self.get_user_roles()
+        return "STUDENT" in role_array
+
+    def is_teacher(self):
+        role_array = self.get_user_roles()
+        return "TEACHER" in role_array
+
     def get_user_roles(self):
         statement = text("SELECT name FROM Role "
                         "LEFT JOIN Userrole ON Userrole.role_id = Role.id "
@@ -61,13 +69,15 @@ class User(Base):
 
         for row in result:
             response.append(row[0])
+
+        print("ROLES FROM DB:")
+        print(response)
         return response
 
     @staticmethod
     def count_users_courses(self):
         statement = text("SELECT COUNT(*) FROM Usercourse"
-                        " WHERE Usercourse.user_id = :id;"
-                        ).params(id=self.id)
+                        " WHERE Usercourse.user_id = :id;").params(id=self.id)
         result = db.engine.execute(statement)
 
         return result.fetchall()[0][0]
