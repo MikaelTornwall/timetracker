@@ -4,7 +4,7 @@ from application.models import Base
 from sqlalchemy.sql import text
 
 user_course = db.Table("usercourse",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
+    db.Column("user_id", db.Integer, db.ForeignKey("account.id", ondelete="CASCADE")),
     db.Column("course_id", db.Integer, db.ForeignKey("course.id", ondelete="CASCADE")))
 
 class Course(Base):
@@ -38,10 +38,10 @@ class Course(Base):
 
     @staticmethod
     def find_students(course_id):
-        statement = text("SELECT * FROM User "
-                        "LEFT JOIN Userrole ON Userrole.user_id = user.id "
+        statement = text("SELECT * FROM Account "
+                        "LEFT JOIN Userrole ON Userrole.user_id = Account.id "
                         "LEFT JOIN Role ON Role.id = Userrole.role_id "
-                        "LEFT JOIN Usercourse ON Usercourse.user_id = user.id "
+                        "LEFT JOIN Usercourse ON Usercourse.user_id = Account.id "
                         "LEFT JOIN Course ON Course.id = Usercourse.course_id "
                         "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
         result = db.engine.execute(statement)
@@ -55,10 +55,10 @@ class Course(Base):
 
     @staticmethod
     def count_students(course_id):
-        statement = text("SELECT COUNT(*) FROM User "
-                        "LEFT JOIN Userrole ON Userrole.user_id = user.id "
+        statement = text("SELECT COUNT(*) FROM Account "
+                        "LEFT JOIN Userrole ON Userrole.user_id = Account.id "
                         "LEFT JOIN Role ON Role.id = Userrole.role_id "
-                        "LEFT JOIN Usercourse ON Usercourse.user_id = user.id "
+                        "LEFT JOIN Usercourse ON Usercourse.user_id = Account.id "
                         "LEFT JOIN Course ON Course.id = Usercourse.course_id "
                         "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
         result = db.engine.execute(statement)

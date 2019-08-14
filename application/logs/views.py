@@ -10,7 +10,7 @@ from application.auth.models import User
 @app.route("/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_all():
-    c = User.query.get(current_user.id)
+    c = User.query.get(current_user.id)    
     return render_template("logs/logs.html", courses = c.courses)
 
 @app.route("/<course_id>/logs/", methods=["GET"])

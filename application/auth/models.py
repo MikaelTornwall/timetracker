@@ -5,7 +5,7 @@ from application.courses.models import Course, user_course
 from sqlalchemy.sql import text
 
 user_role = db.Table("userrole",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id", ondelete="CASCADE")),
+    db.Column("user_id", db.Integer, db.ForeignKey("account.id", ondelete="CASCADE")),
     db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
 
 class Role(Base):
@@ -19,14 +19,14 @@ class Role(Base):
         self.superuser = superuser
 
 class User(Base):
-    __tablename__: "user"
+    __tablename__ = "account"
 
     firstname = db.Column(db.String(144), nullable=False)
     lastname = db.Column(db.String(144), nullable=False)
     email = db.Column(db.String(144), nullable=False, unique=True)
     password = db.Column(db.String(144))
 
-    logs = db.relationship("Log", backref="user", lazy=True)
+    logs = db.relationship("Log", backref="account", lazy=True)
 
     roles = db.relationship("Role", secondary="userrole", lazy="subquery",
     backref=db.backref("users", passive_deletes=True, lazy=True))
@@ -50,18 +50,38 @@ class User(Base):
         return True
 
     def is_student(self):
-        role_array = self.get_user_roles()
-        return "STUDENT" in role_array
+        #role_array = self.get_user_roles()
+        #return "STUDENT" in role_array
+        r = self.roles
+
+        for row in r:
+            if row.name == "STUDENT":
+                return True
+        return False
 
     def is_teacher(self):
-        role_array = self.get_user_roles()
-        return "TEACHER" in role_array
+        #role_array = self.get_user_roles()
+        #return "TEACHER" in role_array
+        r = self.roles
+
+        for row in r:
+            if row.name == "TEACHER":
+                return True
+        return False
+
+    def get_roles(self):
+        r = self.roles
+        response = []
+        for row in r:
+            response.append(row.name)
+
+        return response
 
     def get_user_roles(self):
         statement = text("SELECT name FROM Role "
                         "LEFT JOIN Userrole ON Userrole.role_id = Role.id "
-                        "LEFT JOIN User ON User.id = Userrole.user_id "
-                        "WHERE :id = User.id").params(id=self.id)
+                        "LEFT JOIN Account ON Account.id = Userrole.user_id "
+                        "WHERE :id = Account.id").params(id=self.id)
 
         result = db.engine.execute(statement)
 
