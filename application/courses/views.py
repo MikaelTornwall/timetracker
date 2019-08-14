@@ -35,6 +35,15 @@ def course_enroll(course_id):
 @login_required()
 def courses_course(course_id):
     c = Course.query.get(course_id)
+
+    if current_user.is_teacher():
+        s = c.find_students(course_id)
+        print("STUDENTS")
+        print(s)
+        l = c.count_students(course_id)
+
+        return render_template("courses/course.html", course = c, students = s, length = l)
+
     return render_template("courses/course.html", course = c)
 
 # Views for teachers

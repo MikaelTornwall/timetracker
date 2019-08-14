@@ -36,5 +36,34 @@ class Course(Base):
 
         return result.fetchall()[0][0]
 
+    @staticmethod
+    def find_students(course_id):
+        statement = text("SELECT * FROM User "
+                        "LEFT JOIN Userrole ON Userrole.user_id = user.id "
+                        "LEFT JOIN Role ON Role.id = Userrole.role_id "
+                        "LEFT JOIN Usercourse ON Usercourse.user_id = user.id "
+                        "LEFT JOIN Course ON Course.id = Usercourse.course_id "
+                        "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            response.append({"id":row[0], "firstname":row[3], "lastname":row[4]})
+
+        return response
+
+    @staticmethod
+    def count_students(course_id):
+        statement = text("SELECT COUNT(*) FROM User "
+                        "LEFT JOIN Userrole ON Userrole.user_id = user.id "
+                        "LEFT JOIN Role ON Role.id = Userrole.role_id "
+                        "LEFT JOIN Usercourse ON Usercourse.user_id = user.id "
+                        "LEFT JOIN Course ON Course.id = Usercourse.course_id "
+                        "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
+        result = db.engine.execute(statement)
+
+        return result.fetchall()[0][0]
+
     def countStudents():
         return

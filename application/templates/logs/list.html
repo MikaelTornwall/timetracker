@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{% if is_student %}
   <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
   <p>Total hours: {{ duration }}</p>
   <table>
@@ -33,4 +34,27 @@
     </tbody>
   </table>
   <button><a href="{{ url_for('logs_form', course_id=course_id) }}">Add log</a></button>
+  {% elif is_teacher %}
+  <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
+  <div>Student: {{ student.firstname }} {{ student.lastname }}</div>
+  <p>Total hours: {{ duration }}</p>
+  <table>
+    <thead>
+    <tr>
+      <th width="150">Date</th>
+      <th width="350">Description</th>
+      <th width="200">Duration (h)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log.date | datetimeformat }}</td>
+      <td>{{ log.description }}</td>
+      <td>{{ log.duration }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
 {% endblock %}

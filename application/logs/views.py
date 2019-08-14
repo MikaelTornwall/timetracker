@@ -22,6 +22,16 @@ def logs_index(course_id):
 
     return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d)
 
+@app.route("/<course_id>/logs/<user_id>", methods=["GET"])
+@login_required(role="TEACHER")
+def logs_course_user(course_id, user_id):
+    l = Log.find_logs_of_course(course_id, user_id)
+    d = Log.total_workhours(course_id, user_id)
+    c = Course.query.get(course_id)
+    u = User.query.get(user_id)
+
+    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d, student = u)
+
 @app.route("/<course_id>/logs/new/")
 @login_required(role="STUDENT")
 def logs_form(course_id):

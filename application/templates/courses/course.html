@@ -11,6 +11,14 @@
   <div>Workload: {{ course.duration }} hours</div>
   <div>Deadline: {{ course.deadline | datetimeformat }}</div>
   {% if is_teacher %}
+  <div>Enrolled students ({{ length }}):</div>
+  <div>
+    {% for student in students %}
+    <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if is_teacher %}
   <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
     <button class="alert button" type="submit">Delete</button>
   </form>

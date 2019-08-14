@@ -15,7 +15,7 @@
       <div class="top-bar-left">
         <ul class="menu">
           <li><a href="{{ url_for('courses_index') }}">Find Courses</a></li>&nbsp;
-          <li><a href="{{ url_for('logs_all') }}">Logs</a></li>&nbsp;
+          <li><a href="{{ url_for('logs_all') }}">Logs</a></li>
         </ul>
       </div>
       <div class="top-bar-right">
@@ -27,7 +27,8 @@
       {% elif current_user.is_authenticated and is_teacher %}
       <div class="top-bar-left">
         <ul class="menu">
-          <li><a href="{{ url_for('courses_mycourses') }}">My Courses</a></li>&nbsp;          
+          <li><a href="{{ url_for('courses_mycourses') }}">Courses</a></li>&nbsp;
+          <li><a href="{{ url_for('courses_form') }}">Create Course</a></li>
         </ul>
       </div>
       <div class="top-bar-right">
