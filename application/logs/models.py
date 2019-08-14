@@ -1,4 +1,4 @@
-from application import db
+from application import app, db
 from application.models import Base
 
 from datetime import datetime
