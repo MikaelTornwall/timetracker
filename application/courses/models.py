@@ -43,7 +43,8 @@ class Course(Base):
                         "LEFT JOIN Role ON Role.id = Userrole.role_id "
                         "LEFT JOIN Usercourse ON Usercourse.user_id = Account.id "
                         "LEFT JOIN Course ON Course.id = Usercourse.course_id "
-                        "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
+                        "WHERE Course.id = :id AND Role.name = 'STUDENT' "
+                        "ORDER BY Account.firstname, Account.lastname;").params(id=course_id)
         result = db.engine.execute(statement)
 
         response = []
@@ -60,7 +61,7 @@ class Course(Base):
                         "LEFT JOIN Role ON Role.id = Userrole.role_id "
                         "LEFT JOIN Usercourse ON Usercourse.user_id = Account.id "
                         "LEFT JOIN Course ON Course.id = Usercourse.course_id "
-                        "WHERE Course.id = :id AND Role.name = 'STUDENT'").params(id=course_id)
+                        "WHERE Course.id = :id AND Role.name = 'STUDENT';").params(id=course_id)
         result = db.engine.execute(statement)
 
         return result.fetchall()[0][0]

@@ -38,13 +38,14 @@ def courses_course(course_id):
 
     if current_user.is_teacher():
         s = c.find_students(course_id)
-        print("STUDENTS")
-        print(s)
         l = c.count_students(course_id)
 
         return render_template("courses/course.html", course = c, students = s, length = l)
 
-    return render_template("courses/course.html", course = c)
+    a = Course.query.all()
+    m = User.query.get(current_user.id).courses
+
+    return render_template("courses/course.html", course = c, courses = a, mycourses = m)
 
 # Views for teachers
 @app.route("/courses/mycourses", methods=["GET"])

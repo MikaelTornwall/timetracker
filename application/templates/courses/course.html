@@ -10,6 +10,14 @@
   </div>
   <div>Workload: {{ course.duration }} hours</div>
   <div>Deadline: {{ course.deadline | datetimeformat }}</div>
+
+  {% if is_student %}
+  {% if course in mycourses %}
+  <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
+  {% else %}
+  <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
+  {% endif %}
+  {% endif %}
   {% if is_teacher %}
   <div>Enrolled students ({{ length }}):</div>
   <div>
