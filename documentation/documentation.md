@@ -16,6 +16,7 @@ Personal work hour tracking tool.
     3. [Structure](#structure)
 4. [Database](#database)
     1. [Database chart](#chart)
+    2. [SQL queries](#queries)
 5. [Technology stack](#techstack)
 6. [Contributors](#contributors)
 
@@ -166,6 +167,11 @@ For production: PostgreSQL
 ![database chart](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/timetracker.png)
 
 [Link to the chart](https://drive.google.com/file/d/176zQnYk9ukeFViq_n_RI6qthSVZ2TaM1/view?usp=sharing)
+
+<a name="queries"></a>
+### 4.2 SQL Queries
+
+[Link to the queries](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/sqlqueries.md)
 
 <a name="techstack"></a>
 ## 5. Technology stack
