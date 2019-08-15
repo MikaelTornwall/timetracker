@@ -32,25 +32,27 @@ More extensive documentation can be found [here](https://github.com/MikaelTornwa
 
 ## Features
 
-Authentication and authorization
-* General
+__Authentication and authorization__
+
+*General*
 - [x] Login
 
-* Student
+*Student*
 - [x] Signup
 - [x] Authorization
 
-* Teacher
+*Teacher*
 - [x] Signup
 - [x] Authorization
 
-Course
-* Student
+__Course__
+
+*Student*
 - [x] View courses
 - [x] View enrolled courses
 - [x] Enroll/unenroll on a course (Student)
 
-* Teacher
+*Teacher*
 - [x] View created courses
 - [x] Create courses
 - [x] Update courses
@@ -58,15 +60,16 @@ Course
 - [x] View course specific enrolled students
 - [ ] Course specific overview reports for teachers
 
-Logs
-* Student
+__Logs__
+
+*Student*
 - [x] View logs
 - [x] Create logs
 - [x] Update logs
 - [x] Delete logs
 - [x] View course specific total workhours
 
-* Teacher
+*Teacher*
 - [x] View course and user specific logs
 
 ## Database

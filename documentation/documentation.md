@@ -22,7 +22,7 @@ Personal work hour tracking tool.
 <a name="description"></a>
 ## 1. Description
 
-TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can monitor student specific course progress. Courses also have a target duration that students should achieve.
+TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can create courses and monitor student specific course progress.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
