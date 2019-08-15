@@ -7,7 +7,9 @@ Personal work hour tracking tool.
 ## Table of contents
 
 1. [Description](#description)
-2. [How to run locally](#howtorun)
+2. [How to run](#howtorun)
+    1. [Heroku](#heroku)
+    2. [Locally](#locally)
 3. [Use cases](#usecases)  
     1. [User groups](#usergroups)
     2. [User stories](#userstories)
@@ -25,7 +27,22 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
 <a name="howtorun"></a>
-## 2. How to run locally?
+## 2. How to run
+
+<a name="heroku"></a>
+### 2.1. Heroku
+
+Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login).
+
+__Credentials:__
+
+| Email               | Password      | Role     |
+| --------------------|---------------|----------|
+| `student@email.com` | `student123`  | Student  |
+| `teacher@email.com` | `teacher123`  | Teacher  |
+
+<a name="locally"></a>
+### 2.2. Locally
 
 1. Clone repository to your local machine
 2. Download dependencies `pip install -r requirements.txt`
@@ -44,7 +61,7 @@ Any person who want's to log their progress on a course that exists within the t
 
 __3.1.2. Teacher__
 
-Any person who wants to supervise a course or a project. Teacher can control the course details, such as maximum number of students and create and delete courses.
+Any person who wants to supervise a course or a project.
 
 <a name="userstories"></a>
 ### 3.2. User stories
@@ -52,24 +69,25 @@ Any person who wants to supervise a course or a project. Teacher can control the
 __3.2.1. Student__
 
 As a student I can
- - Log in
- - Register myself to a course
- - See an overview of the logs of any of the courses I'm participating in
+ - Log in to the tool
+ - Enroll/unenroll myself to a course
+ - See all courses within the tool
+ - See all the courses I have enrolled on
+ - See all my course specific logs and total workhours
  - Create a log that contains the description of the tasks I have done today, the duration it took to complete those tasks and today's date
  - Add hours to the duration of the specific day's log I have created
  - Update any logs I have created by modifying the description and duration
  - Delete any log I have created
 
-
 __3.2.2. Teacher__
 
  As a teacher I can
-  - Log in
+  - Log in to the tool
   - Create new courses so that students can log their progress
   - See who's participating in any course I'm responsible for
   - See an overview of any of my courses
-  - Add users to any of my courses
-  - Delete students from any of my courses
+  - See course progress of a specific student within a specific course
+  - Update any of course's details
   - Delete any of my courses
 
 <a name="structure"></a>
@@ -90,15 +108,20 @@ _/auth/login/_
 
 _/courses/_
 - View all the courses
+- Enroll/unenroll on a course
 
-_/mycourses/_
+_/courses/:courseId_
+- View course details
+- Enroll/unenroll on a course
+
+_/logs/_
 - View all the courses the student is registered for
 
 _/:courseId/logs/_
 - Track progress on a specific course or project
 - View all the logs and increase the duration of a log
 
-_/:courseId/:logId/_
+_/:courseId/logs/:logId/_
 - Update or delete a log
 
 _/:courseId/new/_
@@ -113,7 +136,7 @@ _/auth/signup/teacher/_
 _/auth/login/_
 - Log in to the tool
 
-_/courses/_
+_/courses/mycourses/_
 - View all the courses the teacher is responsible for
 
 _/courses/new/_
@@ -122,13 +145,12 @@ _/courses/new/_
 _/courses/:courseId/_
 - View an overview of a specific course, such as number of participants
 - Delete the course
-
-_/courses/:courseId/participants/_
 - View a list of students who participate to this course
-- View the total hours out of the maximum each student has logged
-- Remove students from the course and add students for the course (?)
 
-_/courses/:courseId/:studentId/_
+_/courses/:courseId/edit/_
+- Edit the course details
+
+_/:courseId/logs/:studentId/_
 - View course specific logs of a student
 
 <a name="database"></a>

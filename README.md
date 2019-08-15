@@ -2,7 +2,7 @@
 
 ## Description
 
-TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can monitor student specific course progress. Courses also have a target duration that students should achieve.
+TimeTracker is a personal work hour tracking tool. Students can keep track of their daily work hours and update logs. Teachers can monitor student specific course progress.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
@@ -32,20 +32,42 @@ More extensive documentation can be found [here](https://github.com/MikaelTornwa
 
 ## Features
 
-* Registration
-  - [ ] Teacher
-  - [x] Student
-* Login
-  - [ ] Teacher
-  - [x] Student
-- [ ] Creating courses
-- [x] Logging work hours with duration and description
-- [x] Updating log duration and description
-- [x] Deleting logs
-- [ ] Adding students and teachers to courses
-- [ ] Deleting students and teachers from courses
-- [ ] Deleting courses
+Authentication and authorization
+* General
+- [x] Login
+
+* Student
+- [x] Signup
+- [x] Authorization
+
+* Teacher
+- [x] Signup
+- [x] Authorization
+
+Course
+* Student
+- [x] View courses
+- [x] View enrolled courses
+- [x] Enroll/unenroll on a course (Student)
+
+* Teacher
+- [x] View created courses
+- [x] Create courses
+- [x] Update courses
+- [x] Delete courses
+- [x] View course specific enrolled students
 - [ ] Course specific overview reports for teachers
+
+Logs
+* Student
+- [x] View logs
+- [x] Create logs
+- [x] Update logs
+- [x] Delete logs
+- [x] View course specific total workhours
+
+* Teacher
+- [x] View course and user specific logs
 
 ## Database
 
