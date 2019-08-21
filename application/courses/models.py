@@ -66,7 +66,7 @@ class Course(Base):
 
     @staticmethod
     def count_enrolled_students_in_each_course():
-        statement = text("SELECT id, course_id, title, description, duration, deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+        statement = text("SELECT course.id, course.course_id, course.title, course.description, course.duration, course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                         "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                         "GROUP BY Course.id;")
 
