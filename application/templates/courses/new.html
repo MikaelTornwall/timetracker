@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<h1 class="h3">Create new course</h1>
 <form method="POST" action="{{ url_for('courses_create') }}">
   <table class="unstriped">
     <tbody>
@@ -50,7 +51,7 @@
     </td>
   </tr>
   <tr>
-    <td><button class="success button" type="submit">Create course</button></td>
+    <td><button class="teacher button__small" type="submit">Create course</button></td>
   </tr>
   </tbody>
   </table>

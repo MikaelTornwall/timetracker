@@ -1,21 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('logs_create', course_id=course_id ) }}">
-  {{ form.description.label }}
-  {% for error in form.description.errors %}
-  <div>{{ error }}</div>
-  {% endfor %}
-  <br>
-  <!-- <textarea name="description" rows="8" cols="80"></textarea> -->
-  {{ form.description}}
-  <br>
-  {{ form.duration.label }}
-  {% for error in form.duration.errors %}
-  <div>{{ error }}</div>
-  {% endfor %}
-  {{ form.duration }}
-  <!-- Duration (h): <input type="text" name="duration" /> -->
-  <input type="submit" value="Add new log" />
-</form>
+<div>
+  <h1 class="h3">New log</h1>
+  <form class="container__form" method="POST" action="{{ url_for('logs_create', course_id=course_id ) }}">
+    {{ form.description.label }}
+    {% for error in form.description.errors %}
+    <div>{{ error }}</div>
+    {% endfor %}
+    <br>
+    {{ form.description}}
+    <br>
+    {{ form.duration.label }}
+    {% for error in form.duration.errors %}
+    <div>{{ error }}</div>
+    {% endfor %}
+    {{ form.duration }}
+    <input class="button__small student" type="submit" value="Add new log" />
+  </form>
+</div>
 {% endblock %}

@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
-<form method="POST" action="{{ url_for('auth_login') }}">
-  <table>
+<div class="center">
+  <div class="container__form">
+  <h1 as="h3">Login</h1>
+  {{ error }}
+<form class="container__form" method="POST" action="{{ url_for('auth_login') }}">
+  <table class="unstriped">
     <tr>
       <td>
         {{ form.email.label }}
@@ -41,4 +44,6 @@
     </tr>
   </table>
 </form>
+</div>
+</div>
 {% endblock %}

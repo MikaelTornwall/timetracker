@@ -31,6 +31,7 @@ def auth_login():
 def auth_logout():
     app.jinja_env.globals.update(is_student=False)
     app.jinja_env.globals.update(is_teacher=False)
+
     logout_user()
     return redirect(url_for("index"))
 

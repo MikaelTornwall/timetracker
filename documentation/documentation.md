@@ -1,4 +1,4 @@
-# TimeTracker
+# Timetracker
 
 ## Overview
 
@@ -18,12 +18,13 @@ Personal work hour tracking tool.
     1. [Database chart](#chart)
     2. [SQL queries](#queries)
 5. [Technology stack](#techstack)
-6. [Contributors](#contributors)
+6. [Design](#design)
+7. [Contributors](#contributors)
 
 <a name="description"></a>
 ## 1. Description
 
-TimeTracker is a personal work hour tracking tool. Students can keep track of their daily working hours and update logs. Teachers can create courses and monitor student specific course progress.
+Timetracker is a personal work hour tracking tool for teachers and students that want to record and monitor the progress of a course or a project. Students can keep track of their daily work hours and update logs. Teachers can create courses and monitor student specific course progress.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
@@ -33,8 +34,6 @@ TimeTracker is a personal work hour tracking tool. Students can keep track of th
 <a name="heroku"></a>
 ### 2.1. Heroku
 
-Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login).
-
 __Credentials:__
 
 | Email               | Password      | Role     |
@@ -42,13 +41,17 @@ __Credentials:__
 | `student@email.com` | `student123`  | Student  |
 | `teacher@email.com` | `teacher123`  | Teacher  |
 
+Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login) and use the credentials above.
+
 <a name="locally"></a>
 ### 2.2. Locally
 
 1. Clone repository to your local machine
-2. Download dependencies `pip install -r requirements.txt`
-3. Run the project `python3 run.py`
-4. Navigate to [http://localhost:5000](http://localhost:5000)
+2. Create *venv* module `python3 -m venv venv`
+3. Activate the isolated virtual environment `source venv/bin/activate`
+4. Download dependencies `pip install -r requirements.txt`
+5. Run the project `python3 run.py`
+6. Navigate to [http://localhost:5000](http://localhost:5000)
 
 <a name="usecases"></a>
 ## 3. Use cases
@@ -74,7 +77,7 @@ As a student I can
  - Enroll/unenroll myself to a course
  - See all courses within the tool
  - See all the courses I have enrolled on
- - See all my course specific logs and total workhours
+ - See all my course specific logs and total work hours
  - Create a log that contains the description of the tasks I have done today, the duration it took to complete those tasks and today's date
  - Add hours to the duration of the specific day's log I have created
  - Update any logs I have created by modifying the description and duration
@@ -180,7 +183,30 @@ For production: PostgreSQL
 * Jinja2
 * SQLite/PostgreSQL
 
+<a name="design"></a>
+## 7. Design
+
+Front-end styling library in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS.
+
+__Colors:__
+
+Main: rgba(26, 26, 26, .8)
+
+Main background: rgba(150, 150, 150, .1)
+
+*Student:*
+
+Primary: rgb(255, 180, 0)
+
+Secondary: rgb(255, 180, 0, .9)
+
+*Teacher*
+
+Primary: rgb(30, 0, 100)
+
+Secondary: rgba(30, 0, 100, .9)
+
 <a name="contributors"></a>
-## 6. Contributors
+## 7. Contributors
 
 * [@MikaelTornwall](https://github.com/MikaelTornwall/)

@@ -14,6 +14,9 @@ else:
 
 db = SQLAlchemy(app)
 
+# Custom css
+app.static_folder = 'static'
+
 # Login
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)

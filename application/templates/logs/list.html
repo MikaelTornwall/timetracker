@@ -3,14 +3,22 @@
 {% block body %}
 {% if is_student %}
   <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
-  <p>Total hours: {{ duration }}</p>
-  <table>
+  <div class="course__statistic" style="width: 220px;">
+    Total hours: {{ duration }} / {{ course.duration }}.0
+    <br>
+    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="{{ duration/course.duration*100 }}" aria-valuemin="0" aria-valuemax="100">
+      <span class="progress__text">{{ duration/course.duration*100 }}%</span>
+      <span class="progress-meter" style="width: {{ duration/course.duration*100 }}%"></span>
+    </div>
+  </div>
+  <table class="container__table">
     <thead>
     <tr>
-      <th width="150">Date</th>
+      <th width="200">Date</th>
       <th width="350">Description</th>
       <th width="200">Duration (h)</th>
-      <th width="200">Increase duration</th>
+      <th width="200">Change duration</th>
+      <th width="100">Edit</th>
       <th></th>
     </tr>
     </thead>
@@ -22,22 +30,29 @@
       <td>{{ log.duration }}</td>
       <td>
         <form method="POST" action="{{ url_for('logs_increment', course_id=course_id, log_id=log.id) }}">
-          <input type="number" name="duration" placeholder="duration (h)"/>
-          <button class="button" type="submit">Update</button>
+            <div class="grid-x">
+              <div class="cell small-4">
+              <input type="number" name="duration" placeholder="0"/>
+              </div>
+              <div class="cell small-8">
+              <button class="student button " type="submit"><i class="fas fa-plus"></i> / <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
         </form>
       </td>
       <td>
-        <a href="{{ url_for('logs_log', course_id=course_id, log_id=log.id) }}">Modify</a>
+        <a class="link__student link__medium" href="{{ url_for('logs_log', course_id=course_id, log_id=log.id) }}"><i class="fas fa-edit"></i></a>
       </td>
     </tr>
     {% endfor %}
     </tbody>
   </table>
-  <button><a href="{{ url_for('logs_form', course_id=course_id) }}">Add log</a></button>
+  <a class="link__big link__student" href="{{ url_for('logs_form', course_id=course_id) }}"><i class="fas fa-plus"></i></a>
+
   {% elif is_teacher %}
   <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
-  <div>Student: {{ student.firstname }} {{ student.lastname }}</div>
-  <p>Total hours: {{ duration }}</p>
+  <div class="grid-x">
+    <div class="cell small-6">
   <table>
     <thead>
     <tr>
@@ -56,5 +71,37 @@
     {% endfor %}
     </tbody>
   </table>
+  </div>
+  <div class="cell small-1"></div>
+  <div class="cell small-5">
+    <div class="h4">Student details:</div>
+    <table class="unstriped">
+      <tbody>
+      <tr>
+        <td width="100px">Firstname:</td>
+        <td><strong>{{ student.firstname }}</strong></td>
+      </tr>
+      <tr>
+        <td width="100px">Lastname:</td>
+        <td><strong>{{ student.lastname }}</strong></td>
+      </tr>
+      <tr>
+        <td width="100px">Email:</td>
+        <td><strong>{{ student.email }}</strong></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="h5">Progress</div>
+    <div class="course__statistic" style="width: 220px;">
+      Total hours: {{ duration }} / {{ course.duration }}.0
+      <br>
+      <div class="progress" role="progressbar" tabindex="0" aria-valuenow="{{ duration/course.duration*100 }}" aria-valuemin="0" aria-valuemax="100">
+        <span class="progress__text">{{ duration/course.duration*100 }}%</span>
+        <span class="progress-meter" style="width: {{ duration/course.duration*100 }}%"></span>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
   {% endif %}
 {% endblock %}

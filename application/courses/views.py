@@ -6,16 +6,23 @@ from application.courses.models import Course
 from application.auth.models import User
 from application.courses.forms import CourseForm
 
-# Views for students
+# Views for student
 @app.route("/courses/", methods=["GET"])
 @login_required(role="STUDENT")
 def courses_index():
-    c = Course.query.all()
-    m = User.query.get(current_user.id).courses
-    length = Course.count_courses()
-    return render_template("courses/courses.html", courses = c, mycourses = m, length = length)
+    courses = Course.count_enrolled_students_in_each_course()
+    mycourses = User.query.get(current_user.id).courses
 
-@app.route("/courses/enroll/<course_id>/", methods=["GET"])
+    course_array = []
+
+    for course in mycourses:
+        course_array.append(course.courseId)
+
+    length = Course.count_courses()
+    
+    return render_template("courses/courses.html", courses = courses, mycourses = course_array, length = length)
+
+@app.route("/courses/<course_id>/enroll/", methods=["GET"])
 @login_required(role="STUDENT")
 def course_enroll(course_id):
     c = Course.query.get(course_id)
@@ -30,7 +37,7 @@ def course_enroll(course_id):
 
     return redirect(url_for("courses_index"))
 
-# Views for teachers and students
+# Views for teacher and student
 @app.route("/courses/<course_id>/", methods=["GET"])
 @login_required()
 def courses_course(course_id):
@@ -47,7 +54,7 @@ def courses_course(course_id):
 
     return render_template("courses/course.html", course = c, courses = a, mycourses = m)
 
-# Views for teachers
+# Views for teacher
 @app.route("/courses/mycourses", methods=["GET"])
 @login_required(role="TEACHER")
 def courses_mycourses():
@@ -107,7 +114,6 @@ def courses_update(course_id):
 @app.route("/courses/<course_id>/delete/", methods=["POST"])
 @login_required(role="TEACHER")
 def courses_delete(course_id):
-    print('id: ' + course_id)
     c = Course.query.filter_by(id=course_id).first()
 
     if (c is not None):

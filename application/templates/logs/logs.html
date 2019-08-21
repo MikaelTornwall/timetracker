@@ -2,19 +2,18 @@
 
 {% block body %}
   <h1 class="h3">Logs</h1>
-  <table>
+  <table class="container__table unstriped">
     <thead>
     <tr>
       <th width="100">Course ID</th>
       <th width="100">Title</th>
-      <th width="50"></th>
     </tr>
     </thead>
     <tbody>
     {% for course in courses %}
     <tr>
-      <td>{{ course.courseId }}</td>
-      <td><a href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
+      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.courseId }}</a></td>
+      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
     </tr>
     {% endfor %}
     </tbody>

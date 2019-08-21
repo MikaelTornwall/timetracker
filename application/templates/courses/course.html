@@ -1,34 +1,42 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<div class="grid-x">
+  <div class="cell small-6">
   {% if is_teacher %}
-  <a href="{{ url_for('courses_edit', course_id=course.id) }}">Edit</a>
+  <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
   {% endif %}
-  <h1>{{ course.courseId }} {{ course.title }}</h1>
-  <div>Description:
-    <p> {{course.description}} </p>
+  <h1 class="h2">{{ course.courseId }} {{ course.title }}</h1>
+  <div>
+    <div class="h4">Description:</div>
+    <p>{{ course.description }}</p>
   </div>
-  <div>Workload: {{ course.duration }} hours</div>
-  <div>Deadline: {{ course.deadline | datetimeformat }}</div>
+  <div>Workload of the course is approximately {{ course.duration }} hours.</div>
+  <div>The course ends {{ course.deadline | datetimeformat }}.</div>
 
   {% if is_student %}
+  <br>
   {% if course in mycourses %}
-  <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
+  <td><a class="link__big link__student" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
   {% else %}
-  <td><a href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
+  <td><a class="link__big link__student" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
   {% endif %}
-  {% endif %}
-  {% if is_teacher %}
-  <div>Enrolled students ({{ length }}):</div>
-  <div>
-    {% for student in students %}
-    <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>
-    {% endfor %}
-  </div>
   {% endif %}
   {% if is_teacher %}
   <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
     <button class="alert button" type="submit">Delete</button>
   </form>
   {% endif %}
+  </div>
+  <div class="cell small-6">
+    {% if is_teacher %}
+    <div class="h4">Enrolled students ({{ length }}):</div>
+    <div>
+      {% for student in students %}
+      <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

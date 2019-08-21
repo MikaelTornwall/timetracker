@@ -4,8 +4,8 @@
 {{ error }}
 <h1 class="h3">Sign up as a teacher</h1>
 {{ error }}
-<form method="POST" action="{{ url_for('auth_signupTeacher') }}">
-  <table>
+<form class="form__container" method="POST" action="{{ url_for('auth_signupTeacher') }}">
+  <table class="unstriped">
     <tr>
       <td>
         {{ form.firstname.label }}
@@ -68,7 +68,7 @@
     </tr>
     <tr>
       <td>
-	       <input class="button" type="submit" value="Signup"/>
+	       <input class="teacher button__small" type="submit" value="Signup"/>
       </td>
     </tr>
   </table>

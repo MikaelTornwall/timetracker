@@ -1,0 +1,163 @@
+:root {
+  --main-bg-color: rgba(150, 150, 150, .1);
+  --main-color: rgba(26, 26, 26, .8);
+  --student-color: rgb(255, 180, 0);
+  --student-color-secondary: rgba(255, 180, 0, .9);
+  --teacher-color: rgb(30, 0, 100);
+  --teacher-color-secondary: rgba(30, 0, 100, .9);
+}
+
+.container {
+  padding: 1rem;
+}
+
+.top-bar {
+  background-color: var(--main-bg-color) !important;
+  color: var(--main-color);
+}
+
+ul.menu {
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.top-bar a {
+  color: var(--main-color);
+}
+
+.student {
+  background: var(--student-color) !important;
+  color: white;
+  border: none;
+}
+
+.student:hover {
+  background: var(--student-color-secondary);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .5rem;
+}
+
+.center__text {
+  text-align: center;
+}
+
+.teacher {
+  background: var(--teacher-color);
+  color: white;
+  border: none;
+}
+
+.teacher:hover {
+  background: var(--teacher-color-secondary);
+}
+
+.container__table {
+  width: 75%;
+}
+
+.container__form {
+  width: 60%;
+}
+
+.button {
+  color: white !important;
+}
+
+.button__small {
+  cursor: pointer;
+  padding: 1rem 1.3rem;
+}
+
+.button__big {
+  cursor: pointer;
+  margin: .5rem;
+  font-size: 1.2rem;
+  width: 14rem !important;
+  height: 7rem !important;
+}
+
+.link__big {
+  font-size: 2rem;
+}
+
+.link__medium {
+  font-size: 1.5rem;
+}
+
+.link {
+  color: var(--main-color);
+}
+
+.link__student {
+  color: var(--student-color) !important;
+}
+
+.link__student:hover {
+  color: var(--student-color-secondary);
+}
+
+.link__teacher {
+  color: var(--teacher-color);
+}
+
+.link__teacher:hover {
+  color: var(--teacher-color-secondary);
+}
+
+tbody {
+  border: none !important;
+}
+
+tr {
+  border: none !important;
+}
+
+.course__statistic {
+  font-weight: bold;
+}
+
+.progress {
+  width: 220px;
+  height: 1.6rem !important;
+  background: var(--main-color) !important;
+}
+
+.progress__text {
+  margin-left: 85px;
+  position: absolute !important;
+  z-index: 2;
+  color: white;
+}
+
+.progress-meter {
+  position: relative !important;
+  background: var(--student-color) !important;
+  z-index: 1;
+}
+
+.animation {
+  font-size: 1.2rem;
+  animation-name: spin;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(180deg);
+  }
+  12% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+
+}

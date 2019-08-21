@@ -1,6 +1,6 @@
 # SQL Queries
 
-## Initiate database
+## Initialize database
 
 __User__ *(Account)*
 
@@ -76,7 +76,13 @@ __Userrole__
 	FOREIGN KEY(role_id) REFERENCES role (id)
 )`
 
-## Complicated and summarizing queries
+## Complicated and aggregate queries
+
+*Count enrolled students on each course*
+
+`SELECT Course.id, Course.courseId, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course 
+LEFT JOIN Usercourse ON Course.id = Usercourse.course_id
+GROUP BY Course.id;`
 
 *Count users that have the role student and who have enrolled on a specific course*
 

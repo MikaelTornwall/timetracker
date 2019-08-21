@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div>
-  <h1 class="h3">Sign up</h1>
-  <div>I want to sign up as a</div>
-  <a href="{{ url_for('auth_signupTeacher') }}"><button class="button warning">Teacher</button></a>
-  <a href="{{ url_for('auth_signupStudent') }}"><button class="button success">Student</button></a>
+<div class="center">
+  <div>
+    <h1 class="h1 center__text">Sign up</h1>
+    <br>
+    <div class="h3 center__text">I want to sign up as a</div>
+    <a href="{{ url_for('auth_signupTeacher') }}"><button class="button__big teacher">Teacher</button></a>
+    <a href="{{ url_for('auth_signupStudent') }}"><button class="button__big student">Student</button></a>
+  </div>
 </div>
 {% endblock %}

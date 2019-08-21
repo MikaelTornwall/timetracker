@@ -6,7 +6,6 @@ from datetime import datetime
 from sqlalchemy.sql import text
 
 class Log(Base):
-    __tablename__: "log"
 
     description = db.Column(db.String(144), nullable=False)
     duration = db.Column(db.Float,  nullable=False)

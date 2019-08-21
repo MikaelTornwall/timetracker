@@ -7,6 +7,7 @@ from application.logs.forms import LogForm
 from application.courses.models import Course
 from application.auth.models import User
 
+# Views for student
 @app.route("/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_all():
@@ -18,19 +19,13 @@ def logs_all():
 def logs_index(course_id):
     l = Log.find_logs_of_course(course_id, current_user.id)
     d = Log.total_workhours(course_id, current_user.id)
+
+    if not d:
+        d = 0
+
     c = Course.query.get(course_id)
 
     return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d)
-
-@app.route("/<course_id>/logs/<user_id>", methods=["GET"])
-@login_required(role="TEACHER")
-def logs_course_user(course_id, user_id):
-    l = Log.find_logs_of_course(course_id, user_id)
-    d = Log.total_workhours(course_id, user_id)
-    c = Course.query.get(course_id)
-    u = User.query.get(user_id)
-
-    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d, student = u)
 
 @app.route("/<course_id>/logs/new/")
 @login_required(role="STUDENT")
@@ -43,14 +38,6 @@ def logs_log(course_id, log_id):
     l = Log.query.get(log_id)
 
     return render_template("logs/log.html", log = l)
-
-"""
-@app.route("/logs/courses/", methods=["GET"])
-@login_required
-def logs_courses():
-    c = Course.query.all()
-    return render_template("logs/courses.html", courses = c)
-"""
 
 @app.route("/<course_id>/logs/", methods=["POST"])
 @login_required(role="STUDENT")
@@ -102,7 +89,6 @@ def logs_increment(course_id, log_id):
 @app.route("/<course_id>/logs/<log_id>/delete/", methods=["POST"])
 @login_required(role="STUDENT")
 def logs_delete(course_id, log_id):
-    print('id: ' + log_id)
     l = Log.query.filter_by(id=log_id).first()
 
     if (l is not None):
@@ -110,6 +96,17 @@ def logs_delete(course_id, log_id):
         db.session.commit()
 
     return redirect(url_for("logs_index", course_id = course_id))
+
+# Views for teacher
+@app.route("/<course_id>/logs/<user_id>/log/", methods=["GET"])
+@login_required(role="TEACHER")
+def logs_course_user(course_id, user_id):
+    l = Log.find_logs_of_course(course_id, user_id)
+    d = Log.total_workhours(course_id, user_id)
+    c = Course.query.get(course_id)
+    u = User.query.get(user_id)
+
+    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d, student = u)
 
 # Filters
 @app.template_filter('datetimeformat')

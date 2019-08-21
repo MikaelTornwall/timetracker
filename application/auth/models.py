@@ -9,7 +9,6 @@ user_role = db.Table("userrole",
     db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
 
 class Role(Base):
-    __tablename__: "role"
 
     name = db.Column(db.String(32), nullable=False, unique=True)
     superuser = db.Column(db.Boolean, default=False, nullable=False, unique=False)
@@ -28,7 +27,7 @@ class User(Base):
 
     logs = db.relationship("Log", backref="account", lazy=True)
 
-    roles = db.relationship("Role", secondary="userrole", lazy="subquery",
+    roles = db.relationship("Role", secondary=user_role, lazy="subquery",
     backref=db.backref("users", passive_deletes=True, lazy=True))
 
     def __init__(self, firstname, lastname, email, password):

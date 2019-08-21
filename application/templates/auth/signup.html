@@ -3,8 +3,8 @@
 {% block body %}
 <h1 class="h3">Sign up as a student</h1>
 {{ error }}
-<form method="POST" action="{{ url_for('auth_signupStudent') }}">
-  <table>
+<form class="container__form" method="POST" action="{{ url_for('auth_signupStudent') }}">
+  <table class="unstriped">
     <tr>
       <td>
         {{ form.firstname.label }}
@@ -67,7 +67,7 @@
     </tr>
     <tr>
       <td>
-	       <input class="button" type="submit" value="Signup"/>
+	       <input class="student button__small" type="submit" value="Signup"/>
       </td>
     </tr>
   </table>
