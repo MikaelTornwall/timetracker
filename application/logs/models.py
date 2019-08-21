@@ -20,7 +20,7 @@ class Log(Base):
     @staticmethod
     def find_logs_of_course(course_id, user_id):
         statement = text("SELECT * FROM Log "
-                        "WHERE Log.course_id = :courseId AND Log.user_id = :userId;").params(courseId=course_id, userId=user_id)
+                        "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)
 
         result = db.engine.execute(statement)
 
@@ -39,7 +39,7 @@ class Log(Base):
     @staticmethod
     def total_workhours(course_id, user_id):
         statement = text("SELECT SUM(duration) FROM Log "
-                         "WHERE Log.course_id = :courseId AND Log.user_id = :userId;").params(courseId=course_id, userId=user_id)
+                         "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)
 
         result = db.engine.execute(statement)
 

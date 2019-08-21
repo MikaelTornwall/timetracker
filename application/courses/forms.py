@@ -3,7 +3,7 @@ from wtforms import TextAreaField, StringField, IntegerField, DateTimeField, val
 from wtforms.ext.csrf.session import SessionSecureForm
 
 class CourseForm(FlaskForm):
-    courseId = StringField("Course ID", [validators.DataRequired()])
+    course_id = StringField("Course ID", [validators.DataRequired()])
     title = StringField("Title", [validators.DataRequired()])
     description = TextAreaField("Description", [validators.DataRequired()])
     duration = IntegerField("Duration (h)", [validators.DataRequired(message = "Total required workload of the course in hours.")])

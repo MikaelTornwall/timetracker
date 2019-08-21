@@ -12,7 +12,7 @@
     <tbody>
     {% for course in courses %}
     <tr>
-      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.courseId }}</a></td>
+      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
     </tr>
     {% endfor %}

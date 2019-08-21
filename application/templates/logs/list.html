@@ -2,7 +2,7 @@
 
 {% block body %}
 {% if is_student %}
-  <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
+  <h1 class="h3">{{ course.course_id}} - {{ course.title }}</h1>
   <div class="course__statistic" style="width: 220px;">
     Total hours: {{ duration }} / {{ course.duration }}.0
     <br>
@@ -50,7 +50,7 @@
   <a class="link__big link__student" href="{{ url_for('logs_form', course_id=course_id) }}"><i class="fas fa-plus"></i></a>
 
   {% elif is_teacher %}
-  <h1 class="h3">{{ course.courseId }} - {{ course.title }}</h1>
+  <h1 class="h3">{{ course.course_id }} - {{ course.title }}</h1>
   <div class="grid-x">
     <div class="cell small-6">
   <table>

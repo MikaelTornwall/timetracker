@@ -6,7 +6,7 @@
   {% if is_teacher %}
   <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
   {% endif %}
-  <h1 class="h2">{{ course.courseId }} {{ course.title }}</h1>
+  <h1 class="h2">{{ course.course_id }} {{ course.title }}</h1>
   <div>
     <div class="h4">Description:</div>
     <p>{{ course.description }}</p>

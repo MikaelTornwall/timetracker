@@ -21,7 +21,7 @@
         <td>{{ course.duration}} h</td>
         <td>{{ course.deadline | datetimeformat }}</td>
         <td>{{ course.students }}</td>
-        {% if course.courseId in mycourses %}
+        {% if course.course_id in mycourses %}
         <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
         {% else %}
         <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>

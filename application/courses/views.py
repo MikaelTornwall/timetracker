@@ -16,10 +16,10 @@ def courses_index():
     course_array = []
 
     for course in mycourses:
-        course_array.append(course.courseId)
+        course_array.append(course.course_id)
 
     length = Course.count_courses()
-    
+
     return render_template("courses/courses.html", courses = courses, mycourses = course_array, length = length)
 
 @app.route("/courses/<course_id>/enroll/", methods=["GET"])
@@ -75,7 +75,7 @@ def courses_create():
     if not form.validate():
         return render_template("/courses/new.html", form = form)
 
-    c = Course(form.courseId.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
+    c = Course(form.course_id.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
     u = User.query.get(current_user.id)
 
     c.users.append(u)
@@ -101,7 +101,7 @@ def courses_update(course_id):
     if not form.validate():
         return render_template("/courses/edit.html", course=c, form = form)
 
-    c.courseId = form.courseId.data
+    c.course_id = form.course_id.data
     c.title = form.title.data
     c.description = form.description.data
     c.duration = form.duration.data

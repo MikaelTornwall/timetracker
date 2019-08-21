@@ -10,7 +10,7 @@ user_course = db.Table("usercourse",
 
 class Course(Base):
 
-    courseId = db.Column(db.String(144), nullable=True)
+    course_id = db.Column(db.String(144), nullable=True)
     title = db.Column(db.String(144), nullable=False)
     description = db.Column(db.String(144),  nullable=False)
     duration = db.Column(db.Integer, nullable=False)
@@ -20,8 +20,8 @@ class Course(Base):
 
     users = db.relationship("User", secondary=user_course, backref = db.backref("courses", lazy="dynamic", passive_deletes=True))
 
-    def __init__(self, courseId, title, description, duration, deadline):
-        self.courseId = courseId
+    def __init__(self, course_id, title, description, duration, deadline):
+        self.course_id = course_id
         self.title = title
         self.description = description
         self.duration = duration
@@ -66,11 +66,8 @@ class Course(Base):
 
     @staticmethod
     def count_enrolled_students_in_each_course():
-        statement = text("SELECT Course.id, Course.courseId, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+        statement = text("SELECT id, course.course_id, title, description, duration, deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                         "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
-                        #"LEFT JOIN Account ON Usercourse.user_id = Account.id "
-                        #"LEFT JOIN Userrole ON Account.id = Userrole.user_id "
-                        #"LEFT JOIN ROLE ON Userrole.role_id = Role.id "
                         "GROUP BY Course.id;")
 
         result = db.engine.execute(statement)
@@ -84,7 +81,7 @@ class Course(Base):
                 date = date.split(" ")
                 date[-1] = date[-1][:8]
                 date = " ".join(date)
-                response.append({"id":row[0], "courseId":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S'), "students":row[6]})
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S'), "students":row[6]})
             else:
                 response.append({"id":row[0], "title":row[1], "description":row[2], "duration":row[3], "deadline":row[4], "students":row[5]})
 
