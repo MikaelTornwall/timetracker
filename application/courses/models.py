@@ -66,7 +66,7 @@ class Course(Base):
 
     @staticmethod
     def count_enrolled_students_in_each_course():
-        statement = text("SELECT id, course.course_id, title, description, duration, deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+        statement = text("SELECT id, course_id, title, description, duration, deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                         "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                         "GROUP BY Course.id;")
 
@@ -83,7 +83,7 @@ class Course(Base):
                 date = " ".join(date)
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S'), "students":row[6]})
             else:
-                response.append({"id":row[0], "title":row[1], "description":row[2], "duration":row[3], "deadline":row[4], "students":row[5]})
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":row[5], "students":row[6]})
 
         print("RESPONSE:")
         print(response)
