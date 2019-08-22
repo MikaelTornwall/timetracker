@@ -16,10 +16,9 @@
     <tr>
       <th width="200">Date</th>
       <th width="350">Description</th>
-      <th width="200">Duration (h)</th>
-      <th width="200">Change duration</th>
-      <th width="100">Edit</th>
-      <th></th>
+      <th width="150">Duration (h)</th>
+      <th width="120">+/- duration</th>
+      <th width="70">Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -28,15 +27,11 @@
       <td>{{ log.date | datetimeformat }}</td>
       <td>{{ log.description }}</td>
       <td>{{ log.duration }}</td>
-      <td>
+      <td class="logs_increment">
         <form method="POST" action="{{ url_for('logs_increment', course_id=course_id, log_id=log.id) }}">
-            <div class="grid-x">
-              <div class="cell small-4">
-              <input type="number" name="duration" placeholder="0"/>
-              </div>
-              <div class="cell small-8">
-              <button class="student button " type="submit"><i class="fas fa-plus"></i> / <i class="fas fa-minus"></i></button>
-              </div>
+            <div class="input-group logs_increment">
+              <input class="input-group-field" type="number" name="duration" placeholder="0"/>
+              <button class="input-group-button student button__increment" type="submit"><i class="fas fa-plus"></i> / <i class="fas fa-minus"></i></button>
             </div>
         </form>
       </td>

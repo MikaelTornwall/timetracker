@@ -17,9 +17,9 @@
   {% if is_student %}
   <br>
   {% if course in mycourses %}
-  <td><a class="link__big link__student" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
+  <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></button>
   {% else %}
-  <td><a class="link__big link__student" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
+  <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></button>
   {% endif %}
   {% endif %}
   {% if is_teacher %}
