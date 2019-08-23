@@ -10,6 +10,7 @@ Personal work hour tracking tool.
 2. [How to run](#howtorun)
     1. [Heroku](#heroku)
     2. [Locally](#locally)
+    3. [Instructions](#instructions)
 3. [Use cases](#usecases)  
     1. [User groups](#usergroups)
     2. [User stories](#userstories)
@@ -29,7 +30,9 @@ Timetracker is a personal work hour tracking tool for teachers and students that
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
 <a name="howtorun"></a>
-## 2. How to run
+## 2. How to use
+
+The application can be used either locally or in Heroku.
 
 <a name="heroku"></a>
 ### 2.1. Heroku
@@ -52,6 +55,13 @@ Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login) and use 
 4. Download dependencies `pip install -r requirements.txt`
 5. Run the project `python3 run.py`
 6. Navigate to [http://localhost:5000](http://localhost:5000)
+
+<a name="instructions"></a>
+### 2.3. Instructions
+
+There are two distinct user types, Student and Teacher. You can sign up as either by clicking Signup in the navigation bar and then selecting the desired user type. After you have created an account you can log in.
+
+Depending on your user type you have different features. More detailed features can be found below from [3.3. Structure](#structure). Students can enroll on courses and log their progress within each course. Teachers can create courses and manage existing courses.
 
 <a name="usecases"></a>
 ## 3. Use cases
@@ -186,7 +196,7 @@ For production: PostgreSQL
 <a name="design"></a>
 ## 7. Design
 
-Front-end styling library in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS.
+Front-end framework in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS.
 
 __Colors:__
 
