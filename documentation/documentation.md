@@ -209,7 +209,7 @@ __Colors:__
 *Student:*
 - ![#ffb400](https://placehold.it/15/ffb400/000000?text=+) `#ffb400`
 
-*Teacher*
+*Teacher:*
 - ![#1e0064](https://placehold.it/15/1e0064/000000?text=+) `#1e0064`
 
 <a name="contributors"></a>
