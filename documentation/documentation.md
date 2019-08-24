@@ -200,21 +200,17 @@ Front-end framework in use is [Foundation by Zurb](https://foundation.zurb.com/)
 
 __Colors:__
 
-Main: rgba(26, 26, 26, .8)
+*Main:*
+- ![#1a1a1a](https://placehold.it/15/1a1a1a/000000?text=+) `#1a1a1a`
 
-Main background: rgba(150, 150, 150, .1)
+*Main background:*
+- ![#969696](https://placehold.it/15/969696/000000?text=+) `#969696`
 
 *Student:*
-
-Primary: rgb(255, 180, 0)
-
-Secondary: rgb(255, 180, 0, .9)
+- ![#ffb400](https://placehold.it/15/ffb400/000000?text=+) `#ffb400`
 
 *Teacher*
-
-Primary: rgb(30, 0, 100)
-
-Secondary: rgba(30, 0, 100, .9)
+- ![#1e0064](https://placehold.it/15/1e0064/000000?text=+) `#1e0064`
 
 <a name="contributors"></a>
 ## 7. Contributors
