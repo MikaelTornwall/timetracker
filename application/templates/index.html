@@ -1,12 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="container">
-  <h1>
-    Welcome to TimeTracker!
-  </h1>
-  <p>
-    This tool allows you to log your progress on any project.
-  </p>
+<div class="container__index grid-x">
+  {% if current_user.is_authenticated %}
+    {% if is_student %}
+    <div class="cell small-6">
+      <h1 class="h3">Welcome {{ name }}!</h1>
+    </div>
+    <div class="cell small-6">
+      <p>Student</p>
+    </div>
+    {% elif is_teacher %}
+    <div class="cell small-6">
+      <h1 class="h2">Welcome {{ name }}!</h1>
+      <div>
+        <a class="link__block" href="{{ url_for('courses_mycourses') }}"><i class="fas fa-list"></i> My courses</a>
+        <a class="link__block" href="{{ url_for('courses_form') }}"><i class="fas fa-plus"></i> Create new course</a>
+      </div>
+    </div>
+    <div class="cell small-6">
+      <div class="container__list">
+        <h2 class="h4 list__header">My recent courses: </h2>
+        <div class="list">
+          {% for course in courses %}
+          <div class="list__item"> <a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }} {{ course.title }} <small>({{ course.students }} students)</small></a></div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+  <div class="cell">
+    <h1>Welcome to Timetracker!</h1>
+    <p>This tool allows you to log your progress on any project.</p>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

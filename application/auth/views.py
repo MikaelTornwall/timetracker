@@ -7,6 +7,9 @@ from application.auth.forms import LoginForm, SignupForm
 
 @app.route("/auth/login/", methods=["GET", "POST"])
 def auth_login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+
     if request.method == "GET":
         return render_template("auth/login.html", form = LoginForm())
 
@@ -27,20 +30,17 @@ def auth_login():
 
     return redirect(url_for("index"))
 
-@app.route("/auth/logout/")
-def auth_logout():
-    app.jinja_env.globals.update(is_student=False)
-    app.jinja_env.globals.update(is_teacher=False)
-
-    logout_user()
-    return redirect(url_for("index"))
-
 @app.route("/auth/signup/", methods=["GET", "POST"])
 def auth_signup():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
     return render_template("auth/signupSelect.html")
 
 @app.route("/auth/signup/student/", methods=["GET", "POST"])
 def auth_signupStudent():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+
     if request.method == "GET":
         return render_template("auth/signup.html", form = SignupForm())
 
@@ -60,6 +60,9 @@ def auth_signupStudent():
 
 @app.route("/auth/signup/teacher/", methods=["GET", "POST"])
 def auth_signupTeacher():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+
     if request.method == "GET":
         return render_template("auth/teacherSignup.html", form = SignupForm())
 
@@ -76,3 +79,11 @@ def auth_signupTeacher():
     db.session.commit()
 
     return redirect(url_for("auth_login"))
+
+@app.route("/auth/logout/")
+def auth_logout():
+    app.jinja_env.globals.update(is_student=False)
+    app.jinja_env.globals.update(is_teacher=False)
+
+    logout_user()
+    return redirect(url_for("index"))

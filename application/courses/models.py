@@ -66,7 +66,7 @@ class Course(Base):
 
     @staticmethod
     def count_enrolled_students_in_each_course():
-        statement = text("SELECT course.id, course.course_id, course.title, course.description, course.duration, course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                         "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                         "GROUP BY Course.id;")
 
@@ -85,7 +85,62 @@ class Course(Base):
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":row[5], "students":row[6]})
 
-        print("RESPONSE:")
+        return response
+
+    @staticmethod
+    def fetch_students_courses_with_progress():
+        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.duration, SUM(Log.duration) as progress FROM COURSE "
+                        "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                        "LEFT JOIN Account ON Usercourse.user_id = Account.id "
+                        "LEFT JOIN Log ON Log.course_id = Account.id "
+                        "WHERE Log.user_id = :id "
+                        "GROUP BY Course.id;"
+                        ).params(id=current_user.id)
+
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            print("id")
+            print(row[0])
+            print("course_id")
+            print(row[1])
+            print("title")
+            print(row[2])
+            print("duration")
+            print(row[3])
+            print("progress")
+            print(row[4])
+
+        return
+
+
+    @staticmethod
+    def fetch_five_most_recent_courses():
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+                            "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "GROUP BY Course.id "
+                            "HAVING Usercourse.user_id = :id "
+                            "ORDER BY Course.date_created DESC "
+                            "LIMIT 5;").params(id=current_user.id)
+        else:
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+                            "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "GROUP BY Course.id "
+                            "HAVING Usercourse.user_id = :id "
+                            "ORDER BY Course.date_created DESC "
+                            "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
+
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            response.append({"id":row[0], "course_id":row[1], "title":row[2], "students":row[6]})
+
+        print("RESPONSE")
         print(response)
 
         return response

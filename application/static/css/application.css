@@ -11,6 +11,10 @@
   padding: 1rem;
 }
 
+.container__index {
+  padding: 2rem;
+}
+
 .top-bar {
   background-color: var(--main-bg-color) !important;
   color: var(--main-color);
@@ -32,6 +36,16 @@ ul.menu {
 
 .student:hover {
   background: var(--student-color-secondary);
+}
+
+.student__text {
+  color: var(--student-color) !important;
+  font-size: 1.5rem;
+}
+
+.teacher__text {
+  color: var(--teacher-color) !important;
+  font-size: 1.5rem;
 }
 
 .center {
@@ -67,6 +81,26 @@ ul.menu {
   visibility: hidden;
 }
 
+.container__list {
+  border: 1px solid var(--main-bg-color);
+  width: 20rem;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.list__header {
+  background: var(--main-bg-color);
+  padding: .2rem;
+  width: 20rem;
+  text-align: center;
+}
+
+.list__item {
+  padding: .2rem .8rem;
+}
+
 .button {
   color: white !important;
   margin: 0 !important;
@@ -95,6 +129,12 @@ ul.menu {
 
 .link {
   color: var(--main-color);
+}
+
+.link__block {
+  display: block;
+  margin: 1rem 0;
+  font-size: 1.3rem;
 }
 
 .link__inverse {

@@ -107,18 +107,26 @@ __3.2.2. Teacher__
 <a name="structure"></a>
 ### 3.3. Structure
 
-Structure of the tool and features of each page for student and teacher accounts:
+Structure of the tool and features of each page for unauthorized users, and student and teacher accounts:
+
+__Unauthorized__
 
 Homepage: _/_
 - Tool's description and navigation bar for registration and login
 
-__Student__
+_/auth/signup/_
+- Select which account type to create
 
 _/auth/signup/student/_
 - Create a new student account
 
+_/auth/signup/teacher/_
+- Create a new teacher account
+
 _/auth/login/_
 - Log in to the tool
+
+__Student__
 
 _/courses/_
 - View all the courses
@@ -138,17 +146,10 @@ _/:courseId/logs/_
 _/:courseId/logs/:logId/_
 - Update or delete a log
 
-_/:courseId/new/_
+_/:courseId/logs/new/_
 - Create a new log for a specific course
 
-
 __Teacher__
-
-_/auth/signup/teacher/_
-- Create a new teacher account
-
-_/auth/login/_
-- Log in to the tool
 
 _/courses/mycourses/_
 - View all the courses the teacher is responsible for
@@ -164,7 +165,7 @@ _/courses/:courseId/_
 _/courses/:courseId/edit/_
 - Edit the course details
 
-_/:courseId/logs/:studentId/_
+_/:courseId/logs/:studentId/log_
 - View course specific logs of a student
 
 <a name="database"></a>

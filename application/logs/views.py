@@ -11,6 +11,7 @@ from application.auth.models import User
 @app.route("/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_all():
+    Course.fetch_students_courses_with_progress()
     c = User.query.get(current_user.id)
     return render_template("logs/logs.html", courses = c.courses)
 
@@ -45,7 +46,7 @@ def logs_create(course_id):
     form = LogForm(request.form)
 
     if not form.validate():
-        return render_template("/logs/new.html", form = form)
+        return render_template("/logs/new.html", form = form, course_id = course_id)
 
     l = Log(form.description.data, form.duration.data)
     l.user_id = current_user.id

@@ -7,6 +7,7 @@
     <tr>
       <th width="100">Course ID</th>
       <th width="100">Title</th>
+      <th width="100">Progress</th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
     <tr>
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
+      <td>{{ course.duration }}</td>
     </tr>
     {% endfor %}
     </tbody>

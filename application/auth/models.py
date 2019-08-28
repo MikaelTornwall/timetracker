@@ -49,23 +49,21 @@ class User(Base):
         return True
 
     def is_student(self):
-        #role_array = self.get_user_roles()
-        #return "STUDENT" in role_array
         r = self.roles
-
         for row in r:
             if row.name == "STUDENT":
+                print("STUDENT FOUND!")
                 return True
+
         return False
 
     def is_teacher(self):
-        #role_array = self.get_user_roles()
-        #return "TEACHER" in role_array
         r = self.roles
-
         for row in r:
             if row.name == "TEACHER":
+                print("TEACHER FOUND!")
                 return True
+
         return False
 
     def get_roles(self):

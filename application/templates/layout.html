@@ -17,6 +17,8 @@
       {% if current_user.is_authenticated and is_student %}
       <div class="top-bar-left">
         <ul class="menu">
+          <li class="menu-text student__text"><i class="fas fa-hourglass-half"></i></li>
+          <li><a href="{{ url_for('index') }}">Dashboard</a></li>&nbsp;
           <li><a href="{{ url_for('courses_index') }}">Find Courses</a></li>&nbsp;
           <li><a href="{{ url_for('logs_all') }}">Logs</a></li>
         </ul>
@@ -30,6 +32,8 @@
       {% elif current_user.is_authenticated and is_teacher %}
       <div class="top-bar-left">
         <ul class="menu">
+          <li class="menu-text teacher__text"><i class="fas fa-hourglass-half"></i></li>
+          <li><a href="{{ url_for('index') }}">Dashboard</a></li>&nbsp;
           <li><a href="{{ url_for('courses_mycourses') }}">Courses</a></li>&nbsp;
           <li><a href="{{ url_for('courses_form') }}">Create Course</a></li>
         </ul>
@@ -43,7 +47,7 @@
       {% else %}
       <div class="top-bar-left">
         <ul class="menu">
-          <li><a class="menu-text" href="{{ url_for('index') }}"><i class="fas fa-hourglass-start animation"></i> Timetracker</a></li>&nbsp;
+          <li><a class="menu-text" href="{{ url_for('index') }}"><i class="fas fa-hourglass-half animation"></i> Timetracker</a></li>&nbsp;
         </ul>
       </div>
       <div class="top-bar-right">

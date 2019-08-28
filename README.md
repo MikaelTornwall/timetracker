@@ -32,7 +32,9 @@ Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login) and use 
 
 More extensive documentation can be found [here](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/documentation.md).
 
-## Features
+## To do
+
+### CRUD features
 
 __Authentication and authorization__
 
@@ -60,7 +62,7 @@ __Course__
 - [x] Update courses
 - [x] Delete courses
 - [x] View course specific enrolled students
-- [ ] Course specific overview reports for teachers
+- [x] Course specific reports for teachers
 
 __Logs__
 
@@ -73,6 +75,20 @@ __Logs__
 
 *Teacher*
 - [x] View course and user specific logs
+
+### Database
+
+*Aggregate queries*
+- [x] First aggregate query
+- [ ] Second aggregate query
+
+### Other features
+
+__Usability and accessibility__
+
+*User interface*
+- [ ] Forms are constructed properly (for -attributes reference to correct ids etc.)
+- [ ] Headers use correct tags
 
 ## Database
 
