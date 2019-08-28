@@ -60,7 +60,11 @@ ul.menu {
 }
 
 .container__form {
-  width: 60%;
+  width: 70%;
+}
+
+.table__header_hide {
+  visibility: hidden;
 }
 
 .button {
@@ -147,6 +151,22 @@ tr {
 .button__increment {
   cursor: pointer;
   padding: 0 .5rem;
+}
+
+.button__delete {
+    margin: .5rem 0;
+    cursor: pointer;
+    background: rgb(185, 15, 0);
+    color: white;
+    padding: 1rem;
+}
+
+.button__delete:hover {
+    background: rgba(185, 15, 0, .9);
+}
+
+.button__hidden {
+  display: none;
 }
 
 .input-group {

@@ -24,13 +24,19 @@
   {% endif %}
   {% if is_teacher %}
   <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
-    <button class="alert button" type="submit">Delete</button>
+    <button id="delete_me" class="button__hidden" type="submit"></button>
   </form>
+  <button class="button__delete" onclick="confirm('course')">Delete</button>
   {% endif %}
   </div>
   <div class="cell small-6">
     {% if is_teacher %}
+    {% if length == 0 %}
+    <div class="h4">No enrolled students</div>
+    {% else %}
     <div class="h4">Enrolled students ({{ length }}):</div>
+    {% endif %}
+
     <div>
       {% for student in students %}
       <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>

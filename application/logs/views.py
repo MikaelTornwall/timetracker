@@ -11,7 +11,7 @@ from application.auth.models import User
 @app.route("/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_all():
-    c = User.query.get(current_user.id)    
+    c = User.query.get(current_user.id)
     return render_template("logs/logs.html", courses = c.courses)
 
 @app.route("/<course_id>/logs/", methods=["GET"])
@@ -25,7 +25,7 @@ def logs_index(course_id):
 
     c = Course.query.get(course_id)
 
-    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d)
+    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = round(d, 1))
 
 @app.route("/<course_id>/logs/new/")
 @login_required(role="STUDENT")
@@ -116,6 +116,12 @@ def datetimeformat(value, format='%B %d, %Y'):
 @app.template_filter('updatedateformat')
 def updatedateformat(value, format='%d.%m.%Y %H:%M'):
     return value.strftime(format)
+
+@app.template_filter('round_float')
+def round_float(value):
+    print("HELLOOOO")
+    return round(value, 2)
+
 
 """
 def total_workhours(logs):

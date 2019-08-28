@@ -9,6 +9,7 @@
     <input class="button" type="submit" value="Update" />
   </form>
   <form method="POST" action="{{ url_for('logs_delete', course_id=log.course_id, log_id=log.id) }}">
-    <button class="alert button" type="submit">Delete</button>
+    <button id="delete_me" class="button__hidden" type="submit"></button>
   </form>
+  <button class="button__delete" onclick="confirm('log')">Delete</button>
 {% endblock %}
