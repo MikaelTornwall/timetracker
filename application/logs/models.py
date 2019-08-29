@@ -54,12 +54,13 @@ class Log(Base):
                             "ORDER BY Log.date_created, Log.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
-            statement = text("SELECT DISTINCT ON (Log.date_created, Log.date_modified) Course.id, Course.course_id, Course.title, COUNT(*) FROM Log "
-                            "JOIN Course ON Log.course_id = Course.id "
-                            "GROUP BY Log.course_id "
-                            "HAVING Log.user_id = :id "
+            statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM "
+                            "(SELECT * FROM Log "
                             "ORDER BY Log.date_created, Log.date_modified DESC "
-                            "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
+                            "FETCH FIRST 5 ROWS ONLY) AS L "
+                            "JOIN Course ON L.course_id = Course.id "
+                            "GROUP BY Course.id "
+                            "HAVING L.user_id = :id;").params(id=current_user.id)
 
         result = db.engine.execute(statement)
 
