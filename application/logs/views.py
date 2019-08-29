@@ -122,11 +122,11 @@ def datetimeformat_with_time(value, format='%B %d, %Y at %H:%M'):
 def updatedateformat(value, format='%d.%m.%Y %H:%M'):
     return value.strftime(format)
 
+"""
 @app.template_filter('round_float')
 def round_float(value):
-    print("HELLOOOO")
     return round(value, 2)
-
+"""
 
 """
 def total_workhours(logs):
