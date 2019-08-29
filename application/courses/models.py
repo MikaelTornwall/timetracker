@@ -138,7 +138,7 @@ class Course(Base):
                 date = " ".join(date)
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S')})
             else:
-                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":date})
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":row[3]})
 
         print("RESPONSE")
         print(response)
