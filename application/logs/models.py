@@ -54,7 +54,7 @@ class Log(Base):
                             "ORDER BY Log.date_created, Log.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
-            statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log "
+            statement = text("SELECT DISTINCT ON (Course.id) Course.id, Course.course_id, Course.title, COUNT(*) FROM Log "
                             "JOIN Course ON Log.course_id = Course.id "
                             "GROUP BY Log.course_id "
                             "HAVING Log.user_id = :id "
