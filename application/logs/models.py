@@ -56,11 +56,11 @@ class Log(Base):
         else:
             statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM "
                             "(SELECT * FROM Log "
+                            "WHERE Log.user_id = :id "
                             "ORDER BY Log.date_created, Log.date_modified DESC "
                             "FETCH FIRST 5 ROWS ONLY) AS L "
                             "JOIN Course ON L.course_id = Course.id "
-                            "GROUP BY Course.id "
-                            "HAVING L.user_id = :id;").params(id=current_user.id)
+                            "GROUP BY Course.id;").params(id=current_user.id)
 
         result = db.engine.execute(statement)
 
