@@ -3,9 +3,11 @@
 {% block body %}
 <div class="grid-x">
   <div class="cell small-6">
-  {% if is_teacher %}
-  <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
-  {% endif %}
+    {% if is_student %}
+    <a class="link__back" href="{{ url_for('courses_index') }}">Back</a>
+    {% elif is_teacher %}
+    <a class="link__back" href="{{ url_for('courses_mycourses') }}">Back</a>
+    {% endif %}
   <h1 class="h2">{{ course.course_id }} {{ course.title }}</h1>
   <div>
     <div class="h4">Description:</div>
@@ -23,10 +25,17 @@
   {% endif %}
   {% endif %}
   {% if is_teacher %}
-  <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
-    <button id="delete_me" class="button__hidden" type="submit"></button>
-  </form>
-  <button class="button__delete" onclick="confirm('course')">Delete</button>
+  <div class="button__bar grid-x">
+    <span class="cell small-1 x-cell">
+      <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
+    </span>
+    <span class="cell small-1 x-cell">
+      <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
+        <button id="delete_me" class="button__hidden" type="submit"></button>
+      </form>
+      <button class="link__big button__delete" onclick="confirm('course')"><i class="far fa-trash-alt"></i></button>
+    </span>
+  </div>
   {% endif %}
   </div>
   <div class="cell small-6">

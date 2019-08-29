@@ -4,7 +4,12 @@
 {% set progress = '%0.1f' | format(duration/course.duration*100 | float)  %}
 
 {% if is_student %}
+<a class="link__back" href="{{ url_for('logs_all') }}">Back</a>
   <h1 class="h3">{{ course.course_id}} - {{ course.title }}</h1>
+  <div><a href="{{ url_for('courses_course', course_id=course.id) }}">Course details</a></div>
+  <div>
+    <strong>Course ends on {{ course.deadline | datetimeformat_with_time }}</strong>
+  </div>
   <div class="course__statistic" style="width: 220px;">
     Total hours: {{ duration }} / {{ course.duration }}.0
     <br>
@@ -47,6 +52,7 @@
   <a class="link__big link__student" href="{{ url_for('logs_form', course_id=course_id) }}"><i class="fas fa-plus"></i></a>
 
   {% elif is_teacher %}
+  <a class="link__back" href="{{ url_for('courses_mycourses') }}">Back</a>
   <h1 class="h3">{{ course.course_id }} - {{ course.title }}</h1>
   <div class="grid-x">
     <div class="cell small-6">

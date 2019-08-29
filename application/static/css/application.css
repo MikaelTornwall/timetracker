@@ -2,12 +2,20 @@
   --main-bg-color: rgba(150, 150, 150, .1);
   --main-color: rgba(26, 26, 26, .8);
   --student-color: rgb(255, 180, 0);
-  --student-color-secondary: rgba(255, 180, 0, .9);
+  --student-color-secondary: rgba(255, 180, 0, .8);
   --teacher-color: rgb(30, 0, 100);
-  --teacher-color-secondary: rgba(30, 0, 100, .9);
+  --teacher-color-secondary: rgba(30, 0, 100, .8);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 .container {
+  color: var(--main-color);
   padding: 1rem;
 }
 
@@ -35,12 +43,16 @@ ul.menu {
 }
 
 .student:hover {
-  background: var(--student-color-secondary);
+  background: var(--student-color-secondary) !important;
 }
 
 .student__text {
   color: var(--student-color) !important;
   font-size: 1.5rem;
+}
+
+.student__text__normal {
+  color: var(--student-color) !important;
 }
 
 .teacher__text {
@@ -73,6 +85,10 @@ ul.menu {
   width: 75%;
 }
 
+.container__table_half {
+  width: 90%;
+}
+
 .container__form {
   width: 70%;
 }
@@ -93,12 +109,18 @@ ul.menu {
 .list__header {
   background: var(--main-bg-color);
   padding: .2rem;
-  width: 20rem;
+  width: auto;
   text-align: center;
+  overflow: hidden;
 }
 
 .list__item {
-  padding: .2rem .8rem;
+  padding: .3rem .8rem;
+  /*border-bottom: 1px solid var(--main-bg-color);*/
+}
+
+.button__bar {
+  display: inline;
 }
 
 .button {
@@ -132,9 +154,14 @@ ul.menu {
 }
 
 .link__block {
-  display: block;
-  margin: 1rem 0;
+  display: inline-block;
+  margin: .3rem 0;
   font-size: 1.3rem;
+}
+
+.link__back {
+  font-size: 1.3rem;
+  display: inline-block;
 }
 
 .link__inverse {
@@ -194,15 +221,12 @@ tr {
 }
 
 .button__delete {
-    margin: .5rem 0;
     cursor: pointer;
-    background: rgb(185, 15, 0);
-    color: white;
-    padding: 1rem;
+    color: rgb(185, 15, 0);
 }
 
 .button__delete:hover {
-    background: rgba(185, 15, 0, .9);
+    color: rgba(185, 15, 0, .8);
 }
 
 .button__hidden {
@@ -211,6 +235,12 @@ tr {
 
 .input-group {
   margin: 0 !important;
+}
+
+.x-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .animation {

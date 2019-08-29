@@ -88,49 +88,20 @@ class Course(Base):
         return response
 
     @staticmethod
-    def fetch_students_courses_with_progress():
-        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.duration, SUM(Log.duration) as progress FROM COURSE "
-                        "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
-                        "LEFT JOIN Account ON Usercourse.user_id = Account.id "
-                        "LEFT JOIN Log ON Log.course_id = Account.id "
-                        "WHERE Log.user_id = :id "
-                        "GROUP BY Course.id;"
-                        ).params(id=current_user.id)
-
-        result = db.engine.execute(statement)
-
-        response = []
-
-        for row in result:
-            print("id")
-            print(row[0])
-            print("course_id")
-            print(row[1])
-            print("title")
-            print(row[2])
-            print("duration")
-            print(row[3])
-            print("progress")
-            print(row[4])
-
-        return
-
-
-    @staticmethod
     def fetch_five_most_recent_courses():
         if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
-            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "WHERE Usercourse.user_id = :id "
                             "GROUP BY Course.id "
-                            "HAVING Usercourse.user_id = :id "
-                            "ORDER BY Course.date_created DESC "
+                            "ORDER BY Course.date_created, Course.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
             statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "WHERE Usercourse.user_id = :id "
                             "GROUP BY Course.id "
-                            "HAVING Usercourse.user_id = :id "
-                            "ORDER BY Course.date_created DESC "
+                            "ORDER BY Course.date_created, Course.date_modified DESC "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
 
         result = db.engine.execute(statement)
@@ -138,7 +109,36 @@ class Course(Base):
         response = []
 
         for row in result:
-            response.append({"id":row[0], "course_id":row[1], "title":row[2], "students":row[6]})
+            response.append({"id":row[0], "course_id":row[1], "title":row[2]})
+
+        print("RESPONSE")
+        print(response)
+
+        return response
+
+    @staticmethod
+    def fetch_users_courses_without_logs():
+        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.deadline FROM Usercourse "
+                        "LEFT JOIN Course ON Usercourse.course_id = Course.id "
+                        "WHERE Usercourse.user_id = :id AND "
+                        "Course.id NOT IN "
+                        "(SELECT Log.course_id FROM Log "
+                        "WHERE Log.user_id = :id);").params(id=current_user.id)
+
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            # Format datetime object
+            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+                date = row[3]
+                date = date.split(" ")
+                date[-1] = date[-1][:8]
+                date = " ".join(date)
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S')})
+            else:
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":date})
 
         print("RESPONSE")
         print(response)

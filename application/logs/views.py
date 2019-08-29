@@ -11,9 +11,9 @@ from application.auth.models import User
 @app.route("/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_all():
-    Course.fetch_students_courses_with_progress()
-    c = User.query.get(current_user.id)
-    return render_template("logs/logs.html", courses = c.courses)
+    active_courses = Log.fetch_students_courses_with_progress()
+    inactive_courses = Course.fetch_users_courses_without_logs()
+    return render_template("logs/logs.html", active_courses = active_courses, inactive_courses=inactive_courses)
 
 @app.route("/<course_id>/logs/", methods=["GET"])
 @login_required(role="STUDENT")
@@ -112,6 +112,10 @@ def logs_course_user(course_id, user_id):
 # Filters
 @app.template_filter('datetimeformat')
 def datetimeformat(value, format='%B %d, %Y'):
+    return value.strftime(format)
+
+@app.template_filter('datetimeformat_with_time')
+def datetimeformat_with_time(value, format='%B %d, %Y at %H:%M'):
     return value.strftime(format)
 
 @app.template_filter('updatedateformat')

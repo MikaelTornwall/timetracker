@@ -3,6 +3,7 @@ from application import app
 from flask_login import current_user
 from application.auth.models import User
 from application.courses.models import Course
+from application.logs.models import Log
 
 @app.route("/")
 def index():
@@ -13,10 +14,11 @@ def index():
     name = user.firstname + ' ' + user.lastname
 
     if user.is_student():
-        return render_template("index.html", name = name)
+        courses = Log.fetch_five_most_recent_courses_with_activity()
+        return render_template("index.html", name = name, courses=courses)
 
     if user.is_teacher():
-        courses = Course.fetch_five_most_recent_courses()        
+        courses = Course.fetch_five_most_recent_courses()
         return render_template("index.html", name = name, courses=courses)
 
     return render_template("index.html")

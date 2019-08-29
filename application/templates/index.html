@@ -6,24 +6,37 @@
     {% if is_student %}
     <div class="cell small-6">
       <h1 class="h3">Welcome {{ name }}!</h1>
+      <div>
+        <a class="link__block" href="{{ url_for('courses_index') }}"><i class="fas fa-search"></i> Find courses</a>
+        <br>
+        <a class="link__block" href="{{ url_for('logs_all') }}"><i class="far fa-list-alt"></i> View logs</a>
+      </div>
     </div>
     <div class="cell small-6">
-      <p>Student</p>
+      <div class="container__list">
+        <h2 class="h4 list__header">Recent activity</h2>
+        <div class="list">
+          {% for course in courses %}
+          <div class="list__item"> <a href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }} {{ course.title }} <small>({{ course.logs }} logs)</small></a></div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
     {% elif is_teacher %}
     <div class="cell small-6">
       <h1 class="h2">Welcome {{ name }}!</h1>
       <div>
         <a class="link__block" href="{{ url_for('courses_mycourses') }}"><i class="fas fa-list"></i> My courses</a>
+        <br>
         <a class="link__block" href="{{ url_for('courses_form') }}"><i class="fas fa-plus"></i> Create new course</a>
       </div>
     </div>
     <div class="cell small-6">
       <div class="container__list">
-        <h2 class="h4 list__header">My recent courses: </h2>
+        <h2 class="h4 list__header">My recent courses</h2>
         <div class="list">
           {% for course in courses %}
-          <div class="list__item"> <a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }} {{ course.title }} <small>({{ course.students }} students)</small></a></div>
+          <div class="list__item"> <a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }} {{ course.title }}</a></div>
           {% endfor %}
         </div>
       </div>
