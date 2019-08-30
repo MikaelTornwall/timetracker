@@ -76,29 +76,26 @@ __Userrole__
 	FOREIGN KEY(role_id) REFERENCES role (id)
 )`
 
-## Complicated and aggregate queries
+## Aggregate queries
 
-*Count enrolled students on each course*
+*Fetch five most recent courses with activity (i.e. with added or updated logs) of a specific student and order them by most recent activity*
 
-`SELECT Course.id, Course.courseId, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course 
-LEFT JOIN Usercourse ON Course.id = Usercourse.course_id
+`SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log
+LEFT JOIN Course ON Log.course_id = Course.id
+GROUP BY Course.id
+HAVING Log.user_id = :id
+ORDER BY Log.date_created, Log.date_modified DESC
+LIMIT 5;`
+
+*Fetch courses with logs of a specific student and count the sum of hours within each course*
+
+`SELECT Course.id, Course.course_id, Course.title, Course.duration, Course.deadline, SUM(Log.duration) as progress FROM Log
+LEFT JOIN Course ON Log.course_id = Course.id
+WHERE Log.user_id = :id
 GROUP BY Course.id;`
 
-*Count users that have the role student and who have enrolled on a specific course*
+*Count enrolled students in each course*
 
-`SELECT COUNT(*) FROM Account
-LEFT JOIN Userrole ON Userrole.user_id = Account.id
-LEFT JOIN Role ON Role.id = Userrole.role_id
-LEFT JOIN Usercourse ON Usercourse.user_id = Account.id
-LEFT JOIN Course ON Course.id = Usercourse.course_id
-WHERE Course.id = :id AND Role.name = 'STUDENT';`
-
-*Return users that have the role student who have enrolled on a specific course, and order returned users alphabetically (primary: first name, secondary: last name)*
-
-`SELECT * FROM Account
-LEFT JOIN Userrole ON Userrole.user_id = Account.id
-LEFT JOIN Role ON Role.id = Userrole.role_id
-LEFT JOIN Usercourse ON Usercourse.user_id = Account.id
-LEFT JOIN Course ON Course.id = Usercourse.course_id
-WHERE Course.id = :id AND Role.name = 'STUDENT'
-ORDER BY Account.firstname, Account.lastname;`
+`SELECT Course.id, Course.courseId, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1  AS Students FROM Course
+LEFT JOIN Usercourse ON Course.id = Usercourse.course_id
+GROUP BY Course.id;`
