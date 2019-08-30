@@ -4,7 +4,7 @@ Below are the instructions on how to install and run the application both locall
 
 `$ example command`
 
-are commands that are meant to be typed on your [command line](https://en.wikipedia.org/wiki/Command-line_interface).
+are commands that are meant to be typed on your [command line](https://en.wikipedia.org/wiki/Command-line_interface).
 
 ## Download project to your local machine
 
@@ -63,9 +63,9 @@ When you created the heroku app, Heroku returned two URLs. Copy the URL that has
 
 `$ git add .`
 
-`$ git commit -m "initial commit"`
+`$ git commit -m "initial commit"`
 
-`$ git push heroku master`
+`$ git push heroku master`
 
 Wait for the process to complete and navigate to the project URL that Heroku returned. If you face any problems, refer to Heroku's [deployment guide](https://devcenter.heroku.com/articles/git).
 
