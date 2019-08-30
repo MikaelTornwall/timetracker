@@ -7,7 +7,7 @@ Personal work hour tracking tool.
 ## Table of contents
 
 1. [Description](#description)
-2. [How to run](#howtouse)
+2. [How to use](#howtouse)
     1. [Heroku](#heroku)
     2. [Installation guide](#installation)    
 3. [Use cases](#usecases)  

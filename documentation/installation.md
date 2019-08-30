@@ -12,11 +12,11 @@ Navigate to the preferred folder on your local machine. Then type one of the fol
 
 __Using HTTPS__
 
-`git clone https://github.com/MikaelTornwall/timetracker.git`
+`$ git clone https://github.com/MikaelTornwall/timetracker.git`
 
 __Using SSH__
 
-`git clone git@github.com:MikaelTornwall/timetracker.git`
+`$ git clone git@github.com:MikaelTornwall/timetracker.git`
 
 More detailed instructions can be found [here](https://help.github.com/en/articles/cloning-a-repository).
 
@@ -47,21 +47,21 @@ First you will need a Heroku account. You can create one [here](https://signup.h
 
 2. Create a Heroku project for your application:
 
-`heroku create`
+`$ heroku create`
 
 3. Link the project to your Heroku application
 
 When you created the heroku app, Heroku returned two URLs. Copy the URL that has the following form: https://git.heroku.com/<project name>.git .
 
-`git remote add heroku https://git.heroku.com/<project name>.git`
+`$ git remote add heroku https://git.heroku.com/<project name>.git`
 
 4. Push your application to Heroku
 
-`git add .`
+`$ git add .`
 
-`git commit -m "initial commit"`
+`$ git commit -m "initial commit"`
 
-`git push heroku master`
+`$ git push heroku master`
 
 Wait for the process to complete and navigate to the project URL that Heroku returned. If you face any problems, refer to Heroku's [deployment guide](https://devcenter.heroku.com/articles/git).
 
