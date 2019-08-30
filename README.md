@@ -4,11 +4,9 @@
 
 Timetracker is a personal work hour tracking tool for teachers and students that want to record and monitor the progress of a course or a project. Students can keep track of their daily work hours and update logs. Teachers can create courses and monitor student specific course progress.
 
-[Link to the demo](https://tsoha-timetracker.herokuapp.com/)
+## Heroku demo
 
-## How to use
-
-### Heroku
+You can try the application demo by using the following credentials:
 
 __Credentials:__
 
@@ -18,15 +16,6 @@ __Credentials:__
 | `teacher@email.com` | `teacher123`  | Teacher  |
 
 Navigate to [login](https://tsoha-timetracker.herokuapp.com/auth/login) and use the credentials above.
-
-### How to run locally?
-
-1. Clone repository to your local machine
-2. Create *venv* module `python3 -m venv venv`
-3. Activate the isolated virtual environment `source venv/bin/activate`
-4. Download dependencies `pip install -r requirements.txt`
-5. Run the project `python3 run.py`
-6. Navigate to [http://localhost:5000](http://localhost:5000)
 
 ## Documentation
 
@@ -80,7 +69,7 @@ __Logs__
 
 *Aggregate queries*
 - [x] First aggregate query
-- [ ] Second aggregate query
+- [x] Second aggregate query
 
 ### Other features
 
@@ -95,6 +84,8 @@ __Usability and accessibility__
 For development: SQLite
 
 For production: PostgreSQL
+
+[Link to the SQL queries](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/sqlqueries.md)
 
 ### Database chart
 
