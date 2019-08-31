@@ -190,7 +190,7 @@ Below can be found the SQL queries for creating the database and the most import
 <a name="design"></a>
 ## 7. Design
 
-Front-end framework in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS.
+Front-end framework in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS. Icons are from [FontAwesome](https://fontawesome.com/).
 
 __Colors:__
 

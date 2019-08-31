@@ -17,7 +17,7 @@
     <tbody>
     {% for course in active_courses %}
     {% set progress = '%0.1f' | format(course.progress/course.duration*100 | float)  %}
-    <tr>
+    <tr class="list__student">
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
       <td>{{ progress }} %</td>
@@ -42,7 +42,7 @@
     </thead>
     <tbody>
     {% for course in inactive_courses %}
-    <tr>
+    <tr class="list__student">
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
       <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
       <td>{{ course.deadline | datetimeformat }}</td>

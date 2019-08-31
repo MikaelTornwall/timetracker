@@ -4,9 +4,9 @@
 {% set progress = '%0.1f' | format(duration/course.duration*100 | float)  %}
 
 {% if is_student %}
-<a class="link__back" href="{{ url_for('logs_all') }}">Back</a>
+<a class="link__back student__text" href="{{ url_for('logs_all') }}">Back</a>
   <h1 class="h3">{{ course.course_id}} - {{ course.title }}</h1>
-  <div><a href="{{ url_for('courses_course', course_id=course.id) }}">Course details</a></div>
+  <div><a class="student__text__normal" href="{{ url_for('courses_course', course_id=course.id) }}">Course details</a></div>
   <div>
     <strong>Course ends on {{ course.deadline | datetimeformat_with_time }}</strong>
   </div>

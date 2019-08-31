@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     {% for course in courses %}
-    <tr>
+    <tr class="list__teacher">
       <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }}</a></td>
       <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.title }}</a></td>
       <td>{{ course.duration }} h</td>

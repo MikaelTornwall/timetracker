@@ -14,6 +14,22 @@ button:focus {
     outline: none;
 }
 
+.index__menu {
+  font-size: 1.7rem !important;
+  color: linear-gradient(var(--stundent-color), var(--teacher-color));
+}
+
+.index__icon {
+  font-size: 1.6rem !important;
+}
+
+.index__image {
+  padding: 1.5rem;
+  width: 90%;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 2%;
+}
+
 .container {
   color: var(--main-color);
   padding: 1rem;
@@ -24,8 +40,9 @@ button:focus {
 }
 
 .top-bar {
-  background-color: var(--main-bg-color) !important;
+  background-color: white !important;
   color: var(--main-color);
+  border-bottom: 1px solid var(--main-bg-color);
 }
 
 ul.menu {
@@ -117,6 +134,14 @@ ul.menu {
 .list__item {
   padding: .3rem .8rem;
   /*border-bottom: 1px solid var(--main-bg-color);*/
+}
+
+.list__student:hover {
+  border-left: 3px solid var(--student-color) !important;
+}
+
+.list__teacher:hover {
+  border-left: 3px solid var(--teacher-color) !important;
 }
 
 .button__bar {

@@ -3,9 +3,10 @@
 {% block body %}
 <div class="center">
   <div>
-    <h1 class="h1 center__text">Sign up</h1>
     <br>
-    <div class="h3 center__text">I want to sign up as a</div>
+    <br>
+    <h1 class="h2 center__text">I want to <strong>sign up</strong> as a</h1>
+    <br>
     <a href="{{ url_for('auth_signupTeacher') }}"><button class="button__big teacher">Teacher</button></a>
     <a href="{{ url_for('auth_signupStudent') }}"><button class="button__big student">Student</button></a>
   </div>

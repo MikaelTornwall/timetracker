@@ -43,10 +43,20 @@
     </div>
     {% endif %}
   {% else %}
-  <div class="cell">
-    <h1>Welcome to Timetracker!</h1>
-    <p>This tool allows you to log your progress on any project.</p>
-  </div>
+    <div class="cell small-6">
+      <h1 class="h2">
+        <small class="teacher__text">Teachers</small>
+        <br>
+        <strong>Create</strong> courses & <strong>monitor</strong> student progress.
+        <br>
+        <small class="student__text">Students</small>
+        <br>
+        <strong>Document</strong> tasks & <strong>follow</strong> progress.
+      </h1>            
+    </div>
+    <div class="cell small-6">
+      <img class="index__image" src="{{ url_for('static', filename='assets/logs.png') }}" alt="course with logs and progress" />
+    </div>
   {% endif %}
 </div>
 {% endblock %}
