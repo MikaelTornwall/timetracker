@@ -5,6 +5,8 @@ from application import app, db
 from application.auth.models import User, Role
 from application.auth.forms import LoginForm, SignupForm
 
+from sqlalchemy.exc import IntegrityError
+
 @app.route("/auth/login/", methods=["GET", "POST"])
 def auth_login():
     if current_user.is_authenticated:
@@ -47,14 +49,19 @@ def auth_signupStudent():
     form = SignupForm(request.form)
 
     if not form.validate():
-        return render_template("auth/signup.html", form = form, error = "Remember to fill all the fields.")
+        return render_template("auth/signup.html", form = form, error = "Remember to fill all the fields")
 
     u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
     r = Role.query.filter_by(name="STUDENT").first()
     u.roles.append(r)
 
     db.session.add(u)
-    db.session.commit()
+
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return render_template("auth/signup.html", form = form, error = "This email address is already in use")
 
     return redirect(url_for("auth_login"))
 
@@ -69,14 +76,19 @@ def auth_signupTeacher():
     form = SignupForm(request.form)
 
     if not form.validate():
-        return render_template("auth/teacherSignup.html", form = form, error = "Remember to fill all the fields.")
+        return render_template("auth/teacherSignup.html", form = form, error = "Remember to fill all the fields")
 
     u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
     r = Role.query.filter_by(name="TEACHER").first()
     u.roles.append(r)
 
     db.session.add(u)
-    db.session.commit()
+
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return render_template("auth/teacherSignup.html", form = form, error = "This email address is already in use")
 
     return redirect(url_for("auth_login"))
 

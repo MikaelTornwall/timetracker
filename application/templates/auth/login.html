@@ -4,7 +4,9 @@
 <div class="center">
   <div class="container__form">
   <h1 as="h3">Login</h1>
-  {{ error }}
+  {% if error %}
+  <div class="callout">{{ error }}</div>
+  {% endif %}
 <form class="container__form" method="POST" action="{{ url_for('auth_login') }}">
   <table class="unstriped">
     <col width="140">

@@ -2,7 +2,9 @@
 
 {% block body %}
 <h1 class="h3">Sign up as a student</h1>
-{{ error }}
+{% if error %}
+<div class="callout">{{ error }}</div>
+{% endif %}
 <form class="container__form" method="POST" action="{{ url_for('auth_signupStudent') }}">
   <table class="unstriped">
     <tr>

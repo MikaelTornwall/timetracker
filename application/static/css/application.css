@@ -268,6 +268,13 @@ tr {
   align-items: center;
 }
 
+.callout {  
+  width: 40% !important;
+  background: rgba(185, 15, 0, 1) !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+
 .animation {
   font-size: 1.2rem;
   animation-name: spin;
