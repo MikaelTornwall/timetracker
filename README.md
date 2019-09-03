@@ -76,8 +76,8 @@ __Logs__
 __Usability and accessibility__
 
 *User interface*
-- [ ] Forms are constructed properly (for -attributes reference to correct ids etc.)
-- [ ] Headers use correct tags
+- [x] Forms are constructed properly
+- [x] Headers use correct tags
 
 ## Installation
 

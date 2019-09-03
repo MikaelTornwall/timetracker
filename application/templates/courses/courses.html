@@ -2,6 +2,16 @@
 
 {% block body %}
 <h1 class="h3">All courses ({{ length }})</h1>
+<form class="search__form" method="POST" action="{{ url_for('courses_search') }}">
+  <div class="grid-x">
+    <div class="cell small-9">
+      <input class="search__input" type="text" id="search" name="search" placeholder="Search..." />
+    </div>
+    <div class="cell small-3">
+      <button class="student search__button"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</form>
 <table class="container__table unstriped">
   <thead>
     <tr>

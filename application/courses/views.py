@@ -22,6 +22,29 @@ def courses_index():
 
     return render_template("courses/courses.html", courses = courses, mycourses = course_array, length = length)
 
+@app.route("/courses/", methods=["POST"])
+@login_required(role="STUDENT")
+def courses_search():
+    search_term = request.form.get("search")
+    courses = Course.count_enrolled_students_in_each_course()
+    mycourses = User.query.get(current_user.id).courses
+
+    mycourses_array = []
+
+    for course in mycourses:
+        mycourses_array.append(course.course_id)
+
+    course_array = []
+
+    for course in courses:        
+        if search_term.lower() in course.get('course_id').lower() or search_term.lower() in course.get('title').lower():
+            course_array.append(course)
+
+    length = len(course_array)
+
+    return render_template("courses/courses.html", courses = course_array, mycourses = mycourses_array, length = length)
+
+
 @app.route("/courses/<course_id>/enroll/", methods=["GET"])
 @login_required(role="STUDENT")
 def course_enroll(course_id):

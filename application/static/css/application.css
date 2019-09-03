@@ -268,11 +268,24 @@ tr {
   align-items: center;
 }
 
-.callout {  
+.callout {
   width: 40% !important;
   background: rgba(185, 15, 0, 1) !important;
   color: white !important;
   border-radius: 5px !important;
+}
+
+.search__form {
+  width: 25%;
+}
+
+.search__input {
+}
+
+.search__button {
+  padding: 0 1rem;
+  height: 70%;
+  cursor: pointer;
 }
 
 .animation {
