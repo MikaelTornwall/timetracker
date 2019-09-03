@@ -46,7 +46,7 @@ class Log(Base):
     def fetch_five_most_recent_courses_with_activity():
         if Log.is_local():
             statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log "
-                            "LEFT JOIN Course ON Log.course_id = Course.id "
+                            "JOIN Course ON Log.course_id = Course.id "
                             "GROUP BY Course.id "
                             "HAVING Log.user_id = :id "
                             "ORDER BY Log.date_created DESC, Log.date_modified DESC "

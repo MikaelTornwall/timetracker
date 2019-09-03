@@ -83,20 +83,42 @@ class Course(Base):
         return response
 
     @staticmethod
+    def count_enrolled_students_in_each_course_with_search_term(search_term):
+        search_term = '%' + search_term + '%'
+
+        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+                        "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                        "WHERE Course.course_id LIKE :search_term OR Course.title LIKE :search_term "
+                        "GROUP BY Course.id;").params(search_term=search_term)
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            if Course.is_local():
+                # Format datetime object
+                date = Course.datetime_format(row[5])
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":Course.date_format(date), "students":row[6]})
+            else:
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":row[5], "students":row[6]})
+
+        return response
+
+    @staticmethod
     def fetch_five_most_recent_courses():
         if Course.is_local():
             statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                             "WHERE Usercourse.user_id = :id "
                             "GROUP BY Course.id "
-                            "ORDER BY Course.date_created, Course.date_modified DESC "
+                            "ORDER BY Course.date_created DESC, Course.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
             statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                             "WHERE Usercourse.user_id = :id "
                             "GROUP BY Course.id "
-                            "ORDER BY Course.date_created, Course.date_modified DESC "
+                            "ORDER BY Course.date_created DESC, Course.date_modified DESC "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
         result = db.engine.execute(statement)
 

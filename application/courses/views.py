@@ -26,7 +26,7 @@ def courses_index():
 @login_required(role="STUDENT")
 def courses_search():
     search_term = request.form.get("search")
-    courses = Course.count_enrolled_students_in_each_course()
+    courses = Course.count_enrolled_students_in_each_course_with_search_term(search_term)
     mycourses = User.query.get(current_user.id).courses
 
     mycourses_array = []
@@ -36,13 +36,9 @@ def courses_search():
 
     course_array = []
 
-    for course in courses:        
-        if search_term.lower() in course.get('course_id').lower() or search_term.lower() in course.get('title').lower():
-            course_array.append(course)
+    length = len(courses)
 
-    length = len(course_array)
-
-    return render_template("courses/courses.html", courses = course_array, mycourses = mycourses_array, length = length)
+    return render_template("courses/courses.html", courses = courses, mycourses = mycourses_array, length = length)
 
 
 @app.route("/courses/<course_id>/enroll/", methods=["GET"])

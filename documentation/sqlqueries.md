@@ -83,7 +83,7 @@ __Userrole__
 `SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log
 LEFT JOIN Course ON Log.course_id = Course.id
 GROUP BY Course.id
-HAVING Log.user_id = :id
+HAVING Log.user_id = :user_id
 ORDER BY Log.date_created, Log.date_modified DESC
 LIMIT 5;`
 
@@ -91,11 +91,18 @@ LIMIT 5;`
 
 `SELECT Course.id, Course.course_id, Course.title, Course.duration, Course.deadline, SUM(Log.duration) as progress FROM Log
 LEFT JOIN Course ON Log.course_id = Course.id
-WHERE Log.user_id = :id
+WHERE Log.user_id = :user_id
 GROUP BY Course.id;`
 
-*Count enrolled students in each course*
+*Find courses and count enrolled students in each course*
 
 `SELECT Course.id, Course.courseId, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1  AS Students FROM Course
 LEFT JOIN Usercourse ON Course.id = Usercourse.course_id
+GROUP BY Course.id;`
+
+*Find courses and count enrolled students in each course that match the search term*
+
+`SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course
+LEFT JOIN Usercourse ON Course.id = Usercourse.course_id
+WHERE Course.course_id LIKE :search_term OR Course.title LIKE :search_term
 GROUP BY Course.id;`
