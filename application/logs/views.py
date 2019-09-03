@@ -26,7 +26,21 @@ def logs_index(course_id):
 
     course = Course.query.get(course_id)
 
-    return render_template("logs/list.html", course = course, course_id = course_id, logs = logs, duration = round(duration, 1))
+    return render_template("logs/list.html", course = course, course_id = course_id, logs = logs, duration = round(duration, 1), desc=False)
+
+@app.route("/<course_id>/logs/desc", methods=["GET"])
+@login_required(role="STUDENT")
+def logs_index_desc(course_id):
+    logs = Log.find_logs_of_course_desc(course_id, current_user.id)
+    duration = Log.total_workhours(course_id, current_user.id)
+
+    if not duration:
+        duration = 0
+
+    course = Course.query.get(course_id)
+
+    return render_template("logs/list.html", course = course, course_id = course_id, logs = logs, duration = round(duration, 1), desc=True)
+
 
 @app.route("/<course_id>/logs/new/")
 @login_required(role="STUDENT")

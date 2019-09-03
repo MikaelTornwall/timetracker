@@ -20,7 +20,11 @@
 <table class="container__table">
   <thead>
     <tr>
-      <th width="200">Date</th>
+      {% if desc %}
+      <th width="200"><a class="link__sort" href="{{ url_for('logs_index', course_id=course_id) }}">Date <i class="fas fa-sort"></i></a></th>
+      {% else %}
+      <th width="200"><a class="link__sort" href="{{ url_for('logs_index_desc', course_id=course_id) }}">Date <i class="fas fa-sort"></i></a></th>
+      {% endif %}
       <th width="350">Description</th>
       <th width="150">Duration (h)</th>
       <th width="120">+/- duration</th>

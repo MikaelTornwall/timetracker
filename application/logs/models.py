@@ -34,6 +34,23 @@ class Log(Base):
         return response
 
     @staticmethod
+    def find_logs_of_course_desc(course_id, user_id):
+        statement = text("SELECT * FROM Log "
+                        "WHERE Log.course_id = :course_id AND Log.user_id = :user_id "
+                        "ORDER BY Log.date_created DESC;").params(course_id=course_id, user_id=user_id)
+        result = db.engine.execute(statement)
+
+        response = []
+
+        for row in result:
+            if Log.is_local():
+                response.append({"id":row[0], "date":Log.date_format(row[1]), "description":row[3], "duration":row[4]})
+            else:
+                response.append({"id":row[0], "date":row[1], "description":row[3], "duration":row[4]})
+
+        return response
+
+    @staticmethod
     def total_workhours(course_id, user_id):
         statement = text("SELECT SUM(duration) FROM Log "
                          "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)

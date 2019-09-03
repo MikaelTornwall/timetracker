@@ -209,6 +209,10 @@ ul.menu {
   color: var(--teacher-color-secondary);
 }
 
+.link__sort {
+  color: var(--main-color) !important;
+}
+
 tbody {
   border: none !important;
 }
