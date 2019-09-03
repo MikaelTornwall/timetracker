@@ -97,7 +97,7 @@ class Course(Base):
                             "ORDER BY Course.date_created, Course.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
-            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                             "WHERE Usercourse.user_id = :id "
                             "GROUP BY Course.id "
