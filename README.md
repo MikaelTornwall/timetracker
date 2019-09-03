@@ -79,7 +79,13 @@ __Usability and accessibility__
 - [ ] Forms are constructed properly (for -attributes reference to correct ids etc.)
 - [ ] Headers use correct tags
 
+## Installation
+
+[Link to installation instructions](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/installation.md)
+
 ## Database
+
+[Link to database details](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/database.md)
 
 For development: SQLite
 

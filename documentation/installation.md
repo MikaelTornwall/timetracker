@@ -32,7 +32,7 @@ More detailed instructions can be found [here](https://help.github.com/en/articl
 4. Go to the folder on your local machine, where the .zip -file was downloaded and unzip the file
 5. Move the file to a preferred folder
 
-<a href="#locally"></a>
+<a href="locally"></a>
 ## How to run locally
 
 There are a few steps that have to be taken before the project can be run locally. First, make sure you have Python installed on your local machine, most preferably Python 3. If not, you can download it from [here](https://www.python.org/downloads/). Then follow these steps:
@@ -44,7 +44,7 @@ There are a few steps that have to be taken before the project can be run locall
 5. Run the project `python3 run.py`
 6. Navigate to [http://localhost:5000](http://localhost:5000)
 
-<a href="#heroku"></a>
+<a href="heroku"></a>
 ## How to deploy to Heroku
 
 First you will need a Heroku account. You can create one [here](https://signup.heroku.com/). After you have successfully created a Heroku account follow these instructions:
