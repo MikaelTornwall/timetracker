@@ -22,7 +22,7 @@ def courses_index():
 
     return render_template("courses/courses.html", courses = courses, mycourses = course_array, length = length)
 
-@app.route("/courses/", methods=["POST"])
+@app.route("/courses/search", methods=["POST"])
 @login_required(role="STUDENT")
 def courses_search():
     search_term = request.form.get("search")
@@ -94,12 +94,12 @@ def courses_create():
     if not form.validate():
         return render_template("/courses/new.html", form = form)
 
-    course = Course(form.course_id.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
-    user = User.query.get(current_user.id)
+    c = Course(form.course_id.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
+    u = User.query.get(current_user.id)
 
-    course.users.append(user)
+    c.users.append(u)
 
-    db.session().add(course)
+    db.session().add(c)
     db.session().commit()
 
     return redirect(url_for("courses_mycourses"))
