@@ -19,7 +19,8 @@ class Log(Base):
     @staticmethod
     def find_logs_of_course(course_id, user_id):
         statement = text("SELECT * FROM Log "
-                        "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)
+                        "WHERE Log.course_id = :course_id AND Log.user_id = :user_id "
+                        "ORDER BY Log.date_created ASC;").params(course_id=course_id, user_id=user_id)
         result = db.engine.execute(statement)
 
         response = []
