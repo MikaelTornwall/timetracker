@@ -58,6 +58,7 @@ class Log(Base):
                             "ORDER BY Log.date_created DESC, Log.date_modified DESC) AS L "
                             "JOIN Course ON L.course_id = Course.id "
                             "GROUP BY Course.id "
+                            "ORDER BY L.date_created DESC, L.date_modified DESC "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
         result = db.engine.execute(statement)
 

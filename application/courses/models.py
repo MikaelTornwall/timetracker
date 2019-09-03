@@ -86,10 +86,16 @@ class Course(Base):
     def count_enrolled_students_in_each_course_with_search_term(search_term):
         search_term = '%' + search_term + '%'
 
-        statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
-                        "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
-                        "WHERE Course.course_id LIKE :search_term OR Course.title LIKE :search_term "
-                        "GROUP BY Course.id;").params(search_term=search_term)
+        if Course.is_local():
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+                            "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "WHERE Course.course_id LIKE :search_term OR Course.title LIKE :search_term "
+                            "GROUP BY Course.id;").params(search_term=search_term)
+        else:
+            statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
+                            "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
+                            "WHERE Course.course_id ILIKE :search_term OR Course.title ILIKE :search_term "
+                            "GROUP BY Course.id;").params(search_term=search_term)
         result = db.engine.execute(statement)
 
         response = []
