@@ -75,13 +75,10 @@ class Course(Base):
         response = []
 
         for row in result:
-            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            if Course.is_local():
                 # Format datetime object
-                date = row[5]
-                date = date.split(" ")
-                date[-1] = date[-1][:8]
-                date = " ".join(date)
-                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S'), "students":row[6]})
+                date = Course.datetime_format(row[5])
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":Course.date_format(date), "students":row[6]})
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "description":row[3], "duration":row[4], "deadline":row[5], "students":row[6]})
 
@@ -89,7 +86,7 @@ class Course(Base):
 
     @staticmethod
     def fetch_five_most_recent_courses():
-        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+        if Course.is_local():
             statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline FROM Course "
                             "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                             "WHERE Usercourse.user_id = :id "
@@ -131,12 +128,9 @@ class Course(Base):
 
         for row in result:
             # Format datetime object
-            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
-                date = row[3]
-                date = date.split(" ")
-                date[-1] = date[-1][:8]
-                date = " ".join(date)
-                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S')})
+            if Course.is_local():
+                date = Course.datetime_format(row[3])
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":Course.date_format(date)})
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":row[3]})
 
@@ -144,3 +138,21 @@ class Course(Base):
         print(response)
 
         return response
+
+    # Helper functions
+    @staticmethod
+    def is_local():
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            return True
+        return False
+
+    @staticmethod
+    def datetime_format(date):
+        date = date.split(" ")
+        date[-1] = date[-1][:8]
+        date = " ".join(date)
+        return date
+
+    @staticmethod
+    def date_format(date):
+        return datetime.strptime(date, '%Y-%m-%d %H:%M:%S')

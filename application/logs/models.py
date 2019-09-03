@@ -26,8 +26,8 @@ class Log(Base):
         response = []
 
         for row in result:
-            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
-                response.append({"id":row[0], "date":datetime.strptime(row[1], '%Y-%m-%d %H:%M:%S'), "description":row[3], "duration":row[4]})
+            if Log.is_local():
+                response.append({"id":row[0], "date":Log.date_format(row[1]), "description":row[3], "duration":row[4]})
             else:
                 response.append({"id":row[0], "date":row[1], "description":row[3], "duration":row[4]})
 
@@ -46,7 +46,7 @@ class Log(Base):
 
     @staticmethod
     def fetch_five_most_recent_courses_with_activity():
-        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+        if Log.is_local():
             statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log "
                             "LEFT JOIN Course ON Log.course_id = Course.id "
                             "GROUP BY Course.id "
@@ -69,9 +69,6 @@ class Log(Base):
         for row in result:
             response.append({"id":row[0], "course_id":row[1], "title":row[2], "logs":row[3]})
 
-        print("RESPONSE")
-        print(response)
-
         return response
 
     @staticmethod
@@ -92,13 +89,10 @@ class Log(Base):
             else:
                 progress = row[5]
 
-            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            if Log.is_local():
                 # Format datetime object
-                date = row[4]
-                date = date.split(" ")
-                date[-1] = date[-1][:8]
-                date = " ".join(date)
-                response.append({"id":row[0], "course_id":row[1], "title":row[2], "duration":row[3], "deadline":datetime.strptime(date, '%Y-%m-%d %H:%M:%S'), "progress":progress})
+                date = Log.datetime_format(row[4])
+                response.append({"id":row[0], "course_id":row[1], "title":row[2], "duration":row[3], "deadline":Log.date_format(date), "progress":progress})
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "duration":row[3], "deadline":row[4], "progress":progress})
 
@@ -114,3 +108,21 @@ class Log(Base):
             print(row[4])
 
         return response
+
+    # Helper functions
+    @staticmethod
+    def is_local():
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            return True
+        return False
+
+    @staticmethod
+    def datetime_format(date):
+        date = date.split(" ")
+        date[-1] = date[-1][:8]
+        date = " ".join(date)
+        return date
+
+    @staticmethod
+    def date_format(date):
+        return datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
