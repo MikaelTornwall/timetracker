@@ -15,10 +15,10 @@ def index():
 
     if user.is_student():
         courses = Log.fetch_five_most_recent_courses_with_activity()
-        return render_template("index.html", name = name, courses=courses)
+        return render_template("index.html", name = name, courses = courses)
 
     if user.is_teacher():
         courses = Course.fetch_five_most_recent_courses()
-        return render_template("index.html", name = name, courses=courses)
+        return render_template("index.html", name = name, courses = courses)
 
     return render_template("index.html")

@@ -25,13 +25,13 @@ def courses_index():
 @app.route("/courses/<course_id>/enroll/", methods=["GET"])
 @login_required(role="STUDENT")
 def course_enroll(course_id):
-    c = Course.query.get(course_id)
-    u = User.query.get(current_user.id)
+    course = Course.query.get(course_id)
+    user = User.query.get(current_user.id)
 
-    if u in c.users:
-        c.users.remove(u)
+    if user in course.users:
+        course.users.remove(user)
     else:
-        c.users.append(u)
+        course.users.append(user)
 
     db.session.commit()
 
@@ -41,26 +41,26 @@ def course_enroll(course_id):
 @app.route("/courses/<course_id>/", methods=["GET"])
 @login_required()
 def courses_course(course_id):
-    c = Course.query.get(course_id)
+    course = Course.query.get(course_id)
 
     if current_user.is_teacher():
-        s = c.find_students(course_id)
-        l = c.count_students(course_id)
+        students = course.find_students(course_id)
+        length = course.count_students(course_id)
 
-        return render_template("courses/course.html", course = c, students = s, length = l)
+        return render_template("courses/course.html", course = course, students = students, length = length)
 
-    a = Course.query.all()
-    m = User.query.get(current_user.id).courses
+    courses = Course.query.all()
+    mycourses = User.query.get(current_user.id).courses
 
-    return render_template("courses/course.html", course = c, courses = a, mycourses = m)
+    return render_template("courses/course.html", course = course, courses = courses, mycourses = mycourses)
 
 # Views for teacher
 @app.route("/courses/mycourses", methods=["GET"])
 @login_required(role="TEACHER")
 def courses_mycourses():
-    c = User.query.get(current_user.id)
-    length = c.count_users_courses(current_user)
-    return render_template("courses/mylist.html", courses = c.courses, length = length)
+    user = User.query.get(current_user.id)
+    length = user.count_users_courses(current_user)
+    return render_template("courses/mylist.html", courses = user.courses, length = length)
 
 @app.route("/courses/new/")
 @login_required(role="TEACHER")
@@ -75,12 +75,12 @@ def courses_create():
     if not form.validate():
         return render_template("/courses/new.html", form = form)
 
-    c = Course(form.course_id.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
-    u = User.query.get(current_user.id)
+    course = Course(form.course_id.data, form.title.data, form.description.data, form.duration.data, form.deadline.data)
+    user = User.query.get(current_user.id)
 
-    c.users.append(u)
+    course.users.append(user)
 
-    db.session().add(c)
+    db.session().add(course)
     db.session().commit()
 
     return redirect(url_for("courses_mycourses"))
@@ -88,24 +88,24 @@ def courses_create():
 @app.route("/courses/<course_id>/edit", methods=["GET"])
 @login_required(role="TEACHER")
 def courses_edit(course_id):
-    c = Course.query.get(course_id)
+    course = Course.query.get(course_id)
 
-    return render_template("courses/edit.html", course = c, form = CourseForm())
+    return render_template("courses/edit.html", course = course, form = CourseForm())
 
 @app.route("/courses/<course_id>/update", methods=["POST"])
 @login_required(role="TEACHER")
 def courses_update(course_id):
     form = CourseForm(request.form)
-    c = Course.query.get(course_id)
+    course = Course.query.get(course_id)
 
     if not form.validate():
-        return render_template("/courses/edit.html", course=c, form = form)
+        return render_template("/courses/edit.html", course = course, form = form)
 
-    c.course_id = form.course_id.data
-    c.title = form.title.data
-    c.description = form.description.data
-    c.duration = form.duration.data
-    c.deadline = form.deadline.data
+    course.course_id = form.course_id.data
+    course.title = form.title.data
+    course.description = form.description.data
+    course.duration = form.duration.data
+    course.deadline = form.deadline.data
 
     db.session().commit()
 
@@ -114,10 +114,10 @@ def courses_update(course_id):
 @app.route("/courses/<course_id>/delete/", methods=["POST"])
 @login_required(role="TEACHER")
 def courses_delete(course_id):
-    c = Course.query.filter_by(id=course_id).first()
+    course = Course.query.filter_by(id=course_id).first()
 
-    if (c is not None):
-        db.session.delete(c)
+    if (course is not None):
+        db.session.delete(course)
         db.session.commit()
 
     return redirect(url_for("courses_mycourses"))

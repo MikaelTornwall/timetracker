@@ -13,32 +13,32 @@ from application.auth.models import User
 def logs_all():
     active_courses = Log.fetch_students_courses_with_progress()
     inactive_courses = Course.fetch_users_courses_without_logs()
-    return render_template("logs/logs.html", active_courses = active_courses, inactive_courses=inactive_courses)
+    return render_template("logs/logs.html", active_courses = active_courses, inactive_courses = inactive_courses)
 
 @app.route("/<course_id>/logs/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_index(course_id):
-    l = Log.find_logs_of_course(course_id, current_user.id)
-    d = Log.total_workhours(course_id, current_user.id)
+    logs = Log.find_logs_of_course(course_id, current_user.id)
+    duration = Log.total_workhours(course_id, current_user.id)
 
-    if not d:
-        d = 0
+    if not duration:
+        duration = 0
 
-    c = Course.query.get(course_id)
+    course = Course.query.get(course_id)
 
-    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = round(d, 1))
+    return render_template("logs/list.html", course = course, course_id = course_id, logs = logs, duration = round(duration, 1))
 
 @app.route("/<course_id>/logs/new/")
 @login_required(role="STUDENT")
 def logs_form(course_id):
-    return render_template("logs/new.html", course_id=course_id, form = LogForm())
+    return render_template("logs/new.html", course_id = course_id, form = LogForm())
 
 @app.route("/<course_id>/logs/<log_id>/", methods=["GET"])
 @login_required(role="STUDENT")
 def logs_log(course_id, log_id):
-    l = Log.query.get(log_id)
+    log = Log.query.get(log_id)
 
-    return render_template("logs/log.html", log = l)
+    return render_template("logs/log.html", log = log)
 
 @app.route("/<course_id>/logs/", methods=["POST"])
 @login_required(role="STUDENT")
@@ -48,11 +48,11 @@ def logs_create(course_id):
     if not form.validate():
         return render_template("/logs/new.html", form = form, course_id = course_id)
 
-    l = Log(form.description.data, form.duration.data)
-    l.user_id = current_user.id
-    l.course_id = course_id
+    log = Log(form.description.data, form.duration.data)
+    log.user_id = current_user.id
+    log.course_id = course_id
 
-    db.session().add(l)
+    db.session().add(log)
     db.session().commit()
 
     return redirect(url_for("logs_index", course_id = course_id))
@@ -63,12 +63,12 @@ def logs_update(course_id, log_id):
     description = request.form.get("description")
     duration = request.form.get("duration")
 
-    l = Log.query.get(log_id)
+    log = Log.query.get(log_id)
     if description:
-        l.description = description
+        log.description = description
 
     if duration != "":
-        l.duration = duration
+        log.duration = duration
 
     db.session().commit()
 
@@ -78,10 +78,10 @@ def logs_update(course_id, log_id):
 @login_required(role="STUDENT")
 def logs_increment(course_id, log_id):
     duration = request.form.get("duration")
-    l = Log.query.get(log_id)
+    log = Log.query.get(log_id)
 
     if duration != "":
-        l.duration += float(duration)
+        log.duration += float(duration)
 
     db.session().commit()
 
@@ -90,10 +90,10 @@ def logs_increment(course_id, log_id):
 @app.route("/<course_id>/logs/<log_id>/delete/", methods=["POST"])
 @login_required(role="STUDENT")
 def logs_delete(course_id, log_id):
-    l = Log.query.filter_by(id=log_id).first()
+    log = Log.query.filter_by(id=log_id).first()
 
-    if (l is not None):
-        db.session.delete(l)
+    if (log is not None):
+        db.session.delete(log)
         db.session.commit()
 
     return redirect(url_for("logs_index", course_id = course_id))
@@ -102,12 +102,12 @@ def logs_delete(course_id, log_id):
 @app.route("/<course_id>/logs/<user_id>/log/", methods=["GET"])
 @login_required(role="TEACHER")
 def logs_course_user(course_id, user_id):
-    l = Log.find_logs_of_course(course_id, user_id)
-    d = Log.total_workhours(course_id, user_id)
-    c = Course.query.get(course_id)
-    u = User.query.get(user_id)
+    logs = Log.find_logs_of_course(course_id, user_id)
+    duration = Log.total_workhours(course_id, user_id)
+    course = Course.query.get(course_id)
+    user = User.query.get(user_id)
 
-    return render_template("logs/list.html", course=c, course_id=course_id, logs = l, duration = d, student = u)
+    return render_template("logs/list.html", course = course, course_id = course_id, logs = logs, duration = duration, student = user)
 
 # Filters
 @app.template_filter('datetimeformat')
@@ -121,17 +121,3 @@ def datetimeformat_with_time(value, format='%B %d, %Y at %H:%M'):
 @app.template_filter('updatedateformat')
 def updatedateformat(value, format='%d.%m.%Y %H:%M'):
     return value.strftime(format)
-
-"""
-@app.template_filter('round_float')
-def round_float(value):
-    return round(value, 2)
-"""
-
-"""
-def total_workhours(logs):
-    total = 0
-    for log in logs:
-        total += log.duration
-    return total
-"""

@@ -31,7 +31,6 @@ class Course(Base):
     def count_courses():
         statement = text("SELECT COUNT(*) FROM Course;")
         result = db.engine.execute(statement)
-
         return result.fetchall()[0][0]
 
     @staticmethod
@@ -69,7 +68,6 @@ class Course(Base):
         statement = text("SELECT Course.id, Course.course_id, Course.title, Course.description, Course.duration, Course.deadline, COUNT(Usercourse.user_id)-1 AS Students FROM Course "
                         "LEFT JOIN Usercourse ON Course.id = Usercourse.course_id "
                         "GROUP BY Course.id;")
-
         result = db.engine.execute(statement)
 
         response = []
@@ -100,16 +98,12 @@ class Course(Base):
                             "GROUP BY Course.id "
                             "ORDER BY Course.date_created, Course.date_modified DESC "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
-
         result = db.engine.execute(statement)
 
         response = []
 
         for row in result:
             response.append({"id":row[0], "course_id":row[1], "title":row[2]})
-
-        print("RESPONSE")
-        print(response)
 
         return response
 
@@ -121,7 +115,6 @@ class Course(Base):
                         "Course.id NOT IN "
                         "(SELECT Log.course_id FROM Log "
                         "WHERE Log.user_id = :id);").params(id=current_user.id)
-
         result = db.engine.execute(statement)
 
         response = []
@@ -133,9 +126,6 @@ class Course(Base):
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":Course.date_format(date)})
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "deadline":row[3]})
-
-        print("RESPONSE")
-        print(response)
 
         return response
 

@@ -20,7 +20,6 @@ class Log(Base):
     def find_logs_of_course(course_id, user_id):
         statement = text("SELECT * FROM Log "
                         "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)
-
         result = db.engine.execute(statement)
 
         response = []
@@ -37,7 +36,6 @@ class Log(Base):
     def total_workhours(course_id, user_id):
         statement = text("SELECT SUM(duration) FROM Log "
                          "WHERE Log.course_id = :course_id AND Log.user_id = :user_id;").params(course_id=course_id, user_id=user_id)
-
         result = db.engine.execute(statement)
 
         response = result.fetchall()[0][0]
@@ -61,7 +59,6 @@ class Log(Base):
                             "JOIN Course ON L.course_id = Course.id "
                             "GROUP BY Course.id "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
-
         result = db.engine.execute(statement)
 
         response = []
@@ -78,7 +75,6 @@ class Log(Base):
                         "WHERE Log.user_id = :id "
                         "GROUP BY Course.id;"
                         ).params(id=current_user.id)
-
         result = db.engine.execute(statement)
 
         response = []
@@ -95,17 +91,6 @@ class Log(Base):
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "duration":row[3], "deadline":Log.date_format(date), "progress":progress})
             else:
                 response.append({"id":row[0], "course_id":row[1], "title":row[2], "duration":row[3], "deadline":row[4], "progress":progress})
-
-            print("id")
-            print(row[0])
-            print("course_id")
-            print(row[1])
-            print("title")
-            print(row[2])
-            print("duration")
-            print(row[3])
-            print("progress")
-            print(row[4])
 
         return response
 

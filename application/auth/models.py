@@ -49,29 +49,24 @@ class User(Base):
         return True
 
     def is_student(self):
-        r = self.roles
-        for row in r:
+        role_arr = self.roles
+        for row in role_arr:
             if row.name == "STUDENT":
-                print("STUDENT FOUND!")
                 return True
-
         return False
 
     def is_teacher(self):
-        r = self.roles
-        for row in r:
+        role_arr = self.roles
+        for row in role_arr:
             if row.name == "TEACHER":
-                print("TEACHER FOUND!")
                 return True
-
         return False
 
     def get_roles(self):
-        r = self.roles
+        role_arr = self.roles
         response = []
-        for row in r:
+        for row in role_arr:
             response.append(row.name)
-
         return response
 
     def get_user_roles(self):
@@ -79,7 +74,6 @@ class User(Base):
                         "LEFT JOIN Userrole ON Userrole.role_id = Role.id "
                         "LEFT JOIN Account ON Account.id = Userrole.user_id "
                         "WHERE :id = Account.id").params(id=self.id)
-
         result = db.engine.execute(statement)
 
         response = []
@@ -87,8 +81,6 @@ class User(Base):
         for row in result:
             response.append(row[0])
 
-        print("ROLES FROM DB:")
-        print(response)
         return response
 
     @staticmethod

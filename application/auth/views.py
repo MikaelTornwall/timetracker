@@ -51,11 +51,10 @@ def auth_signupStudent():
     if not form.validate():
         return render_template("auth/signup.html", form = form, error = "Remember to fill all the fields")
 
-    u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
-    r = Role.query.filter_by(name="STUDENT").first()
-    u.roles.append(r)
-
-    db.session.add(u)
+    user = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+    role = Role.query.filter_by(name="STUDENT").first()
+    user.roles.append(role)
+    db.session.add(user)
 
     try:
         db.session.commit()
@@ -78,11 +77,10 @@ def auth_signupTeacher():
     if not form.validate():
         return render_template("auth/teacherSignup.html", form = form, error = "Remember to fill all the fields")
 
-    u = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
-    r = Role.query.filter_by(name="TEACHER").first()
-    u.roles.append(r)
-
-    db.session.add(u)
+    user = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+    role = Role.query.filter_by(name="TEACHER").first()
+    user.roles.append(role)
+    db.session.add(user)
 
     try:
         db.session.commit()
