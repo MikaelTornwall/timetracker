@@ -8,49 +8,47 @@
     {% elif is_teacher %}
     <a class="link__back" href="{{ url_for('courses_mycourses') }}">Back</a>
     {% endif %}
-  <h1 class="h2">{{ course.course_id }} {{ course.title }}</h1>
-  <div>
-    <div class="h4">Description:</div>
-    <p>{{ course.description }}</p>
-  </div>
-  <div>Workload of the course is approximately {{ course.duration }} hours.</div>
-  <div>The course ends {{ course.deadline | datetimeformat }}.</div>
-
-  {% if is_student %}
-  <br>
-  {% if course in mycourses %}
-  <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></button>
-  {% else %}
-  <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></button>
-  {% endif %}
-  {% endif %}
-  {% if is_teacher %}
-  <div class="button__bar grid-x">
-    <span class="cell small-1 x-cell">
-      <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
-    </span>
-    <span class="cell small-1 x-cell">
-      <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
-        <button id="delete_me" class="button__hidden" type="submit"></button>
-      </form>
-      <button class="link__big button__delete" onclick="confirm('course')"><i class="far fa-trash-alt"></i></button>
-    </span>
-  </div>
-  {% endif %}
-  </div>
-  <div class="cell small-6">
-    {% if is_teacher %}
-    {% if length == 0 %}
-    <div class="h4">No enrolled students</div>
-    {% else %}
-    <div class="h4">Enrolled students ({{ length }}):</div>
-    {% endif %}
-
+    <h1 class="h2">{{ course.course_id }} {{ course.title }}</h1>
     <div>
-      {% for student in students %}
-      <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>
-      {% endfor %}
+      <div class="h4">Description:</div>
+        <p>{{ course.description }}</p>
+      </div>
+      <div>Workload of the course is approximately {{ course.duration }} hours.</div>
+      <div>The course ends {{ course.deadline | datetimeformat }}.</div>
+      {% if is_student %}
+      <br>
+      {% if course in mycourses %}
+      <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></button>
+      {% else %}
+      <button class="student button__small"><a class="link__inverse" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></button>
+      {% endif %}
+      {% endif %}
+      {% if is_teacher %}
+      <div class="button__bar grid-x">
+        <span class="cell small-1 x-cell">
+          <a class="link__big link__teacher" href="{{ url_for('courses_edit', course_id=course.id) }}"><i class="fas fa-edit"></i></a>
+        </span>
+        <span class="cell small-1 x-cell">
+          <form method="POST" action="{{ url_for('courses_delete', course_id=course.id) }}">
+            <button id="delete_me" class="button__hidden" type="submit"></button>
+          </form>
+          <button class="link__big button__delete" onclick="confirm('course')"><i class="far fa-trash-alt"></i></button>
+        </span>
+      </div>
+      {% endif %}
     </div>
+    <div class="cell small-6">
+      {% if is_teacher %}
+      {% if length == 0 %}
+      <div class="h4">No enrolled students</div>
+      {% else %}
+      <div class="h4">Enrolled students ({{ length }}):</div>
+      {% endif %}
+      <div>
+        {% for student in students %}
+        <a href="{{ url_for('logs_course_user', course_id=course.id, user_id=student.id) }}"><div>{{ student.firstname }} {{ student.lastname }}</div></a>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </div>

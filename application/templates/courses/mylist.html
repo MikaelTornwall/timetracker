@@ -2,16 +2,16 @@
 
 {% block body %}
 <h1 class="h3">My courses ({{ length }})</h1>
-  <table class="container__table unstriped">
-    <thead>
+<table class="container__table unstriped">
+  <thead>
     <tr>
       <th width="100">Course ID</th>
       <th width="100">Title</th>
       <th width="50">Duration</th>
       <th width="150">Deadline</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     {% for course in courses %}
     <tr class="list__teacher">
       <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }}</a></td>
@@ -20,7 +20,7 @@
       <td>{{ course.deadline | datetimeformat }}</td>
     </tr>
     {% endfor %}
-    </tbody>
-  </table>
-  <span><a class="link__big link__teacher" href="{{ url_for('courses_form') }}"><i class="fas fa-plus"></i></a></span>
+  </tbody>
+</table>
+<span><a class="link__big link__teacher" href="{{ url_for('courses_form') }}"><i class="fas fa-plus"></i></a></span>
 {% endblock %}

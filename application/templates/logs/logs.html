@@ -1,56 +1,56 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <h1 class="h3">Logs</h1>
-  <div class="grid-x">
-    <div class="cell small-7">
-  <h2 class="h4">Active courses</h2>
-  <table class="container__table_half unstriped">
-    <thead>
-    <tr>
-      <th width="80">Course ID</th>
-      <th width="120">Title</th>
-      <th width="80">Progress</th>
-      <th width="100">Deadline</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for course in active_courses %}
-    {% set progress = '%0.1f' | format(course.progress/course.duration*100 | float)  %}
-    <tr class="list__student">
-      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
-      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
-      <td>{{ progress }} %</td>
-      <td>{{ course.deadline | datetimeformat }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+<h1 class="h3">Logs</h1>
+<div class="grid-x">
+  <div class="cell small-7">
+    <h2 class="h4">Active courses</h2>
+    <table class="container__table_half unstriped">
+      <thead>
+        <tr>
+          <th width="80">Course ID</th>
+          <th width="120">Title</th>
+          <th width="80">Progress</th>
+          <th width="100">Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in active_courses %}
+        {% set progress = '%0.1f' | format(course.progress/course.duration*100 | float)  %}
+        <tr class="list__student">
+          <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
+          <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
+          <td>{{ progress }} %</td>
+          <td>{{ course.deadline | datetimeformat }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   <div class="cell small-5">
     {% if not inactive_courses %}
     <h2 class="h4">No inactive courses.</h2>
     {% else %}
-  <h2 class="h4">Courses waiting to get started</h2>
-  <table class="container__table_half unstriped">
-    <thead>
-    <tr>
-      <th width="80">Course ID</th>
-      <th width="120">Title</th>
-      <th width="100">Deadline</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for course in inactive_courses %}
-    <tr class="list__student">
-      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
-      <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
-      <td>{{ course.deadline | datetimeformat }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
+    <h2 class="h4">Courses waiting to get started</h2>
+    <table class="container__table_half unstriped">
+      <thead>
+        <tr>
+          <th width="80">Course ID</th>
+          <th width="120">Title</th>
+          <th width="100">Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in inactive_courses %}
+        <tr class="list__student">
+          <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.course_id }}</a></td>
+          <td><a class="" href="{{ url_for('logs_index', course_id=course.id) }}">{{ course.title }}</a></td>
+          <td>{{ course.deadline | datetimeformat }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
   </div>
-  </div>
+</div>
 {% endblock %}

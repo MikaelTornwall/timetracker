@@ -2,24 +2,23 @@
 
 {% block body %}
 {% set progress = '%0.1f' | format(duration/course.duration*100 | float)  %}
-
 {% if is_student %}
 <a class="link__back student__text" href="{{ url_for('logs_all') }}">Back</a>
-  <h1 class="h3">{{ course.course_id}} - {{ course.title }}</h1>
-  <div><a class="student__text__normal" href="{{ url_for('courses_course', course_id=course.id) }}">Course details</a></div>
-  <div>
-    <strong>Course ends on {{ course.deadline | datetimeformat_with_time }}</strong>
+<h1 class="h3">{{ course.course_id}} - {{ course.title }}</h1>
+<div><a class="student__text__normal" href="{{ url_for('courses_course', course_id=course.id) }}">Course details</a></div>
+<div>
+  <strong>Course ends on {{ course.deadline | datetimeformat_with_time }}</strong>
+</div>
+<div class="course__statistic" style="width: 220px;">
+  Total hours: {{ duration }} / {{ course.duration }}.0
+  <br>
+  <div class="progress" role="progressbar" tabindex="0" aria-valuenow="{{ duration/course.duration*100 }}" aria-valuemin="0" aria-valuemax="100">
+    <span class="progress__text">{{ progress }}%</span>
+    <span class="progress-meter" style="width: {{ duration/course.duration*100 }}%"></span>
   </div>
-  <div class="course__statistic" style="width: 220px;">
-    Total hours: {{ duration }} / {{ course.duration }}.0
-    <br>
-    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="{{ duration/course.duration*100 }}" aria-valuemin="0" aria-valuemax="100">
-      <span class="progress__text">{{ progress }}%</span>
-      <span class="progress-meter" style="width: {{ duration/course.duration*100 }}%"></span>
-    </div>
-  </div>
-  <table class="container__table">
-    <thead>
+</div>
+<table class="container__table">
+  <thead>
     <tr>
       <th width="200">Date</th>
       <th width="350">Description</th>
@@ -27,8 +26,8 @@
       <th width="120">+/- duration</th>
       <th width="70">Edit</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     {% for log in logs %}
     <tr>
       <td>{{ log.date | datetimeformat }}</td>
@@ -47,51 +46,50 @@
       </td>
     </tr>
     {% endfor %}
-    </tbody>
-  </table>
-  <a class="link__big link__student" href="{{ url_for('logs_form', course_id=course_id) }}"><i class="fas fa-plus"></i></a>
-
-  {% elif is_teacher %}
-  <a class="link__back" href="{{ url_for('courses_mycourses') }}">Back</a>
-  <h1 class="h3">{{ course.course_id }} - {{ course.title }}</h1>
-  <div class="grid-x">
-    <div class="cell small-6">
-  <table>
-    <thead>
-    <tr>
-      <th width="150">Date</th>
-      <th width="350">Description</th>
-      <th width="200">Duration (h)</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for log in logs %}
-    <tr>
-      <td>{{ log.date | datetimeformat }}</td>
-      <td>{{ log.description }}</td>
-      <td>{{ log.duration }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+  </tbody>
+</table>
+<a class="link__big link__student" href="{{ url_for('logs_form', course_id=course_id) }}"><i class="fas fa-plus"></i></a>
+{% elif is_teacher %}
+<a class="link__back" href="{{ url_for('courses_mycourses') }}">Back</a>
+<h1 class="h3">{{ course.course_id }} - {{ course.title }}</h1>
+<div class="grid-x">
+  <div class="cell small-6">
+    <table>
+      <thead>
+        <tr>
+          <th width="150">Date</th>
+          <th width="350">Description</th>
+          <th width="200">Duration (h)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr>
+          <td>{{ log.date | datetimeformat }}</td>
+          <td>{{ log.description }}</td>
+          <td>{{ log.duration }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
   <div class="cell small-1"></div>
   <div class="cell small-5">
     <div class="h4">Student details:</div>
     <table class="unstriped">
       <tbody>
-      <tr>
-        <td width="100px">Firstname:</td>
-        <td><strong>{{ student.firstname }}</strong></td>
-      </tr>
-      <tr>
-        <td width="100px">Lastname:</td>
-        <td><strong>{{ student.lastname }}</strong></td>
-      </tr>
-      <tr>
-        <td width="100px">Email:</td>
-        <td><strong>{{ student.email }}</strong></td>
-      </tr>
+        <tr>
+          <td width="100px">Firstname:</td>
+          <td><strong>{{ student.firstname }}</strong></td>
+        </tr>
+        <tr>
+          <td width="100px">Lastname:</td>
+          <td><strong>{{ student.lastname }}</strong></td>
+        </tr>
+        <tr>
+          <td width="100px">Email:</td>
+          <td><strong>{{ student.email }}</strong></td>
+        </tr>
       </tbody>
     </table>
     <div class="h5">Progress</div>
@@ -104,7 +102,6 @@
       </div>
     </div>
   </div>
-  </div>
-  </div>
-  {% endif %}
+</div>
+{% endif %}
 {% endblock %}

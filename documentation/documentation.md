@@ -19,12 +19,13 @@ Personal work hour tracking tool.
     2. [SQL queries](#queries)
 5. [Technology stack](#techstack)
 6. [Design](#design)
-7. [Contributors](#contributors)
+7. [Further development](#development)
+8. [Contributors](#contributors)
 
 <a name="description"></a>
 ## 1. Description
 
-Timetracker is a personal work hour tracking tool for teachers and students that want to record and monitor the progress of a course or a project. Students can keep track of their daily work hours and update logs on several courses and projects. Teachers can create courses and monitor student specific course progress.
+Timetracker is a personal work hour tracking tool for teachers and students who want to record and monitor the progress of a course or a project. Students can keep track of their daily work hours and update logs on several courses and projects. Teachers can create courses and monitor student specific course progress.
 
 [Link to the demo](https://tsoha-timetracker.herokuapp.com/)
 
@@ -67,20 +68,73 @@ Any person who wants to supervise a course or a project.
 <a name="userstories"></a>
 ### 3.2. User stories
 
+With user story related SQL queries I'm indicating query parameters both with `Table(param1, param2...) VALUES(?, ?)` syntax as well as with `:example_id` depending on the query type. In addition, by default all INSERT queries also include id, date_created and date_modified parameters with corresponding values.
+
 __3.2.1. Student__
 
 "As a student I want to be able to enroll in different courses and projects. I want to be able to write detailed descriptions about what I have done during a specific task and also log the duration of that task. I want to see my progress within each course. I want be able to see the list of the latest logs I have created for a specific course and modify these logs. I also want to see the complete list of all the courses I have enrolled in."
 
 As a student I can
  - Log in to the tool
+
  - Enroll/unenroll myself in a course
+
+ `INSERT INTO Usercourse(user_id, course_id) VAlUES(?, ?);`
+
  - See all courses within the tool
+
+ `SELECT * FROM Course;`
+
  - See all the courses I have enrolled in
+
+ `SELECT * FROM Course
+ JOIN Usercourse ON Course.id = Usercourse.course_id
+ WHERE Usercourse.user_id = :user_id
+ GROUP BY Course.id;`
+
+ - See five courses with most recent activity (i.e. new/updated logs)
+
+`SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM Log
+LEFT JOIN Course ON Log.course_id = Course.id
+GROUP BY Course.id
+HAVING Log.user_id = :user_id
+ORDER BY Log.date_created DESC, Log.date_modified DESC
+LIMIT 5`
+
  - See all my course specific logs, total work hours and progress
+
+*Course specific logs:*
+
+`SELECT * FROM Log
+WHERE Log.user_id = :user_id AND Log.course_id = :course_id;`
+
+*Total work hours for a course:*
+
+`SELECT SUM(duration) FROM Log
+WHERE Log.course_id = :course_id AND Log.user_id = :user_id;`
+
+*Course progress:*
+
+`SELECT Course.id, Course.course_id, Course.title, Course.duration, Course.deadline, SUM(Log.duration) as progress FROM Log
+LEFT JOIN Course ON Log.course_id = Course.id
+WHERE Log.user_id = :user_id
+GROUP BY Course.id;`
+
  - Create a log that contains the description of the tasks I have done today, the duration it took to complete those tasks and today's date
+
+ `INSERT INTO Log(user_id, course_id, description, duration) VALUES(?, ?, ?, ?);`
+
  - Add hours to the duration of the specific day's log I have created
+
+`UPDATE Log SET duration = :duration WHERE id = :log_id;`
+
  - Update any logs I have created by modifying the description and duration
+
+`UPDATE Log SET description = :description, duration = :duration WHERE id = :log_id;`
+
  - Delete any log I have created
+
+`DELETE FROM Log WHERE id = :log_id;`
 
 __3.2.2. Teacher__
 
@@ -88,12 +142,65 @@ __3.2.2. Teacher__
 
  As a teacher I can
   - Log in to the tool
+
   - Create new courses so that students can log their progress  
-  - See an overview of any of my courses
+
+`INSERT INTO Course(user_id, course_id, title, description, duration, deadline) VALUES(?, ?, ?, ?, ?, ?)`
+
+  - See all the courses I have created
+
+`SELECT * FROM Course
+JOIN Usercourse ON Course.id = Usercourse.course_id
+WHERE Usercourse.user_id = :user_id;`
+
+  - See an overview on any of my courses
+
+`SELECT * FROM Course
+JOIN Usercourse ON Course.id = Usercourse.course_id
+WHERE Usercourse.user_id = :user_id AND Usercourse.course_id = :course_id;`
+
+*Number of students:*
+
+`SELECT COUNT(*) FROM Account
+LEFT JOIN Userrole ON Userrole.user_id = Account.id
+LEFT JOIN Role ON Role.id = Userrole.role_id
+LEFT JOIN Usercourse ON Usercourse.user_id = Account.id
+LEFT JOIN Course ON Course.id = Usercourse.course_id
+WHERE Course.id = :course_id AND Role.name = 'STUDENT';`
+
   - See who's participating in any course I'm responsible for
+
+`SELECT * FROM Account
+LEFT JOIN Userrole ON Userrole.user_id = Account.id
+LEFT JOIN Role ON Role.id = Userrole.role_id
+LEFT JOIN Usercourse ON Usercourse.user_id = Account.id
+LEFT JOIN Course ON Course.id = Usercourse.course_id
+WHERE Course.id = :course_id AND Role.name = 'STUDENT'
+ORDER BY Account.firstname, Account.lastname;`
+
+
   - See course progress and logs of a specific student within a specific course
+
+*Student and course specific logs:*
+
+`SELECT * FROM Log
+WHERE Log.user_id = :user_id AND Log.course_id = :course_id;`
+
+*Course progress:*
+
+`SELECT Course.id, Course.course_id, Course.title, Course.duration, Course.deadline, SUM(Log.duration) as progress FROM Log
+LEFT JOIN Course ON Log.course_id = Course.id
+WHERE Log.user_id = :user_id
+GROUP BY Course.id;`
+
   - Update any of my course's details
+
+`UPDATE Course SET course_id = :course_id, title = :title, description = :description, duration = :duration, deadline = :deadline
+WHERE id = :course_id;`
+
   - Delete any of my courses
+
+`DELETE FROM Course WHERE id = :course_id;`
 
 <a name="structure"></a>
 ### 3.3. Structure
@@ -166,6 +273,8 @@ For development: SQLite
 
 For production: PostgreSQL
 
+[Additional information about the database](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/database.md)
+
 <a name="chart"></a>
 ### 4.1. Database chart
 
@@ -174,7 +283,7 @@ For production: PostgreSQL
 [Link to the chart](https://drive.google.com/file/d/176zQnYk9ukeFViq_n_RI6qthSVZ2TaM1/view?usp=sharing)
 
 <a name="queries"></a>
-### 4.2 SQL queries
+### 4.2. SQL queries
 
 Below can be found the SQL queries for creating the database and the most important aggregate queries.
 
@@ -188,7 +297,7 @@ Below can be found the SQL queries for creating the database and the most import
 * SQLite/PostgreSQL
 
 <a name="design"></a>
-## 7. Design
+## 6. Design
 
 Front-end framework in use is [Foundation by Zurb](https://foundation.zurb.com/). In addition to that the application uses some custom CSS. Icons are from [FontAwesome](https://fontawesome.com/).
 
@@ -206,7 +315,12 @@ __Colors:__
 *Teacher:*
 - ![#1e0064](https://placehold.it/15/1e0064/000000?text=+) `#1e0064`
 
+<a name="development"></a>
+## 7. Further development
+
+[Link to the further development ideas](https://github.com/MikaelTornwall/timetracker/blob/master/documentation/furtherdevelopment.md)
+
 <a name="contributors"></a>
-## 7. Contributors
+## 8. Contributors
 
 * [@MikaelTornwall](https://github.com/MikaelTornwall/)

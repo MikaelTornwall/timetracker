@@ -1,33 +1,33 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <h1 class="h3">All courses ({{ length }})</h1>
-    <table class="container__table unstriped">
-      <thead>
-      <tr>
-        <th width="100">Course ID</th>
-        <th width="100">Title</th>
-        <th width="50">Duration</th>
-        <th width="120">Deadline</th>
-        <th width="120">Students</th>
-        <th width="50"></th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for course in courses %}
-      <tr class="list__student">
-        <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }}</a></td>
-        <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.title }}</a></td>
-        <td>{{ course.duration}} h</td>
-        <td>{{ course.deadline | datetimeformat }}</td>
-        <td>{{ course.students }}</td>
-        {% if course.course_id in mycourses %}
-        <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
-        {% else %}
-        <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
-        {% endif %}
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  {% endblock %}
+<h1 class="h3">All courses ({{ length }})</h1>
+<table class="container__table unstriped">
+  <thead>
+    <tr>
+      <th width="100">Course ID</th>
+      <th width="100">Title</th>
+      <th width="50">Duration</th>
+      <th width="120">Deadline</th>
+      <th width="120">Students</th>
+      <th width="50"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in courses %}
+    <tr class="list__student">
+      <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.course_id }}</a></td>
+      <td><a href="{{ url_for('courses_course', course_id=course.id) }}">{{ course.title }}</a></td>
+      <td>{{ course.duration}} h</td>
+      <td>{{ course.deadline | datetimeformat }}</td>
+      <td>{{ course.students }}</td>
+      {% if course.course_id in mycourses %}
+      <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Unenroll</a></td>
+      {% else %}
+      <td><a class="" href="{{ url_for('course_enroll', course_id=course.id) }}">Enroll</a></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -3,53 +3,45 @@
 {% block body %}
 <div class="center">
   <div class="container__form">
-  <h1 as="h3">Login</h1>
-  {% if error %}
-  <div class="callout">{{ error }}</div>
-  {% endif %}
-<form class="container__form" method="POST" action="{{ url_for('auth_login') }}">
-  <table class="unstriped">
-    <col width="140">
-    <col width="400">
-    <col width="400">
-    <tr>
-      <td>
-        {{ form.email.label }}
-      </td>
-      <td>
-        {{ form.email }}
-      </td>
-      <td>
-        {% if form.email.errors %}
-          {% for error in form.email.errors %}
-            {{ error }}
-          {% endfor %}
-        {% endif %}
-      </td>
-    </tr>
-	  <tr>
-      <td>
-        {{ form.password.label }}
-      </td>
-	    <td>
-        {{ form.password }}
-      </td>
-      <td>
-        {% if form.password.errors %}
-          {% for error in form.password.errors %}
-            {{ error }}
-          {% endfor %}
-        {% endif %}
-      </td>
-    </tr>
-    <tr>
-      <td>
-	       <input class="button" type="submit" value="Login"/>
-      </td>
-    </tr>
-  </table>
-</form>
-<div>Don't have and account yet? <a href="{{ url_for('auth_signup') }}">Sign up now!</a></div>
-</div>
+    <h1 as="h3">Login</h1>
+    {% if error %}
+    <div class="callout">{{ error }}</div>
+    {% endif %}
+      <form class="container__form" method="POST" action="{{ url_for('auth_login') }}">
+        <table class="unstriped">
+          <col width="140">
+          <col width="400">
+          <col width="400">
+          <tr>
+            <td>{{ form.email.label }}</td>
+            <td>{{ form.email }}</td>
+            <td>
+              {% if form.email.errors %}
+              {% for error in form.email.errors %}
+              {{ error }}
+              {% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+	        <tr>
+            <td>{{ form.password.label }}</td>
+	          <td>{{ form.password }}</td>
+            <td>
+               {% if form.password.errors %}
+               {% for error in form.password.errors %}
+               {{ error }}
+               {% endfor %}
+               {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td>
+	             <input class="button" type="submit" value="Login"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+    <div>Don't have and account yet? <a href="{{ url_for('auth_signup') }}">Sign up now!</a></div>
+  </div>
 </div>
 {% endblock %}

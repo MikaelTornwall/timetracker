@@ -2,7 +2,7 @@
 
 ## Description
 
-Timetracker is a personal work hour tracking tool for teachers and students that want to record and monitor the progress of a course or a project. Students can keep track of their daily work hours and update logs. Teachers can create courses and monitor student specific course progress.
+Timetracker is a personal work hour tracking tool for teachers and students. With the tool students can keep track of their daily work hours within all of their courses. Teachers can create courses and monitor student specific course progress.
 
 ## Heroku demo
 
