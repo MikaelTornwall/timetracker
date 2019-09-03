@@ -51,13 +51,13 @@ class Log(Base):
                             "LEFT JOIN Course ON Log.course_id = Course.id "
                             "GROUP BY Course.id "
                             "HAVING Log.user_id = :id "
-                            "ORDER BY Log.date_created, Log.date_modified DESC "
+                            "ORDER BY Log.date_created DESC, Log.date_modified DESC "
                             "LIMIT 5;").params(id=current_user.id)
         else:
             statement = text("SELECT Course.id, Course.course_id, Course.title, COUNT(*) FROM "
                             "(SELECT * FROM Log "
                             "WHERE Log.user_id = :id "
-                            "ORDER BY Log.date_created, Log.date_modified DESC) AS L "
+                            "ORDER BY Log.date_created DESC, Log.date_modified DESC) AS L "
                             "JOIN Course ON L.course_id = Course.id "
                             "GROUP BY Course.id "
                             "FETCH FIRST 5 ROWS ONLY;").params(id=current_user.id)
