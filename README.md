@@ -6,6 +6,8 @@ Timetracker is a personal work hour tracking tool for teachers and students. Wit
 
 ## Heroku demo
 
+[Live demo](https://tsoha-timetracker.herokuapp.com/)
+
 You can try the application demo by using the following credentials:
 
 __Credentials:__
