@@ -1,10 +1,6 @@
 # Installation guide
 
-Below are the instructions on how to install and run the application both locally and in Heroku. The blocks highlighted with
-
-`$ example command`
-
-are commands that are meant to be typed on your [command line](https://en.wikipedia.org/wiki/Command-line_interface).
+Below are the instructions on how to install and run the application both locally and in Heroku. 
 
 ## Download project to your local machine
 
